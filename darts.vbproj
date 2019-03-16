@@ -70,24 +70,10 @@
     <Reference Include="System.XML">
       <Name>System.XML</Name>
     </Reference>
-    <COMReference Include="AxMSACAL">
-      <Guid>{8E27C92E-1264-101C-8A2F-040224009C02}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>7</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <WrapperTool>aximp</WrapperTool>
-    </COMReference>
     <COMReference Include="IWshRuntimeLibrary">
       <Guid>{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B}</Guid>
       <Lcid>0</Lcid>
       <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <WrapperTool>tlbimp</WrapperTool>
-    </COMReference>
-    <COMReference Include="MSACAL">
-      <Guid>{8E27C92E-1264-101C-8A2F-040224009C02}</Guid>
-      <Lcid>0</Lcid>
-      <VersionMajor>7</VersionMajor>
       <VersionMinor>0</VersionMinor>
       <WrapperTool>tlbimp</WrapperTool>
     </COMReference>

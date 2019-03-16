@@ -334,9 +334,11 @@ Friend Class frmAddnlStats
         Dim objThisControl As Control
 
         For Each objThisControl In Me.Controls
-            If TypeOf objThisControl Is ListBox Then
+            Dim thisControl = TryCast(objThisControl, ListBox)
+            If (thisControl IsNot Nothing) Then
+
                 If objThisControl.Name <> objListBox.Name Then
-                    CType(objThisControl, ListBox).TopIndex = objListBox.TopIndex
+                    thisControl.TopIndex = objListBox.TopIndex
                 End If
             End If
         Next objThisControl
@@ -378,8 +380,9 @@ Friend Class frmAddnlStats
             intRowIndexSaved = lstPlayers.SelectedIndex
 
             For Each objThisControl In Me.Controls
-                If TypeOf objThisControl Is ListBox Then
-                    CType(objThisControl, ListBox).Items.Clear()
+                Dim thisControl = TryCast(objThisControl, ListBox)
+                If (thisControl IsNot Nothing) Then
+                    thisControl.Items.Clear()
                 End If
             Next objThisControl
 
@@ -565,13 +568,17 @@ Friend Class frmAddnlStats
 
             blnValidatingDate = True
 
-            If objCalendar.Year < mDateStart.Year Then objCalendar.Year = mDateStart.Year
-            If objCalendar.Year > mDateEnd.Year Then objCalendar.Year = mDateEnd.Year
+            Dim selectedDate = objCalendar.Value
 
-            If objCalendar.Month < mDateStart.Month Then objCalendar.Month = mDateStart.Month
-            If objCalendar.Month > mDateEnd.Month Then objCalendar.Month = mDateEnd.Month
+            If selectedDate.Year < mDateStart.Year Then selectedDate = New Date(mDateStart.Year, selectedDate.month, selectedDate.day)
+            If selectedDate.Year > mDateEnd.Year Then selectedDate = New Date(mDateEnd.Year, selectedDate.month, selectedDate.day)
 
-            strYearToMatch = CStr(objCalendar.Year)
+            If selectedDate.Month < mDateStart.Month Then selectedDate = New Date(selectedDate.Year, mDateStart.Month, selectedDate.day)
+            If selectedDate.Month > mDateEnd.Month Then selectedDate = New Date(selectedDate.Year, mDateStart.Month, selectedDate.day)
+
+            objCalendar.Value = selectedDate
+
+            strYearToMatch = CStr(objCalendar.Value.Year)
             For intIndex As Integer = 0 To cboYear.Items.Count - 1
                 If CStr(cboYear.Items(intIndex)) = strYearToMatch Then
                     cboYear.SelectedIndex = intIndex
@@ -579,9 +586,9 @@ Friend Class frmAddnlStats
                 End If
             Next
 
-            If cboMonth.Items.Count >= objCalendar.Month Then cboMonth.SelectedIndex = objCalendar.Month - 1
+            If cboMonth.Items.Count >= objCalendar.Value.Month Then cboMonth.SelectedIndex = objCalendar.Value.Month - 1
 
-            txtDayOfMonth.Text = CStr(objCalendar.Day)
+            txtDayOfMonth.Text = CStr(objCalendar.Value.Day)
 
         Catch ex As Exception
             HandleException("ValidateSelectedDate", ex)
@@ -602,7 +609,9 @@ Friend Class frmAddnlStats
     Private Sub cboMonth_SelectedIndexChanged(eventSender As Object, eventArgs As EventArgs) Handles cboMonth.SelectedIndexChanged
         If mFormLoaded Then
             Try
-                objCalendar.Month = cboMonth.SelectedIndex + 1
+                Dim selectedDate = objCalendar.Value
+                selectedDate = New Date(selectedDate.year, cboMonth.SelectedIndex + 1, selectedDate.day)
+                objCalendar.Value = selectedDate
             Catch ex As Exception
                 ' Ignore errors here
             End Try
@@ -621,7 +630,9 @@ Friend Class frmAddnlStats
     Private Sub cboYear_SelectedIndexChanged(eventSender As Object, eventArgs As EventArgs) Handles cboYear.SelectedIndexChanged
         If mFormLoaded Then
             Try
-                objCalendar.Year = cboYear.Text
+                Dim selectedDate = objCalendar.Value
+                selectedDate = New Date(cboYear.Text, selectedDate.month, selectedDate.day)
+                objCalendar.Value = selectedDate
             Catch ex As Exception
                 ' Ignore errors here
             End Try
@@ -709,7 +720,7 @@ Friend Class frmAddnlStats
         SynchronizeLists(lstShortestWinningGame)
     End Sub
 
-    Private Sub objCalendar_ClickEvent(eventSender As Object, eventArgs As EventArgs) Handles objCalendar.ClickEvent
+    Private Sub objCalendar_ClickEvent(eventSender As Object, eventArgs As EventArgs) Handles objCalendar.ValueChanged
         ValidateSelectedDate()
     End Sub
 
@@ -852,9 +863,11 @@ Friend Class frmAddnlStats
         If mFormLoaded Then
 
             For Each objThisControl In Me.Controls
-                If TypeOf objThisControl Is ListBox Then
+                Dim thisControl = TryCast(objThisControl, ListBox)
+                If (thisControl IsNot Nothing) Then
+
                     If objThisControl.Name <> "lstPlayers" Then
-                        CType(objThisControl, ListBox).SelectedIndex = lstPlayers.SelectedIndex
+                        thisControl.SelectedIndex = lstPlayers.SelectedIndex
                     End If
                 End If
             Next objThisControl
@@ -883,7 +896,12 @@ Friend Class frmAddnlStats
                 End If
 
                 Try
-                    objCalendar.Day = intDayOfMonth
+                    Dim selectedDate = objCalendar.Value
+
+                    selectedDate = New Date(selectedDate.Year, selectedDate.month, intDayOfMonth)
+
+                    objCalendar.Value = selectedDate
+
                 Catch ex As Exception
                     ' Ignore errors (could occur if intDay is larger than the number of days in this month)
                 End Try

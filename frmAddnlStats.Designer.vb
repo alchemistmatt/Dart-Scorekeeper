@@ -27,7 +27,7 @@ Imports Microsoft.VisualBasic.CompilerServices
     Public WithEvents cboGameDates As System.Windows.Forms.ComboBox
     Public WithEvents lblValidDateRange As System.Windows.Forms.Label
     Public WithEvents fraControls As System.Windows.Forms.Panel
-    Public WithEvents objCalendar As AxMSACAL.AxCalendar
+    Public WithEvents objCalendar As System.Windows.Forms.DateTimePicker
     Public WithEvents lstMeanScorePerThrowPerDay As System.Windows.Forms.ListBox
     Public WithEvents lstMeanScorePerThrow As System.Windows.Forms.ListBox
     Public WithEvents lstHighestScoringFirstTurn As System.Windows.Forms.ListBox
@@ -64,52 +64,50 @@ Imports Microsoft.VisualBasic.CompilerServices
     'It can be modified using the Windows Form Designer.
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAddnlStats))
+        Me.components = New System.ComponentModel.Container()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.lbl301MostUntilDoubleIn = New System.Windows.Forms.Label
-        Me.lbl301GamesLostWithoutDoublingIn = New System.Windows.Forms.Label
-        Me.lblGolfAverageGameScore = New System.Windows.Forms.Label
-        Me.lblGolfHighestGameScore = New System.Windows.Forms.Label
-        Me.lblGolfLowestGameScore = New System.Windows.Forms.Label
-        Me.lblMeanScorePerThrowPerDay = New System.Windows.Forms.Label
-        Me.lblMeanScorePerThrow = New System.Windows.Forms.Label
-        Me.lblHighestScoringFirstTurn = New System.Windows.Forms.Label
-        Me.lblLongestWinningGameLength = New System.Windows.Forms.Label
-        Me.lblLongestScoringDrought = New System.Windows.Forms.Label
-        Me.lblShortestGameLength = New System.Windows.Forms.Label
-        Me.lblPlayer = New System.Windows.Forms.Label
-        Me.lblHighScoreTurn = New System.Windows.Forms.Label
-        Me.fraControls = New System.Windows.Forms.Panel
-        Me.cmdOK = New System.Windows.Forms.Button
-        Me.cmdSelectDate = New System.Windows.Forms.Button
-        Me.txtDayOfMonth = New System.Windows.Forms.TextBox
-        Me.cboYear = New System.Windows.Forms.ComboBox
-        Me.cboMonth = New System.Windows.Forms.ComboBox
-        Me.cboGameDates = New System.Windows.Forms.ComboBox
-        Me.lblValidDateRange = New System.Windows.Forms.Label
-        Me.objCalendar = New AxMSACAL.AxCalendar
-        Me.lstMeanScorePerThrowPerDay = New System.Windows.Forms.ListBox
-        Me.lstMeanScorePerThrow = New System.Windows.Forms.ListBox
-        Me.lstHighestScoringFirstTurn = New System.Windows.Forms.ListBox
-        Me.fra301Stats = New System.Windows.Forms.Panel
-        Me.lst301MostUntilDoubleIn = New System.Windows.Forms.ListBox
-        Me.lst301GamesLostWithoutDoublingIn = New System.Windows.Forms.ListBox
-        Me.lbl301Stats = New System.Windows.Forms.Label
-        Me.fraGolfStats = New System.Windows.Forms.Panel
-        Me.lstGolfAverageGameScore = New System.Windows.Forms.ListBox
-        Me.lstGolfHighestGameScore = New System.Windows.Forms.ListBox
-        Me.lstGolfLowestGameScore = New System.Windows.Forms.ListBox
-        Me.lblGolfStats = New System.Windows.Forms.Label
-        Me.chkReverseSort = New System.Windows.Forms.CheckBox
-        Me.cboStatsToShow = New System.Windows.Forms.ComboBox
-        Me.lstLongestWinningGame = New System.Windows.Forms.ListBox
-        Me.lstLongestScoringDrought = New System.Windows.Forms.ListBox
-        Me.lstShortestWinningGame = New System.Windows.Forms.ListBox
-        Me.lstPlayers = New System.Windows.Forms.ListBox
-        Me.lstHighScoreTurn = New System.Windows.Forms.ListBox
+        Me.lbl301MostUntilDoubleIn = New System.Windows.Forms.Label()
+        Me.lbl301GamesLostWithoutDoublingIn = New System.Windows.Forms.Label()
+        Me.lblGolfAverageGameScore = New System.Windows.Forms.Label()
+        Me.lblGolfHighestGameScore = New System.Windows.Forms.Label()
+        Me.lblGolfLowestGameScore = New System.Windows.Forms.Label()
+        Me.lblMeanScorePerThrowPerDay = New System.Windows.Forms.Label()
+        Me.lblMeanScorePerThrow = New System.Windows.Forms.Label()
+        Me.lblHighestScoringFirstTurn = New System.Windows.Forms.Label()
+        Me.lblLongestWinningGameLength = New System.Windows.Forms.Label()
+        Me.lblLongestScoringDrought = New System.Windows.Forms.Label()
+        Me.lblShortestGameLength = New System.Windows.Forms.Label()
+        Me.lblPlayer = New System.Windows.Forms.Label()
+        Me.lblHighScoreTurn = New System.Windows.Forms.Label()
+        Me.fraControls = New System.Windows.Forms.Panel()
+        Me.cmdOK = New System.Windows.Forms.Button()
+        Me.cmdSelectDate = New System.Windows.Forms.Button()
+        Me.txtDayOfMonth = New System.Windows.Forms.TextBox()
+        Me.cboYear = New System.Windows.Forms.ComboBox()
+        Me.cboMonth = New System.Windows.Forms.ComboBox()
+        Me.cboGameDates = New System.Windows.Forms.ComboBox()
+        Me.lblValidDateRange = New System.Windows.Forms.Label()
+        Me.objCalendar = New System.Windows.Forms.DateTimePicker()
+        Me.lstMeanScorePerThrowPerDay = New System.Windows.Forms.ListBox()
+        Me.lstMeanScorePerThrow = New System.Windows.Forms.ListBox()
+        Me.lstHighestScoringFirstTurn = New System.Windows.Forms.ListBox()
+        Me.fra301Stats = New System.Windows.Forms.Panel()
+        Me.lst301MostUntilDoubleIn = New System.Windows.Forms.ListBox()
+        Me.lst301GamesLostWithoutDoublingIn = New System.Windows.Forms.ListBox()
+        Me.lbl301Stats = New System.Windows.Forms.Label()
+        Me.fraGolfStats = New System.Windows.Forms.Panel()
+        Me.lstGolfAverageGameScore = New System.Windows.Forms.ListBox()
+        Me.lstGolfHighestGameScore = New System.Windows.Forms.ListBox()
+        Me.lstGolfLowestGameScore = New System.Windows.Forms.ListBox()
+        Me.lblGolfStats = New System.Windows.Forms.Label()
+        Me.chkReverseSort = New System.Windows.Forms.CheckBox()
+        Me.cboStatsToShow = New System.Windows.Forms.ComboBox()
+        Me.lstLongestWinningGame = New System.Windows.Forms.ListBox()
+        Me.lstLongestScoringDrought = New System.Windows.Forms.ListBox()
+        Me.lstShortestWinningGame = New System.Windows.Forms.ListBox()
+        Me.lstPlayers = New System.Windows.Forms.ListBox()
+        Me.lstHighScoreTurn = New System.Windows.Forms.ListBox()
         Me.fraControls.SuspendLayout()
-        CType(Me.objCalendar, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.fra301Stats.SuspendLayout()
         Me.fraGolfStats.SuspendLayout()
         Me.SuspendLayout()
@@ -428,11 +426,9 @@ Imports Microsoft.VisualBasic.CompilerServices
         'objCalendar
         '
         Me.objCalendar.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.objCalendar.Enabled = True
-        Me.objCalendar.Location = New System.Drawing.Point(248, 224)
+        Me.objCalendar.Location = New System.Drawing.Point(615, 399)
         Me.objCalendar.Name = "objCalendar"
-        Me.objCalendar.OcxState = CType(resources.GetObject("objCalendar.OcxState"), System.Windows.Forms.AxHost.State)
-        Me.objCalendar.Size = New System.Drawing.Size(225, 171)
+        Me.objCalendar.Size = New System.Drawing.Size(225, 23)
         Me.objCalendar.TabIndex = 32
         Me.objCalendar.Visible = False
         '
