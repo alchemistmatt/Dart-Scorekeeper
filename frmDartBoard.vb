@@ -4,23 +4,23 @@ Option Explicit On
 'Imports Microsoft.VisualBasic.PowerPacks
 
 Friend Class frmDartBoard
-	Inherits System.Windows.Forms.Form
-	
-	' -------------------------------------------------------------------------------
-	' Dart Scorekeeper
-	' Written by Matthew Monroe in Chapel Hill, NC
-	'
-	' Program started July 31, 1999
-	'
-	' E-mail: matt@alchemistmatt.com or alchemistmatt@yahoo.com
-	' Websites: http://www.alchemistmatt.com/
-	'           http://www.geocities.com/alchemistmatt/
-	'           http://come.to/alchemistmatt/
-	' -------------------------------------------------------------------------------
-	'
-	' Licensed under the Apache License, Version 2.0; you may not use this file except
-	' in compliance with the License.  You may obtain a copy of the License at
-	' http://www.apache.org/licenses/LICENSE-2.0
+    Inherits System.Windows.Forms.Form
+    
+    ' -------------------------------------------------------------------------------
+    ' Dart Scorekeeper
+    ' Written by Matthew Monroe in Chapel Hill, NC
+    '
+    ' Program started July 31, 1999
+    '
+    ' E-mail: matt@alchemistmatt.com or alchemistmatt@yahoo.com
+    ' Websites: http://www.alchemistmatt.com/
+    '           http://www.geocities.com/alchemistmatt/
+    '           http://come.to/alchemistmatt/
+    ' -------------------------------------------------------------------------------
+    '
+    ' Licensed under the Apache License, Version 2.0; you may not use this file except
+    ' in compliance with the License.  You may obtain a copy of the License at
+    ' http://www.apache.org/licenses/LICENSE-2.0
 
 #Region "Structures"
     Public Structure usrDartHitStats
@@ -31,12 +31,12 @@ Friend Class frmDartBoard
 
 #Region "Module-wide variables"
     Private mLastActionUndo As Boolean
-	Private mCompletingTurn As Boolean
-	
-	Private mDartThrowCount As Short ' 0, 1, 2, or 3
-	Private mLastThreeDarts(3) As Short ' 1-based array; Keep track of most recent three darts
-	Private mLastThreeDartMultipliers(3) As Short ' 1-based array; Also keep track of the multipliers
-	
+    Private mCompletingTurn As Boolean
+    
+    Private mDartThrowCount As Short ' 0, 1, 2, or 3
+    Private mLastThreeDarts(3) As Short ' 1-based array; Keep track of most recent three darts
+    Private mLastThreeDartMultipliers(3) As Short ' 1-based array; Also keep track of the multipliers
+    
     Private mDartClickTime As System.DateTime
 
 #End Region
@@ -49,8 +49,8 @@ Friend Class frmDartBoard
     End Property
 #End Region
 
-	Public Sub ClearDartBoard()
-		Dim intThisDart As Short
+    Public Sub ClearDartBoard()
+        Dim intThisDart As Short
 
         For intThisDart = 0 To 2
             GetDartPicture(intThisDart).Visible = False

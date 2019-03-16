@@ -1,67 +1,67 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> Partial Class frmAddnlStats
 #Region "Windows Form Designer generated code "
-	<System.Diagnostics.DebuggerNonUserCode()> Public Sub New()
-		MyBase.New()
-		'This call is required by the Windows Form Designer.
-		InitializeComponent()
-	End Sub
-	'Form overrides dispose to clean up the component list.
-	<System.Diagnostics.DebuggerNonUserCode()> Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
-		If Disposing Then
-			If Not components Is Nothing Then
-				components.Dispose()
-			End If
-		End If
-		MyBase.Dispose(Disposing)
-	End Sub
-	'Required by the Windows Form Designer
-	Private components As System.ComponentModel.IContainer
-	Public ToolTip1 As System.Windows.Forms.ToolTip
-	Public WithEvents cmdOK As System.Windows.Forms.Button
-	Public WithEvents cmdSelectDate As System.Windows.Forms.Button
-	Public WithEvents txtDayOfMonth As System.Windows.Forms.TextBox
-	Public WithEvents cboYear As System.Windows.Forms.ComboBox
-	Public WithEvents cboMonth As System.Windows.Forms.ComboBox
-	Public WithEvents cboGameDates As System.Windows.Forms.ComboBox
-	Public WithEvents lblValidDateRange As System.Windows.Forms.Label
-	Public WithEvents fraControls As System.Windows.Forms.Panel
-	Public WithEvents objCalendar As AxMSACAL.AxCalendar
-	Public WithEvents lstMeanScorePerThrowPerDay As System.Windows.Forms.ListBox
-	Public WithEvents lstMeanScorePerThrow As System.Windows.Forms.ListBox
-	Public WithEvents lstHighestScoringFirstTurn As System.Windows.Forms.ListBox
-	Public WithEvents lst301MostUntilDoubleIn As System.Windows.Forms.ListBox
-	Public WithEvents lst301GamesLostWithoutDoublingIn As System.Windows.Forms.ListBox
-	Public WithEvents lbl301MostUntilDoubleIn As System.Windows.Forms.Label
-	Public WithEvents lbl301Stats As System.Windows.Forms.Label
-	Public WithEvents lbl301GamesLostWithoutDoublingIn As System.Windows.Forms.Label
-	Public WithEvents fra301Stats As System.Windows.Forms.Panel
-	Public WithEvents lstGolfAverageGameScore As System.Windows.Forms.ListBox
-	Public WithEvents lstGolfHighestGameScore As System.Windows.Forms.ListBox
-	Public WithEvents lstGolfLowestGameScore As System.Windows.Forms.ListBox
-	Public WithEvents lblGolfAverageGameScore As System.Windows.Forms.Label
-	Public WithEvents lblGolfHighestGameScore As System.Windows.Forms.Label
-	Public WithEvents lblGolfStats As System.Windows.Forms.Label
-	Public WithEvents lblGolfLowestGameScore As System.Windows.Forms.Label
-	Public WithEvents fraGolfStats As System.Windows.Forms.Panel
-	Public WithEvents chkReverseSort As System.Windows.Forms.CheckBox
-	Public WithEvents cboStatsToShow As System.Windows.Forms.ComboBox
-	Public WithEvents lstLongestWinningGame As System.Windows.Forms.ListBox
-	Public WithEvents lstLongestScoringDrought As System.Windows.Forms.ListBox
-	Public WithEvents lstShortestWinningGame As System.Windows.Forms.ListBox
-	Public WithEvents lstPlayers As System.Windows.Forms.ListBox
-	Public WithEvents lstHighScoreTurn As System.Windows.Forms.ListBox
-	Public WithEvents lblMeanScorePerThrowPerDay As System.Windows.Forms.Label
-	Public WithEvents lblMeanScorePerThrow As System.Windows.Forms.Label
-	Public WithEvents lblHighestScoringFirstTurn As System.Windows.Forms.Label
-	Public WithEvents lblLongestWinningGameLength As System.Windows.Forms.Label
-	Public WithEvents lblLongestScoringDrought As System.Windows.Forms.Label
-	Public WithEvents lblShortestGameLength As System.Windows.Forms.Label
-	Public WithEvents lblPlayer As System.Windows.Forms.Label
-	Public WithEvents lblHighScoreTurn As System.Windows.Forms.Label
-	'NOTE: The following procedure is required by the Windows Form Designer
-	'It can be modified using the Windows Form Designer.
-	'Do not modify it using the code editor.
-	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
+    <System.Diagnostics.DebuggerNonUserCode()> Public Sub New()
+        MyBase.New()
+        'This call is required by the Windows Form Designer.
+        InitializeComponent()
+    End Sub
+    'Form overrides dispose to clean up the component list.
+    <System.Diagnostics.DebuggerNonUserCode()> Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
+        If Disposing Then
+            If Not components Is Nothing Then
+                components.Dispose()
+            End If
+        End If
+        MyBase.Dispose(Disposing)
+    End Sub
+    'Required by the Windows Form Designer
+    Private components As System.ComponentModel.IContainer
+    Public ToolTip1 As System.Windows.Forms.ToolTip
+    Public WithEvents cmdOK As System.Windows.Forms.Button
+    Public WithEvents cmdSelectDate As System.Windows.Forms.Button
+    Public WithEvents txtDayOfMonth As System.Windows.Forms.TextBox
+    Public WithEvents cboYear As System.Windows.Forms.ComboBox
+    Public WithEvents cboMonth As System.Windows.Forms.ComboBox
+    Public WithEvents cboGameDates As System.Windows.Forms.ComboBox
+    Public WithEvents lblValidDateRange As System.Windows.Forms.Label
+    Public WithEvents fraControls As System.Windows.Forms.Panel
+    Public WithEvents objCalendar As AxMSACAL.AxCalendar
+    Public WithEvents lstMeanScorePerThrowPerDay As System.Windows.Forms.ListBox
+    Public WithEvents lstMeanScorePerThrow As System.Windows.Forms.ListBox
+    Public WithEvents lstHighestScoringFirstTurn As System.Windows.Forms.ListBox
+    Public WithEvents lst301MostUntilDoubleIn As System.Windows.Forms.ListBox
+    Public WithEvents lst301GamesLostWithoutDoublingIn As System.Windows.Forms.ListBox
+    Public WithEvents lbl301MostUntilDoubleIn As System.Windows.Forms.Label
+    Public WithEvents lbl301Stats As System.Windows.Forms.Label
+    Public WithEvents lbl301GamesLostWithoutDoublingIn As System.Windows.Forms.Label
+    Public WithEvents fra301Stats As System.Windows.Forms.Panel
+    Public WithEvents lstGolfAverageGameScore As System.Windows.Forms.ListBox
+    Public WithEvents lstGolfHighestGameScore As System.Windows.Forms.ListBox
+    Public WithEvents lstGolfLowestGameScore As System.Windows.Forms.ListBox
+    Public WithEvents lblGolfAverageGameScore As System.Windows.Forms.Label
+    Public WithEvents lblGolfHighestGameScore As System.Windows.Forms.Label
+    Public WithEvents lblGolfStats As System.Windows.Forms.Label
+    Public WithEvents lblGolfLowestGameScore As System.Windows.Forms.Label
+    Public WithEvents fraGolfStats As System.Windows.Forms.Panel
+    Public WithEvents chkReverseSort As System.Windows.Forms.CheckBox
+    Public WithEvents cboStatsToShow As System.Windows.Forms.ComboBox
+    Public WithEvents lstLongestWinningGame As System.Windows.Forms.ListBox
+    Public WithEvents lstLongestScoringDrought As System.Windows.Forms.ListBox
+    Public WithEvents lstShortestWinningGame As System.Windows.Forms.ListBox
+    Public WithEvents lstPlayers As System.Windows.Forms.ListBox
+    Public WithEvents lstHighScoreTurn As System.Windows.Forms.ListBox
+    Public WithEvents lblMeanScorePerThrowPerDay As System.Windows.Forms.Label
+    Public WithEvents lblMeanScorePerThrow As System.Windows.Forms.Label
+    Public WithEvents lblHighestScoringFirstTurn As System.Windows.Forms.Label
+    Public WithEvents lblLongestWinningGameLength As System.Windows.Forms.Label
+    Public WithEvents lblLongestScoringDrought As System.Windows.Forms.Label
+    Public WithEvents lblShortestGameLength As System.Windows.Forms.Label
+    Public WithEvents lblPlayer As System.Windows.Forms.Label
+    Public WithEvents lblHighScoreTurn As System.Windows.Forms.Label
+    'NOTE: The following procedure is required by the Windows Form Designer
+    'It can be modified using the Windows Form Designer.
+    'Do not modify it using the code editor.
+    <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAddnlStats))
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)

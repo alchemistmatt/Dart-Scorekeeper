@@ -2,23 +2,23 @@ Option Strict Off
 Option Explicit On
 
 Friend Class frmEditPlayers
-	Inherits System.Windows.Forms.Form
-	
-	' -------------------------------------------------------------------------------
-	' Dart Scorekeeper
-	' Written by Matthew Monroe in Chapel Hill, NC
-	'
-	' Program started July 31, 1999
-	'
-	' E-mail: matt@alchemistmatt.com or alchemistmatt@yahoo.com
-	' Websites: http://www.alchemistmatt.com/
-	'           http://www.geocities.com/alchemistmatt/
-	'           http://come.to/alchemistmatt/
-	' -------------------------------------------------------------------------------
-	'
-	' Licensed under the Apache License, Version 2.0; you may not use this file except
-	' in compliance with the License.  You may obtain a copy of the License at
-	' http://www.apache.org/licenses/LICENSE-2.0
+    Inherits System.Windows.Forms.Form
+    
+    ' -------------------------------------------------------------------------------
+    ' Dart Scorekeeper
+    ' Written by Matthew Monroe in Chapel Hill, NC
+    '
+    ' Program started July 31, 1999
+    '
+    ' E-mail: matt@alchemistmatt.com or alchemistmatt@yahoo.com
+    ' Websites: http://www.alchemistmatt.com/
+    '           http://www.geocities.com/alchemistmatt/
+    '           http://come.to/alchemistmatt/
+    ' -------------------------------------------------------------------------------
+    '
+    ' Licensed under the Apache License, Version 2.0; you may not use this file except
+    ' in compliance with the License.  You may obtain a copy of the License at
+    ' http://www.apache.org/licenses/LICENSE-2.0
 
     Private mPlayerCountSave As Short
     Private mPlayersSave() As String
@@ -183,8 +183,8 @@ Friend Class frmEditPlayers
         End Try
 
     End Sub
-	
-	Private Sub lstPlayers_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstPlayers.DoubleClick
-        EditPlayer()		
-	End Sub
+    
+    Private Sub lstPlayers_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstPlayers.DoubleClick
+        EditPlayer()        
+    End Sub
 End Class

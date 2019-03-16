@@ -1,53 +1,53 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> Partial Class frmPlayerStats
 #Region "Windows Form Designer generated code "
-	<System.Diagnostics.DebuggerNonUserCode()> Public Sub New()
-		MyBase.New()
-		'This call is required by the Windows Form Designer.
-		InitializeComponent()
-	End Sub
-	'Form overrides dispose to clean up the component list.
-	<System.Diagnostics.DebuggerNonUserCode()> Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
-		If Disposing Then
-			If Not components Is Nothing Then
-				components.Dispose()
-			End If
-		End If
-		MyBase.Dispose(Disposing)
-	End Sub
-	'Required by the Windows Form Designer
-	Private components As System.ComponentModel.IContainer
-	Public ToolTip1 As System.Windows.Forms.ToolTip
-	Public WithEvents cmdOK As System.Windows.Forms.Button
-	Public WithEvents cboDaysForStats As System.Windows.Forms.ComboBox
-	Public WithEvents cmdHelp As System.Windows.Forms.Button
-	Public WithEvents lblBestPlayer As System.Windows.Forms.Label
-	Public WithEvents lblWorstPlayer As System.Windows.Forms.Label
-	Public WithEvents Label8 As System.Windows.Forms.Label
-	Public WithEvents Label9 As System.Windows.Forms.Label
-	Public WithEvents lblBestPlayerName As System.Windows.Forms.Label
-	Public WithEvents lblWorstPlayerName As System.Windows.Forms.Label
-	Public WithEvents fraControls As System.Windows.Forms.Panel
-	Public WithEvents cmdAddnlStats As System.Windows.Forms.Button
-	Public WithEvents lstRank As System.Windows.Forms.ListBox
-	Public WithEvents lstGamesWon As System.Windows.Forms.ListBox
-	Public WithEvents chkReverseSort As System.Windows.Forms.CheckBox
-	Public WithEvents lstWorstPartner As System.Windows.Forms.ListBox
-	Public WithEvents lstBestPartner As System.Windows.Forms.ListBox
-	Public WithEvents lstGamesPlayedPerMonth As System.Windows.Forms.ListBox
-	Public WithEvents lstGamesWonWithPartner As System.Windows.Forms.ListBox
-	Public WithEvents lstPlayers As System.Windows.Forms.ListBox
-	Public WithEvents lblDirections As System.Windows.Forms.Label
-	Public WithEvents Label7 As System.Windows.Forms.Label
-	Public WithEvents Label3 As System.Windows.Forms.Label
-	Public WithEvents Label2 As System.Windows.Forms.Label
-	Public WithEvents Label1 As System.Windows.Forms.Label
-	Public WithEvents lblPlayer As System.Windows.Forms.Label
-	Public WithEvents Label4 As System.Windows.Forms.Label
-	Public WithEvents Label5 As System.Windows.Forms.Label
-	'NOTE: The following procedure is required by the Windows Form Designer
-	'It can be modified using the Windows Form Designer.
-	'Do not modify it using the code editor.
-	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
+    <System.Diagnostics.DebuggerNonUserCode()> Public Sub New()
+        MyBase.New()
+        'This call is required by the Windows Form Designer.
+        InitializeComponent()
+    End Sub
+    'Form overrides dispose to clean up the component list.
+    <System.Diagnostics.DebuggerNonUserCode()> Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
+        If Disposing Then
+            If Not components Is Nothing Then
+                components.Dispose()
+            End If
+        End If
+        MyBase.Dispose(Disposing)
+    End Sub
+    'Required by the Windows Form Designer
+    Private components As System.ComponentModel.IContainer
+    Public ToolTip1 As System.Windows.Forms.ToolTip
+    Public WithEvents cmdOK As System.Windows.Forms.Button
+    Public WithEvents cboDaysForStats As System.Windows.Forms.ComboBox
+    Public WithEvents cmdHelp As System.Windows.Forms.Button
+    Public WithEvents lblBestPlayer As System.Windows.Forms.Label
+    Public WithEvents lblWorstPlayer As System.Windows.Forms.Label
+    Public WithEvents Label8 As System.Windows.Forms.Label
+    Public WithEvents Label9 As System.Windows.Forms.Label
+    Public WithEvents lblBestPlayerName As System.Windows.Forms.Label
+    Public WithEvents lblWorstPlayerName As System.Windows.Forms.Label
+    Public WithEvents fraControls As System.Windows.Forms.Panel
+    Public WithEvents cmdAddnlStats As System.Windows.Forms.Button
+    Public WithEvents lstRank As System.Windows.Forms.ListBox
+    Public WithEvents lstGamesWon As System.Windows.Forms.ListBox
+    Public WithEvents chkReverseSort As System.Windows.Forms.CheckBox
+    Public WithEvents lstWorstPartner As System.Windows.Forms.ListBox
+    Public WithEvents lstBestPartner As System.Windows.Forms.ListBox
+    Public WithEvents lstGamesPlayedPerMonth As System.Windows.Forms.ListBox
+    Public WithEvents lstGamesWonWithPartner As System.Windows.Forms.ListBox
+    Public WithEvents lstPlayers As System.Windows.Forms.ListBox
+    Public WithEvents lblDirections As System.Windows.Forms.Label
+    Public WithEvents Label7 As System.Windows.Forms.Label
+    Public WithEvents Label3 As System.Windows.Forms.Label
+    Public WithEvents Label2 As System.Windows.Forms.Label
+    Public WithEvents Label1 As System.Windows.Forms.Label
+    Public WithEvents lblPlayer As System.Windows.Forms.Label
+    Public WithEvents Label4 As System.Windows.Forms.Label
+    Public WithEvents Label5 As System.Windows.Forms.Label
+    'NOTE: The following procedure is required by the Windows Form Designer
+    'It can be modified using the Windows Form Designer.
+    'Do not modify it using the code editor.
+    <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmPlayerStats))
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)

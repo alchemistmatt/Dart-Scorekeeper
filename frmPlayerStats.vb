@@ -3,23 +3,23 @@ Option Explicit On
 'Imports VB = Microsoft.VisualBasic
 
 Friend Class frmPlayerStats
-	Inherits System.Windows.Forms.Form
-	
-	' -------------------------------------------------------------------------------
-	' Dart Scorekeeper
-	' Written by Matthew Monroe in Chapel Hill, NC
-	'
-	' Program started July 31, 1999
-	'
-	' E-mail: matt@alchemistmatt.com or alchemistmatt@yahoo.com
-	' Websites: http://www.alchemistmatt.com/
-	'           http://www.geocities.com/alchemistmatt/
-	'           http://come.to/alchemistmatt/
-	' -------------------------------------------------------------------------------
-	'
-	' Licensed under the Apache License, Version 2.0; you may not use this file except
-	' in compliance with the License.  You may obtain a copy of the License at
-	' http://www.apache.org/licenses/LICENSE-2.0
+    Inherits System.Windows.Forms.Form
+    
+    ' -------------------------------------------------------------------------------
+    ' Dart Scorekeeper
+    ' Written by Matthew Monroe in Chapel Hill, NC
+    '
+    ' Program started July 31, 1999
+    '
+    ' E-mail: matt@alchemistmatt.com or alchemistmatt@yahoo.com
+    ' Websites: http://www.alchemistmatt.com/
+    '           http://www.geocities.com/alchemistmatt/
+    '           http://come.to/alchemistmatt/
+    ' -------------------------------------------------------------------------------
+    '
+    ' Licensed under the Apache License, Version 2.0; you may not use this file except
+    ' in compliance with the License.  You may obtain a copy of the License at
+    ' http://www.apache.org/licenses/LICENSE-2.0
 
 #Region "Constants"
 
@@ -1665,151 +1665,151 @@ Friend Class frmPlayerStats
         End Try
 
     End Sub
-	
-	Private Sub Label1_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Label1.Click
-		SortLists(lstGamesWonWithPartner)
-	End Sub
-	
-	Private Sub Label2_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Label2.Click
-		SortLists(lstGamesWon)
-	End Sub
-	
-	Private Sub Label3_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Label3.Click
-		SortLists(lstGamesPlayedPerMonth)
-	End Sub
-	
-	Private Sub Label4_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Label4.Click
-		SortLists(lstBestPartner)
-	End Sub
-	
-	Private Sub Label5_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Label5.Click
-		SortLists(lstWorstPartner)
-	End Sub
-	
-	Private Sub Label7_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Label7.Click
-		SortLists(lstRank)
-	End Sub
-	
-	Private Sub lblBestPlayer_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lblBestPlayer.Click
-		cboDaysForStats_SelectedIndexChanged(cboDaysForStats, New System.EventArgs())
-	End Sub
-	
-	Private Sub lblBestPlayerName_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lblBestPlayerName.Click
-		cboDaysForStats_SelectedIndexChanged(cboDaysForStats, New System.EventArgs())
-	End Sub
-	
-	Private Sub lblPlayer_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lblPlayer.Click
-		SortLists(lstPlayers)
-	End Sub
-	
-	Private Sub lblWorstPlayer_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lblWorstPlayer.Click
-		cboDaysForStats_SelectedIndexChanged(cboDaysForStats, New System.EventArgs())
-	End Sub
-	
-	Private Sub lblWorstPlayerName_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lblWorstPlayerName.Click
-		cboDaysForStats_SelectedIndexChanged(cboDaysForStats, New System.EventArgs())
-	End Sub
-	
-	'UPGRADE_WARNING: Event lstBestPartner.SelectedIndexChanged may fire when form is initialized. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"'
-	Private Sub lstBestPartner_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstBestPartner.SelectedIndexChanged
-		lstPlayers.SelectedIndex = lstBestPartner.SelectedIndex
-	End Sub
-	
+    
+    Private Sub Label1_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Label1.Click
+        SortLists(lstGamesWonWithPartner)
+    End Sub
+    
+    Private Sub Label2_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Label2.Click
+        SortLists(lstGamesWon)
+    End Sub
+    
+    Private Sub Label3_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Label3.Click
+        SortLists(lstGamesPlayedPerMonth)
+    End Sub
+    
+    Private Sub Label4_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Label4.Click
+        SortLists(lstBestPartner)
+    End Sub
+    
+    Private Sub Label5_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Label5.Click
+        SortLists(lstWorstPartner)
+    End Sub
+    
+    Private Sub Label7_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Label7.Click
+        SortLists(lstRank)
+    End Sub
+    
+    Private Sub lblBestPlayer_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lblBestPlayer.Click
+        cboDaysForStats_SelectedIndexChanged(cboDaysForStats, New System.EventArgs())
+    End Sub
+    
+    Private Sub lblBestPlayerName_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lblBestPlayerName.Click
+        cboDaysForStats_SelectedIndexChanged(cboDaysForStats, New System.EventArgs())
+    End Sub
+    
+    Private Sub lblPlayer_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lblPlayer.Click
+        SortLists(lstPlayers)
+    End Sub
+    
+    Private Sub lblWorstPlayer_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lblWorstPlayer.Click
+        cboDaysForStats_SelectedIndexChanged(cboDaysForStats, New System.EventArgs())
+    End Sub
+    
+    Private Sub lblWorstPlayerName_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lblWorstPlayerName.Click
+        cboDaysForStats_SelectedIndexChanged(cboDaysForStats, New System.EventArgs())
+    End Sub
+    
+    'UPGRADE_WARNING: Event lstBestPartner.SelectedIndexChanged may fire when form is initialized. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"'
+    Private Sub lstBestPartner_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstBestPartner.SelectedIndexChanged
+        lstPlayers.SelectedIndex = lstBestPartner.SelectedIndex
+    End Sub
+    
     Private Sub lstBestPartner_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstBestPartner.DoubleClick
         ShowZoomStats()
     End Sub
-	
-	'UPGRADE_ISSUE: ListBox event lstBestPartner.Scroll was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"'
-	Private Sub lstBestPartner_Scroll()
-		SynchronizeLists(lstBestPartner)
-	End Sub
-	
-	'UPGRADE_WARNING: Event lstGamesPlayedPerMonth.SelectedIndexChanged may fire when form is initialized. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"'
-	Private Sub lstGamesPlayedPerMonth_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstGamesPlayedPerMonth.SelectedIndexChanged
-		lstPlayers.SelectedIndex = lstGamesPlayedPerMonth.SelectedIndex
-	End Sub
-	
-	Private Sub lstGamesPlayedPerMonth_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstGamesPlayedPerMonth.DoubleClick
+    
+    'UPGRADE_ISSUE: ListBox event lstBestPartner.Scroll was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"'
+    Private Sub lstBestPartner_Scroll()
+        SynchronizeLists(lstBestPartner)
+    End Sub
+    
+    'UPGRADE_WARNING: Event lstGamesPlayedPerMonth.SelectedIndexChanged may fire when form is initialized. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"'
+    Private Sub lstGamesPlayedPerMonth_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstGamesPlayedPerMonth.SelectedIndexChanged
+        lstPlayers.SelectedIndex = lstGamesPlayedPerMonth.SelectedIndex
+    End Sub
+    
+    Private Sub lstGamesPlayedPerMonth_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstGamesPlayedPerMonth.DoubleClick
         ShowZoomStats()
-	End Sub
-	
-	'UPGRADE_ISSUE: ListBox event lstGamesPlayedPerMonth.Scroll was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"'
-	Private Sub lstGamesPlayedPerMonth_Scroll()
-		SynchronizeLists(lstGamesPlayedPerMonth)
-	End Sub
-	
-	'UPGRADE_WARNING: Event lstGamesWon.SelectedIndexChanged may fire when form is initialized. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"'
-	Private Sub lstGamesWon_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstGamesWon.SelectedIndexChanged
-		lstPlayers.SelectedIndex = lstGamesWon.SelectedIndex
-	End Sub
-	
+    End Sub
+    
+    'UPGRADE_ISSUE: ListBox event lstGamesPlayedPerMonth.Scroll was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"'
+    Private Sub lstGamesPlayedPerMonth_Scroll()
+        SynchronizeLists(lstGamesPlayedPerMonth)
+    End Sub
+    
+    'UPGRADE_WARNING: Event lstGamesWon.SelectedIndexChanged may fire when form is initialized. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"'
+    Private Sub lstGamesWon_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstGamesWon.SelectedIndexChanged
+        lstPlayers.SelectedIndex = lstGamesWon.SelectedIndex
+    End Sub
+    
     Private Sub lstGamesWon_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstGamesWon.DoubleClick
         ShowZoomStats()
     End Sub
-	
-	'UPGRADE_ISSUE: ListBox event lstGamesWon.Scroll was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"'
-	Private Sub lstGamesWon_Scroll()
-		SynchronizeLists(lstGamesWon)
-	End Sub
-	
-	'UPGRADE_WARNING: Event lstGamesWonWithPartner.SelectedIndexChanged may fire when form is initialized. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"'
-	Private Sub lstGamesWonWithPartner_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstGamesWonWithPartner.SelectedIndexChanged
-		lstPlayers.SelectedIndex = lstGamesWonWithPartner.SelectedIndex
-	End Sub
-	
-	Private Sub lstGamesWonWithPartner_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstGamesWonWithPartner.DoubleClick
+    
+    'UPGRADE_ISSUE: ListBox event lstGamesWon.Scroll was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"'
+    Private Sub lstGamesWon_Scroll()
+        SynchronizeLists(lstGamesWon)
+    End Sub
+    
+    'UPGRADE_WARNING: Event lstGamesWonWithPartner.SelectedIndexChanged may fire when form is initialized. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"'
+    Private Sub lstGamesWonWithPartner_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstGamesWonWithPartner.SelectedIndexChanged
+        lstPlayers.SelectedIndex = lstGamesWonWithPartner.SelectedIndex
+    End Sub
+    
+    Private Sub lstGamesWonWithPartner_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstGamesWonWithPartner.DoubleClick
         ShowZoomStats()
-	End Sub
-	
-	'UPGRADE_ISSUE: ListBox event lstGamesWonWithPartner.Scroll was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"'
-	Private Sub lstGamesWonWithPartner_Scroll()
-		SynchronizeLists(lstGamesWonWithPartner)
-	End Sub
-	
-	'UPGRADE_WARNING: Event lstPlayers.SelectedIndexChanged may fire when form is initialized. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"'
-	Private Sub lstPlayers_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstPlayers.SelectedIndexChanged
-		lstRank.SelectedIndex = lstPlayers.SelectedIndex
-		lstGamesWon.SelectedIndex = lstPlayers.SelectedIndex
-		lstGamesWonWithPartner.SelectedIndex = lstPlayers.SelectedIndex
-		lstGamesPlayedPerMonth.SelectedIndex = lstPlayers.SelectedIndex
-		lstBestPartner.SelectedIndex = lstPlayers.SelectedIndex
-		lstWorstPartner.SelectedIndex = lstPlayers.SelectedIndex
-	End Sub
-	
-	Private Sub lstPlayers_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstPlayers.DoubleClick
+    End Sub
+    
+    'UPGRADE_ISSUE: ListBox event lstGamesWonWithPartner.Scroll was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"'
+    Private Sub lstGamesWonWithPartner_Scroll()
+        SynchronizeLists(lstGamesWonWithPartner)
+    End Sub
+    
+    'UPGRADE_WARNING: Event lstPlayers.SelectedIndexChanged may fire when form is initialized. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"'
+    Private Sub lstPlayers_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstPlayers.SelectedIndexChanged
+        lstRank.SelectedIndex = lstPlayers.SelectedIndex
+        lstGamesWon.SelectedIndex = lstPlayers.SelectedIndex
+        lstGamesWonWithPartner.SelectedIndex = lstPlayers.SelectedIndex
+        lstGamesPlayedPerMonth.SelectedIndex = lstPlayers.SelectedIndex
+        lstBestPartner.SelectedIndex = lstPlayers.SelectedIndex
+        lstWorstPartner.SelectedIndex = lstPlayers.SelectedIndex
+    End Sub
+    
+    Private Sub lstPlayers_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstPlayers.DoubleClick
         ShowZoomStats()
-	End Sub
-	
-	'UPGRADE_ISSUE: ListBox event lstPlayers.Scroll was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"'
-	Private Sub lstPlayers_Scroll()
-		SynchronizeLists(lstPlayers)
-	End Sub
-	
-	'UPGRADE_WARNING: Event lstRank.SelectedIndexChanged may fire when form is initialized. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"'
-	Private Sub lstRank_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstRank.SelectedIndexChanged
-		lstPlayers.SelectedIndex = lstRank.SelectedIndex
-	End Sub
-	
-	Private Sub lstRank_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstRank.DoubleClick
+    End Sub
+    
+    'UPGRADE_ISSUE: ListBox event lstPlayers.Scroll was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"'
+    Private Sub lstPlayers_Scroll()
+        SynchronizeLists(lstPlayers)
+    End Sub
+    
+    'UPGRADE_WARNING: Event lstRank.SelectedIndexChanged may fire when form is initialized. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"'
+    Private Sub lstRank_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstRank.SelectedIndexChanged
+        lstPlayers.SelectedIndex = lstRank.SelectedIndex
+    End Sub
+    
+    Private Sub lstRank_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstRank.DoubleClick
         ShowZoomStats()
-	End Sub
-	
-	'UPGRADE_ISSUE: ListBox event lstRank.Scroll was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"'
-	Private Sub lstRank_Scroll()
-		SynchronizeLists(lstRank)
-	End Sub
-	
-	'UPGRADE_WARNING: Event lstWorstPartner.SelectedIndexChanged may fire when form is initialized. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"'
-	Private Sub lstWorstPartner_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstWorstPartner.SelectedIndexChanged
-		lstPlayers.SelectedIndex = lstWorstPartner.SelectedIndex
-	End Sub
-	
-	Private Sub lstWorstPartner_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstWorstPartner.DoubleClick
+    End Sub
+    
+    'UPGRADE_ISSUE: ListBox event lstRank.Scroll was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"'
+    Private Sub lstRank_Scroll()
+        SynchronizeLists(lstRank)
+    End Sub
+    
+    'UPGRADE_WARNING: Event lstWorstPartner.SelectedIndexChanged may fire when form is initialized. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"'
+    Private Sub lstWorstPartner_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstWorstPartner.SelectedIndexChanged
+        lstPlayers.SelectedIndex = lstWorstPartner.SelectedIndex
+    End Sub
+    
+    Private Sub lstWorstPartner_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstWorstPartner.DoubleClick
         ShowZoomStats()
-	End Sub
-	
-	'UPGRADE_ISSUE: ListBox event lstWorstPartner.Scroll was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"'
-	Private Sub lstWorstPartner_Scroll()
-		SynchronizeLists(lstWorstPartner)
-	End Sub
+    End Sub
+    
+    'UPGRADE_ISSUE: ListBox event lstWorstPartner.Scroll was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"'
+    Private Sub lstWorstPartner_Scroll()
+        SynchronizeLists(lstWorstPartner)
+    End Sub
 End Class

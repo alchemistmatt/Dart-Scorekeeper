@@ -3,46 +3,46 @@ Option Explicit On
 'Imports VB = Microsoft.VisualBasic
 
 Friend Class frmCricket
-	Inherits System.Windows.Forms.Form
-	
-	' -------------------------------------------------------------------------------
-	' Dart Scorekeeper
-	' Written by Matthew Monroe in Chapel Hill, NC
-	'
-	' Program started July 31, 1999
-	'
-	' E-mail: matt@alchemistmatt.com or alchemistmatt@yahoo.com
-	' Websites: http://www.alchemistmatt.com/
-	'           http://www.geocities.com/alchemistmatt/
-	'           http://come.to/alchemistmatt/
-	' -------------------------------------------------------------------------------
-	'
-	' Licensed under the Apache License, Version 2.0; you may not use this file except
-	' in compliance with the License.  You may obtain a copy of the License at
-	' http://www.apache.org/licenses/LICENSE-2.0
+    Inherits System.Windows.Forms.Form
+    
+    ' -------------------------------------------------------------------------------
+    ' Dart Scorekeeper
+    ' Written by Matthew Monroe in Chapel Hill, NC
+    '
+    ' Program started July 31, 1999
+    '
+    ' E-mail: matt@alchemistmatt.com or alchemistmatt@yahoo.com
+    ' Websites: http://www.alchemistmatt.com/
+    '           http://www.geocities.com/alchemistmatt/
+    '           http://come.to/alchemistmatt/
+    ' -------------------------------------------------------------------------------
+    '
+    ' Licensed under the Apache License, Version 2.0; you may not use this file except
+    ' in compliance with the License.  You may obtain a copy of the License at
+    ' http://www.apache.org/licenses/LICENSE-2.0
 
 #Region "Constants and Enums"
     Private Const MaxUndoHistory As Short = 5000
-	Private Const MaxBoxIndex As Short = 41
-	Private Const BoxesPerCol As Short = 7
-	
+    Private Const MaxBoxIndex As Short = 41
+    Private Const BoxesPerCol As Short = 7
+    
     Private Const SCOREBOX_SIZE_NORMAL As Short = 33        ' Pixels
     Private Const SCOREBOX_SIZE_SMALL As Short = 25         ' Pixels
-	
-	Private Const SCOREBOX_DIM_ADDON As Short = 5
-	
-	Private Enum spScorePictureConstants
-		spZero = 0
-		spOne = 1
-		spTwo = 2
-		spThree = 3
-		spClosed = 4
-		spZeroDimmed = 5
-		spOneDimmed = 6
-		spTwoDimmed = 7
-		spThreeDimmed = 8
-		spClosedDimmed = 9
-	End Enum
+    
+    Private Const SCOREBOX_DIM_ADDON As Short = 5
+    
+    Private Enum spScorePictureConstants
+        spZero = 0
+        spOne = 1
+        spTwo = 2
+        spThree = 3
+        spClosed = 4
+        spZeroDimmed = 5
+        spOneDimmed = 6
+        spTwoDimmed = 7
+        spThreeDimmed = 8
+        spClosedDimmed = 9
+    End Enum
 #End Region
 
 #Region "Structures"
@@ -68,14 +68,14 @@ Friend Class frmCricket
 
 #Region "Module-wide variables"
     Private UndoHistory(MaxUndoHistory) As usrUndoHistory ' 1-based array
-	Private boolDoubledIn() As Boolean
-	Private intCurrentHole() As Short
-	Private intMostRecentGolfScore As Short
-	
-	Private UndoHistoryCount, MaxUndoHistoryCount As Short
-	Private HistoryIndexOfMostRecentTurn As Short
-	
-	Private MaxTeamIndexInGame, MaxBoxIndexInGame As Short
+    Private boolDoubledIn() As Boolean
+    Private intCurrentHole() As Short
+    Private intMostRecentGolfScore As Short
+    
+    Private UndoHistoryCount, MaxUndoHistoryCount As Short
+    Private HistoryIndexOfMostRecentTurn As Short
+    
+    Private MaxTeamIndexInGame, MaxBoxIndexInGame As Short
     Private mStartTime, mLastClickTime As System.DateTime
     Private mLastClickTeam As Short
     Private mPauseDelay As Integer

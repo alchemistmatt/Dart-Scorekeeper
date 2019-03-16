@@ -2,34 +2,34 @@ Option Strict Off
 Option Explicit On
 
 Friend Class frmRankHelp
-	Inherits System.Windows.Forms.Form
-	
-	' -------------------------------------------------------------------------------
-	' Dart Scorekeeper
-	' Written by Matthew Monroe in Chapel Hill, NC
-	'
-	' Program started July 31, 1999
-	'
-	' E-mail: matt@alchemistmatt.com or alchemistmatt@yahoo.com
-	' Websites: http://www.alchemistmatt.com/
-	'           http://www.geocities.com/alchemistmatt/
-	'           http://come.to/alchemistmatt/
-	' -------------------------------------------------------------------------------
-	'
-	' Licensed under the Apache License, Version 2.0; you may not use this file except
-	' in compliance with the License.  You may obtain a copy of the License at
-	' http://www.apache.org/licenses/LICENSE-2.0
-	
-	Private Sub cmdok_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdok.Click
+    Inherits System.Windows.Forms.Form
+    
+    ' -------------------------------------------------------------------------------
+    ' Dart Scorekeeper
+    ' Written by Matthew Monroe in Chapel Hill, NC
+    '
+    ' Program started July 31, 1999
+    '
+    ' E-mail: matt@alchemistmatt.com or alchemistmatt@yahoo.com
+    ' Websites: http://www.alchemistmatt.com/
+    '           http://www.geocities.com/alchemistmatt/
+    '           http://come.to/alchemistmatt/
+    ' -------------------------------------------------------------------------------
+    '
+    ' Licensed under the Apache License, Version 2.0; you may not use this file except
+    ' in compliance with the License.  You may obtain a copy of the License at
+    ' http://www.apache.org/licenses/LICENSE-2.0
+    
+    Private Sub cmdok_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdok.Click
         Me.Close()
-	End Sub
-	
-	Private Sub frmRankHelp_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
-		
+    End Sub
+    
+    Private Sub frmRankHelp_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
+        
         Dim strHelpText As String
 
-		
-		' Set height and width
+        
+        ' Set height and width
         Me.Width = 42
         Me.Height = 20
 
@@ -60,5 +60,5 @@ Friend Class frmRankHelp
                       "however, when a player wins a game, that player has beaten everbody, so everybody else's win% is used."
         lblHelp2.text = strHelpText
 
-	End Sub
+    End Sub
 End Class

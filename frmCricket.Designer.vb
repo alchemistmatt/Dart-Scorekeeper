@@ -1,87 +1,87 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> Partial Class frmCricket
 #Region "Windows Form Designer generated code "
-	<System.Diagnostics.DebuggerNonUserCode()> Public Sub New()
-		MyBase.New()
-		'This call is required by the Windows Form Designer.
-		InitializeComponent()
-	End Sub
-	'Form overrides dispose to clean up the component list.
-	<System.Diagnostics.DebuggerNonUserCode()> Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
-		If Disposing Then
-			If Not components Is Nothing Then
-				components.Dispose()
-			End If
-		End If
-		MyBase.Dispose(Disposing)
-	End Sub
-	'Required by the Windows Form Designer
-	Private components As System.ComponentModel.IContainer
-	Public ToolTip1 As System.Windows.Forms.ToolTip
-	Public WithEvents cmdShowRealtimeStatistics As System.Windows.Forms.Button
-	Public WithEvents _pctSourceSmall_0 As System.Windows.Forms.PictureBox
-	Public WithEvents _pctSourceSmall_1 As System.Windows.Forms.PictureBox
-	Public WithEvents _pctSourceSmall_2 As System.Windows.Forms.PictureBox
-	Public WithEvents _pctSourceSmall_3 As System.Windows.Forms.PictureBox
-	Public WithEvents _pctSourceSmall_4 As System.Windows.Forms.PictureBox
-	Public WithEvents _pctSourceSmall_9 As System.Windows.Forms.PictureBox
-	Public WithEvents _pctSourceSmall_8 As System.Windows.Forms.PictureBox
-	Public WithEvents _pctSourceSmall_7 As System.Windows.Forms.PictureBox
-	Public WithEvents _pctSourceSmall_6 As System.Windows.Forms.PictureBox
-	Public WithEvents _pctSourceSmall_5 As System.Windows.Forms.PictureBox
-	Public WithEvents cmdScoreMode As System.Windows.Forms.Button
-	Public WithEvents chkDoubleIn As System.Windows.Forms.CheckBox
-	Public WithEvents txtStartNumber As System.Windows.Forms.TextBox
-	Public WithEvents chkDoubleOut As System.Windows.Forms.CheckBox
-	Public WithEvents lstCurrentTeam As System.Windows.Forms.ListBox
-	Public WithEvents cmdNextTeam As System.Windows.Forms.Button
-	Public WithEvents cmdPreviousTeam As System.Windows.Forms.Button
-	Public WithEvents cmdShowDartBoard As System.Windows.Forms.Button
-	Public WithEvents cmdHelp As System.Windows.Forms.Button
-	Public WithEvents _pctSource_5 As System.Windows.Forms.PictureBox
-	Public WithEvents _pctSource_6 As System.Windows.Forms.PictureBox
-	Public WithEvents _pctSource_7 As System.Windows.Forms.PictureBox
-	Public WithEvents _pctSource_8 As System.Windows.Forms.PictureBox
-	Public WithEvents _pctSource_9 As System.Windows.Forms.PictureBox
-	Public WithEvents txtHitCount As System.Windows.Forms.TextBox
+    <System.Diagnostics.DebuggerNonUserCode()> Public Sub New()
+        MyBase.New()
+        'This call is required by the Windows Form Designer.
+        InitializeComponent()
+    End Sub
+    'Form overrides dispose to clean up the component list.
+    <System.Diagnostics.DebuggerNonUserCode()> Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
+        If Disposing Then
+            If Not components Is Nothing Then
+                components.Dispose()
+            End If
+        End If
+        MyBase.Dispose(Disposing)
+    End Sub
+    'Required by the Windows Form Designer
+    Private components As System.ComponentModel.IContainer
+    Public ToolTip1 As System.Windows.Forms.ToolTip
+    Public WithEvents cmdShowRealtimeStatistics As System.Windows.Forms.Button
+    Public WithEvents _pctSourceSmall_0 As System.Windows.Forms.PictureBox
+    Public WithEvents _pctSourceSmall_1 As System.Windows.Forms.PictureBox
+    Public WithEvents _pctSourceSmall_2 As System.Windows.Forms.PictureBox
+    Public WithEvents _pctSourceSmall_3 As System.Windows.Forms.PictureBox
+    Public WithEvents _pctSourceSmall_4 As System.Windows.Forms.PictureBox
+    Public WithEvents _pctSourceSmall_9 As System.Windows.Forms.PictureBox
+    Public WithEvents _pctSourceSmall_8 As System.Windows.Forms.PictureBox
+    Public WithEvents _pctSourceSmall_7 As System.Windows.Forms.PictureBox
+    Public WithEvents _pctSourceSmall_6 As System.Windows.Forms.PictureBox
+    Public WithEvents _pctSourceSmall_5 As System.Windows.Forms.PictureBox
+    Public WithEvents cmdScoreMode As System.Windows.Forms.Button
+    Public WithEvents chkDoubleIn As System.Windows.Forms.CheckBox
+    Public WithEvents txtStartNumber As System.Windows.Forms.TextBox
+    Public WithEvents chkDoubleOut As System.Windows.Forms.CheckBox
+    Public WithEvents lstCurrentTeam As System.Windows.Forms.ListBox
+    Public WithEvents cmdNextTeam As System.Windows.Forms.Button
+    Public WithEvents cmdPreviousTeam As System.Windows.Forms.Button
+    Public WithEvents cmdShowDartBoard As System.Windows.Forms.Button
+    Public WithEvents cmdHelp As System.Windows.Forms.Button
+    Public WithEvents _pctSource_5 As System.Windows.Forms.PictureBox
+    Public WithEvents _pctSource_6 As System.Windows.Forms.PictureBox
+    Public WithEvents _pctSource_7 As System.Windows.Forms.PictureBox
+    Public WithEvents _pctSource_8 As System.Windows.Forms.PictureBox
+    Public WithEvents _pctSource_9 As System.Windows.Forms.PictureBox
+    Public WithEvents txtHitCount As System.Windows.Forms.TextBox
     Public WithEvents tmrTimer As System.Windows.Forms.Timer
-	Public WithEvents cmdRedo As System.Windows.Forms.Button
-	Public WithEvents _pctSource_4 As System.Windows.Forms.PictureBox
-	Public WithEvents cmdClose As System.Windows.Forms.Button
-	Public WithEvents _cboPlayerList_1 As System.Windows.Forms.ComboBox
-	Public WithEvents _pctSource_3 As System.Windows.Forms.PictureBox
-	Public WithEvents _pctSource_2 As System.Windows.Forms.PictureBox
-	Public WithEvents _pctSource_1 As System.Windows.Forms.PictureBox
-	Public WithEvents cmdUndo As System.Windows.Forms.Button
-	Public WithEvents cmdStartNewGame As System.Windows.Forms.Button
-	Public WithEvents cboNumberOfTeams As System.Windows.Forms.ComboBox
-	Public WithEvents _cboPlayerList_0 As System.Windows.Forms.ComboBox
-	Public WithEvents _pctSource_0 As System.Windows.Forms.PictureBox
-	Public WithEvents _pctScoreBox_0 As System.Windows.Forms.PictureBox
-	Public WithEvents lblCurrentHoleLabel As System.Windows.Forms.Label
-	Public WithEvents lblCurrentHole As System.Windows.Forms.Label
-	Public WithEvents lblStartNumber As System.Windows.Forms.Label
-	Public WithEvents lblCurrentTeam As System.Windows.Forms.Label
-	Public WithEvents _lblWinStatus_0 As System.Windows.Forms.Label
-	Public WithEvents lblScoreMode As System.Windows.Forms.Label
-	Public WithEvents _lblAltScore_0 As System.Windows.Forms.Label
-	Public WithEvents lblNumberOfTeams As System.Windows.Forms.Label
-	Public WithEvents _lblScore_0 As System.Windows.Forms.Label
-	Public WithEvents lblStatus As System.Windows.Forms.Label
-	Public WithEvents _lblTeamName_0 As System.Windows.Forms.Label
-	Public WithEvents _lblBoxName_0 As System.Windows.Forms.Label
-	Public WithEvents cboPlayerList As Microsoft.VisualBasic.Compatibility.VB6.ComboBoxArray
-	Public WithEvents lblAltScore As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
-	Public WithEvents lblBoxName As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
-	Public WithEvents lblScore As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
-	Public WithEvents lblTeamName As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
-	Public WithEvents lblWinStatus As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
-	Public WithEvents pctScoreBox As Microsoft.VisualBasic.Compatibility.VB6.PictureBoxArray
-	Public WithEvents pctSource As Microsoft.VisualBasic.Compatibility.VB6.PictureBoxArray
-	Public WithEvents pctSourceSmall As Microsoft.VisualBasic.Compatibility.VB6.PictureBoxArray
-	'NOTE: The following procedure is required by the Windows Form Designer
-	'It can be modified using the Windows Form Designer.
-	'Do not modify it using the code editor.
-	<System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
+    Public WithEvents cmdRedo As System.Windows.Forms.Button
+    Public WithEvents _pctSource_4 As System.Windows.Forms.PictureBox
+    Public WithEvents cmdClose As System.Windows.Forms.Button
+    Public WithEvents _cboPlayerList_1 As System.Windows.Forms.ComboBox
+    Public WithEvents _pctSource_3 As System.Windows.Forms.PictureBox
+    Public WithEvents _pctSource_2 As System.Windows.Forms.PictureBox
+    Public WithEvents _pctSource_1 As System.Windows.Forms.PictureBox
+    Public WithEvents cmdUndo As System.Windows.Forms.Button
+    Public WithEvents cmdStartNewGame As System.Windows.Forms.Button
+    Public WithEvents cboNumberOfTeams As System.Windows.Forms.ComboBox
+    Public WithEvents _cboPlayerList_0 As System.Windows.Forms.ComboBox
+    Public WithEvents _pctSource_0 As System.Windows.Forms.PictureBox
+    Public WithEvents _pctScoreBox_0 As System.Windows.Forms.PictureBox
+    Public WithEvents lblCurrentHoleLabel As System.Windows.Forms.Label
+    Public WithEvents lblCurrentHole As System.Windows.Forms.Label
+    Public WithEvents lblStartNumber As System.Windows.Forms.Label
+    Public WithEvents lblCurrentTeam As System.Windows.Forms.Label
+    Public WithEvents _lblWinStatus_0 As System.Windows.Forms.Label
+    Public WithEvents lblScoreMode As System.Windows.Forms.Label
+    Public WithEvents _lblAltScore_0 As System.Windows.Forms.Label
+    Public WithEvents lblNumberOfTeams As System.Windows.Forms.Label
+    Public WithEvents _lblScore_0 As System.Windows.Forms.Label
+    Public WithEvents lblStatus As System.Windows.Forms.Label
+    Public WithEvents _lblTeamName_0 As System.Windows.Forms.Label
+    Public WithEvents _lblBoxName_0 As System.Windows.Forms.Label
+    Public WithEvents cboPlayerList As Microsoft.VisualBasic.Compatibility.VB6.ComboBoxArray
+    Public WithEvents lblAltScore As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
+    Public WithEvents lblBoxName As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
+    Public WithEvents lblScore As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
+    Public WithEvents lblTeamName As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
+    Public WithEvents lblWinStatus As Microsoft.VisualBasic.Compatibility.VB6.LabelArray
+    Public WithEvents pctScoreBox As Microsoft.VisualBasic.Compatibility.VB6.PictureBoxArray
+    Public WithEvents pctSource As Microsoft.VisualBasic.Compatibility.VB6.PictureBoxArray
+    Public WithEvents pctSourceSmall As Microsoft.VisualBasic.Compatibility.VB6.PictureBoxArray
+    'NOTE: The following procedure is required by the Windows Form Designer
+    'It can be modified using the Windows Form Designer.
+    'Do not modify it using the code editor.
+    <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmCricket))
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)

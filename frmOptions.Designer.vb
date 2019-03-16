@@ -1,39 +1,39 @@
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> Partial Class frmOptions
 #Region "Windows Form Designer generated code "
-	<System.Diagnostics.DebuggerNonUserCode()> Public Sub New()
-		MyBase.New()
-		'This call is required by the Windows Form Designer.
-		InitializeComponent()
-	End Sub
-	'Form overrides dispose to clean up the component list.
-	<System.Diagnostics.DebuggerNonUserCode()> Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
-		If Disposing Then
-			If Not components Is Nothing Then
-				components.Dispose()
-			End If
-		End If
-		MyBase.Dispose(Disposing)
-	End Sub
-	'Required by the Windows Form Designer
-	Private components As System.ComponentModel.IContainer
-	Public ToolTip1 As System.Windows.Forms.ToolTip
-	Public WithEvents cmdDefaults As System.Windows.Forms.Button
-	Public WithEvents cmdClose As System.Windows.Forms.Button
-	Public WithEvents cmdCancel As System.Windows.Forms.Button
-	Public WithEvents fraButtons As System.Windows.Forms.Panel
-	Public WithEvents cboScoreAreaSize As System.Windows.Forms.ComboBox
-	Public WithEvents cboDartBoardSize As System.Windows.Forms.ComboBox
-	Public WithEvents txtMinimumScoreToPlaySound As System.Windows.Forms.TextBox
-	Public WithEvents cboScoreFontSize As System.Windows.Forms.ComboBox
-	Public WithEvents chkPlaySounds As System.Windows.Forms.CheckBox
-	Public WithEvents lblScoreAreaSize As System.Windows.Forms.Label
-	Public WithEvents lblDartBoardSize As System.Windows.Forms.Label
-	Public WithEvents lblMinimumScoreToPlaySound As System.Windows.Forms.Label
-	Public WithEvents lblScoreFontSize As System.Windows.Forms.Label
-	Public WithEvents fraOtherOptions As System.Windows.Forms.GroupBox
-	Public WithEvents txtDefault301StartScore As System.Windows.Forms.TextBox
-	Public WithEvents lblDefault301StartScore As System.Windows.Forms.Label
-	Public WithEvents frm301Options As System.Windows.Forms.GroupBox
+    <System.Diagnostics.DebuggerNonUserCode()> Public Sub New()
+        MyBase.New()
+        'This call is required by the Windows Form Designer.
+        InitializeComponent()
+    End Sub
+    'Form overrides dispose to clean up the component list.
+    <System.Diagnostics.DebuggerNonUserCode()> Protected Overloads Overrides Sub Dispose(ByVal Disposing As Boolean)
+        If Disposing Then
+            If Not components Is Nothing Then
+                components.Dispose()
+            End If
+        End If
+        MyBase.Dispose(Disposing)
+    End Sub
+    'Required by the Windows Form Designer
+    Private components As System.ComponentModel.IContainer
+    Public ToolTip1 As System.Windows.Forms.ToolTip
+    Public WithEvents cmdDefaults As System.Windows.Forms.Button
+    Public WithEvents cmdClose As System.Windows.Forms.Button
+    Public WithEvents cmdCancel As System.Windows.Forms.Button
+    Public WithEvents fraButtons As System.Windows.Forms.Panel
+    Public WithEvents cboScoreAreaSize As System.Windows.Forms.ComboBox
+    Public WithEvents cboDartBoardSize As System.Windows.Forms.ComboBox
+    Public WithEvents txtMinimumScoreToPlaySound As System.Windows.Forms.TextBox
+    Public WithEvents cboScoreFontSize As System.Windows.Forms.ComboBox
+    Public WithEvents chkPlaySounds As System.Windows.Forms.CheckBox
+    Public WithEvents lblScoreAreaSize As System.Windows.Forms.Label
+    Public WithEvents lblDartBoardSize As System.Windows.Forms.Label
+    Public WithEvents lblMinimumScoreToPlaySound As System.Windows.Forms.Label
+    Public WithEvents lblScoreFontSize As System.Windows.Forms.Label
+    Public WithEvents fraOtherOptions As System.Windows.Forms.GroupBox
+    Public WithEvents txtDefault301StartScore As System.Windows.Forms.TextBox
+    Public WithEvents lblDefault301StartScore As System.Windows.Forms.Label
+    Public WithEvents frm301Options As System.Windows.Forms.GroupBox
     Public WithEvents optScoringModeHighScoreWins As System.Windows.Forms.RadioButton
     Public WithEvents optScoringModeLowScoreWins As System.Windows.Forms.RadioButton
     Public WithEvents chkCutThroatCricket As System.Windows.Forms.CheckBox
