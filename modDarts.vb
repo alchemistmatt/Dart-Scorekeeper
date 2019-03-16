@@ -1,20 +1,23 @@
 Option Strict Off
 Option Explicit On
-'Imports VB = Microsoft.VisualBasic
+
+Imports System.Collections.Generic
+Imports System.IO
+Imports System.Reflection
+Imports System.Threading 'Imports VB = Microsoft.VisualBasic
 
 Module modDarts
 
     ' -------------------------------------------------------------------------------
     ' Dart Scorekeeper
-    ' Written by Matthew Monroe in Chapel Hill, NC
+    ' Written by Matthew Monroe in 1999
     ' Portions of this program are modeled after the Cricket LabView program by Kevin Lan
     '
-    ' Program started July 31, 1999
+    ' Ported to .NET in 2011
     '
-    ' E-mail: matt@alchemistmatt.com or alchemistmatt@yahoo.com
-    ' Websites: http://www.alchemistmatt.com/
-    '           http://www.geocities.com/alchemistmatt/
-    '           http://come.to/alchemistmatt/
+    ' E-mail: monroem@gmail.com or alchemistmatt@yahoo.com
+    ' Repository: https://github.com/alchemistmatt
+    '
     ' -------------------------------------------------------------------------------
     '
     ' Licensed under the Apache License, Version 2.0; you may not use this file except
@@ -40,14 +43,15 @@ Module modDarts
     ' Version 3.02, March 4, 2006 -- Released as open source software under the Apache License, Version 2.0
     ' Version 3.03, December 24, 2010 - Bug fix in AddScore when playing cut-throat cricket but high score wins
     ' Version 4.0, December 26, 2010 -- Ported to VB.NET
+    ' Version 4.1, March 15, 2019 -- Updated to .NET 4.6.2
 
 
     ' ToDo: Get cutthroat scoring where higher score wins to work
 
 #Region "Version Info"
-    Public Const PROGRAM_DATE As String = "January 11, 2011"
-    Public Const PROGRAM_VERSION As String = "4.0"
-    Private glbShowExceptionMessageBoxes As Boolean = False
+    Public Const PROGRAM_DATE As String = "March 15, 2019"
+    Public Const PROGRAM_VERSION As String = "4.1"
+    Private mShowExceptionMessageBoxes As Boolean = False
 #End Region
 
 #Region "Constants and Enums"
@@ -142,7 +146,7 @@ Module modDarts
 #End Region
 
     ' API Declares
-    Private Declare Function sndPlaySound Lib "WINMM.DLL" Alias "sndPlaySoundA" (ByVal lpszSoundName As String, ByVal uFlags As Integer) As Integer
+    Private Declare Function sndPlaySound Lib "WINMM.DLL" Alias "sndPlaySoundA" (lpszSoundName As String, uFlags As Integer) As Integer
 
     Const SND_SYNC As Integer = &H0 'Use this flag to stop your app from continuing until the .WAV finishes playing.
     Const SND_ASYNC As Integer = &H1 'Use this flag to allow your app to continue processing while the .WAV is playing.
@@ -163,7 +167,7 @@ Module modDarts
     Public Const cWindowTopRight As Short = 9
     Public Const cWindowTopLeft As Short = 10
 
-    Public Declare Function SetWindowPos Lib "user32" (ByVal hwnd As Integer, ByVal hWndInsertAfter As Integer, ByVal x As Integer, ByVal y As Integer, ByVal cx As Integer, ByVal cy As Integer, ByVal wFlags As Integer) As Integer
+    Public Declare Function SetWindowPos Lib "user32" (hwnd As Integer, hWndInsertAfter As Integer, x As Integer, y As Integer, cx As Integer, cy As Integer, wFlags As Integer) As Integer
 
     ' Set some constant values (from WIN32API.TXT).
     Private Const conHwndTopmost As Short = -1
@@ -171,7 +175,7 @@ Module modDarts
     Private Const conSwpNoActivate As Integer = &H10
     Private Const conSwpShowWindow As Integer = &H40
 
-    Public Function BaseIndexValue(ByVal BoxIndex As Short, ByVal BoxesPerCol As Short) As Short
+    Public Function BaseIndexValue(BoxIndex As Short, BoxesPerCol As Short) As Short
         ' Subtracts 7 (BoxesPerCol) until index is in range 0 to 6 (BoxesPerCol-1)
 
         Do While BoxIndex > BoxesPerCol - 1
@@ -189,7 +193,7 @@ Module modDarts
 
         If glbDartBoardSizeVal >= bsBoardSizeConstants.bsSmall And glbDartBoardSizeVal <= bsBoardSizeConstants.bsHuge Then
             With frmDartBoard
-                .pctDartBoard.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+                .pctDartBoard.BackgroundImageLayout = ImageLayout.None
 
                 Select Case glbDartBoardSizeVal
                     Case 0
@@ -214,25 +218,25 @@ Module modDarts
 
     End Sub
 
-    Public Function UpdateFontSize(ByVal objFont As System.Drawing.Font, ByVal NewSizePts As Short) As System.Drawing.Font
-        Return New System.Drawing.Font(objFont.Name, NewSizePts, objFont.Style)
+    Public Function UpdateFontSize(objFont As Font, NewSizePts As Short) As Font
+        Return New Font(objFont.Name, NewSizePts, objFont.Style)
     End Function
 
-    Public Function UpdateFontBold(ByVal objFont As System.Drawing.Font, ByVal IsBold As Boolean) As System.Drawing.Font
+    Public Function UpdateFontBold(objFont As Font, IsBold As Boolean) As Font
         If IsBold Then
-            Return New System.Drawing.Font(objFont.Name, objFont.Size, System.Drawing.FontStyle.Bold)
+            Return New Font(objFont.Name, objFont.Size, FontStyle.Bold)
         Else
-            Return New System.Drawing.Font(objFont.Name, objFont.Size, System.Drawing.FontStyle.Regular)
+            Return New Font(objFont.Name, objFont.Size, FontStyle.Regular)
         End If
     End Function
 
-    Public Function DateLabelText(ByRef Color As System.Drawing.Color) As String
+    Public Function DateLabelText(ByRef Color As Color) As String
         Dim strDate As String = String.Empty
         Dim strMessage As String = String.Empty
 
         Try
 
-            strDate = System.DateTime.Now.ToString("dddd, MMMM d, yyyy")
+            strDate = DateTime.Now.ToString("dddd, MMMM d, yyyy")
 
             ' Check for special dates
             If DateS(strMessage, Color) Then
@@ -247,7 +251,7 @@ Module modDarts
 
     End Function
 
-    Public Function CheckForZero(ByVal intValueToCheck As Short) As String
+    Public Function CheckForZero(intValueToCheck As Short) As String
         ' Returns "" if intValueToCheck = 0
         If intValueToCheck = 0 Then
             Return String.Empty
@@ -256,16 +260,16 @@ Module modDarts
         End If
     End Function
 
-    Public Function CheckForZeroSng(ByVal sngValueToCheck As Single) As String
+    Public Function CheckForZeroSng(sngValueToCheck As Single) As String
         ' Returns "" if intValueToCheck = 0
-        If sngValueToCheck = 0 Then
+        If Math.Abs(sngValueToCheck - 0) < 0.01 Then
             Return String.Empty
         Else
             Return sngValueToCheck.ToString.Trim
         End If
     End Function
 
-    Public Function CheckForInfinity(ByVal intValueToCheck As Short) As String
+    Public Function CheckForInfinity(intValueToCheck As Short) As String
         ' Returns the number as a string, unless it is 32767 or -32767,
         '  in which case it returns ""
 
@@ -276,7 +280,7 @@ Module modDarts
         End If
     End Function
 
-    Public Function CChkBox(ByRef chkThisCheckBox As System.Windows.Forms.CheckBox) As Boolean
+    Public Function CChkBox(ByRef chkThisCheckBox As CheckBox) As Boolean
         If chkThisCheckBox.Checked Then
             Return True
         Else
@@ -284,10 +288,10 @@ Module modDarts
         End If
     End Function
 
-    Public Function ComputeGolfDartScore(ByVal intTargetHole As Short, _
-                                         ByVal intDartValue As Short, _
-                                         ByVal intMultiplier As Short, _
-                                         ByVal intDistanceFromCenter As Short) As Short
+    Public Function ComputeGolfDartScore(intTargetHole As Short,
+                                         intDartValue As Short,
+                                         intMultiplier As Short,
+                                         intDistanceFromCenter As Short) As Short
 
         ' Return -2 for the Triple ring
         '        -1 for the Double ring
@@ -295,7 +299,7 @@ Module modDarts
         '         1 for the outer rectangle (between Triple ring and Double ring)
         '         2 for anything else
 
-        Dim intReturnVal As Short = 2
+        Dim intReturnVal As Short
 
         If intDartValue <> intTargetHole Then
             ' Miss
@@ -327,19 +331,19 @@ Module modDarts
 
     End Function
 
-    Public Function ComputeMidDistance(ByVal lngDistance1 As Integer, ByVal lngDistance2 As Integer) As Integer
+    Public Function ComputeMidDistance(lngDistance1 As Integer, lngDistance2 As Integer) As Integer
 
         ComputeMidDistance = (lngDistance1 + lngDistance2) / 2
 
     End Function
 
-    Private Function DateDayC(ByVal currDay As Short) As Short
+    Private Function DateDayC(currDay As Short) As Short
         DateDayC = Math.Floor((currDay - 1) / 7) + 1
     End Function
 
-    Private Function DateS(ByRef message As String, _
-                           ByRef Color As System.Drawing.Color, _
-                           Optional ByVal blnOverrideDate As Boolean = False, _
+    Private Function DateS(ByRef message As String,
+                           ByRef Color As Color,
+                           Optional ByVal blnOverrideDate As Boolean = False,
                            Optional ByVal DateOverride As String = "") As Boolean
 
         ' This function contains coded messages that are displayed on certain dates of the year
@@ -347,13 +351,13 @@ Module modDarts
 
 
         Dim dd, mm, y, intWeekDay As Short
-        Dim dtDate As System.DateTime
+        Dim dtDate As DateTime
 
         Try
             If blnOverrideDate Then
                 dtDate = CDate(DateOverride)
             Else
-                dtDate = System.DateTime.Now
+                dtDate = DateTime.Now
             End If
 
             mm = dtDate.Month
@@ -363,43 +367,43 @@ Module modDarts
 
             If mm = NumC(2) AndAlso dd = NumC(2) Then
                 message = MsgC("072097112112121032078101119032089101097114")
-                Color = System.Drawing.Color.White
+                Color = Color.White
                 Return True
             End If
 
             If mm = NumC(7) AndAlso dd = NumC(67) Then
                 message = MsgC("087097116099104032111117116032102111114032067117112105100039115032065114114111119")
-                Color = System.Drawing.Color.Red
+                Color = Color.Red
                 Return True
             End If
 
             If mm = NumC(12) AndAlso dd = NumC(82) Then
                 message = MsgC("065114101032121111117032119101097114105110103032103114101101110063")
-                Color = System.Drawing.Color.Lime
+                Color = Color.Lime
                 Return True
             End If
 
             If mm = NumC(17) AndAlso dd = NumC(2) Then
                 message = MsgC("089111117114032115104111101108097099101115032097114101032117110116105101100033")
-                Color = System.Drawing.Color.Cyan
+                Color = Color.Cyan
                 Return True
             End If
 
             If mm = NumC(32) AndAlso dd = NumC(17) Then
                 message = MsgC("069110106111121032116104101032070105114101119111114107115")
-                Color = System.Drawing.Color.Blue
+                Color = Color.Blue
                 Return True
             End If
 
             If mm = NumC(52) And intWeekDay = 5 And DateDayC(dd) = 4 Then
                 message = MsgC("072097112112121032084117114107101121032068097121")
-                Color = System.Drawing.Color.Magenta
+                Color = Color.Magenta
                 Return True
             End If
 
             If mm = NumC(57) AndAlso dd = NumC(122) Then
                 message = MsgC("077101114114121032067104114105115116109097115")
-                Color = System.Drawing.Color.Lime
+                Color = Color.Lime
                 Return True
             End If
 
@@ -420,7 +424,7 @@ Module modDarts
             If mm = EM AndAlso dd = ED Then
                 ' (valid only 1900-2100)
                 message = MsgC("072097112112121032069097115116101114")
-                Color = System.Drawing.Color.Yellow
+                Color = Color.Yellow
                 Return True
             End If
 
@@ -434,12 +438,12 @@ Module modDarts
     Public Sub CheckDates()
         ' Cycles through a range of dates and displays the special date messages in the debug window
 
-        Dim dtDate As System.DateTime
+        Dim dtDate As DateTime
 
         Dim strDate As String
         Dim strMessage As String = String.Empty
 
-        Dim Color As System.Drawing.Color
+        Dim Color As Color
 
         Try
             dtDate = #1/1/2009#
@@ -451,7 +455,7 @@ Module modDarts
                     Console.WriteLine(strDate & ": " & strMessage)
                 End If
 
-                dtDate.AddDays(1)
+                dtDate = dtDate.AddDays(1)
             Loop
 
         Catch ex As Exception
@@ -488,11 +492,11 @@ Module modDarts
             intQuadrant = 4
         End If
 
-        intDeltaX = System.Math.Abs(intDeltaX)
-        intDeltaY = System.Math.Abs(intDeltaY)
+        intDeltaX = Math.Abs(intDeltaX)
+        intDeltaY = Math.Abs(intDeltaY)
 
         If intDeltaY <> 0 Then
-            sngAngle = System.Math.Atan(intDeltaX / intDeltaY)
+            sngAngle = Math.Atan(intDeltaX / intDeltaY)
             ' Convert from Radians to degrees
             sngAngle = sngAngle * 360 / (2 * Math.PI)
         Else
@@ -524,7 +528,7 @@ Module modDarts
         ' Distance between points is found using Pythagorean's theorem:
         '  Hypotenuse^2 = Side1^2 + Side2^2
         '  Hypotenuse = Square Root(Side1^2 + Side2^2)
-        FindDistance = System.Math.Sqrt(intDeltaX ^ 2 + intDeltaY ^ 2)
+        FindDistance = Math.Sqrt(intDeltaX ^ 2 + intDeltaY ^ 2)
 
     End Function
 
@@ -532,22 +536,22 @@ Module modDarts
         Return GetAppDataFolderPath("DartScoreKeeper")
     End Function
 
-    Public Function GetAppDataFolderPath(ByVal strAppName As String) As String
-        Dim strAppDataFolder As String = String.Empty
+    Public Function GetAppDataFolderPath(strAppName As String) As String
+        Dim strAppDataFolder As String
 
         If String.IsNullOrEmpty(strAppName) Then
             strAppName = String.Empty
         End If
 
         Try
-            strAppDataFolder = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), strAppName)
-            If Not System.IO.Directory.Exists(strAppDataFolder) Then
-                System.IO.Directory.CreateDirectory(strAppDataFolder)
+            strAppDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), strAppName)
+            If Not Directory.Exists(strAppDataFolder) Then
+                Directory.CreateDirectory(strAppDataFolder)
             End If
 
         Catch ex As Exception
             ' Error creating the folder, revert to using the system Temp folder
-            strAppDataFolder = System.IO.Path.GetTempPath()
+            strAppDataFolder = Path.GetTempPath()
         End Try
 
         Return strAppDataFolder
@@ -556,10 +560,10 @@ Module modDarts
 
     Public Function GetAppFolderPath() As String
         ' Could use Application.StartupPath, but .GetExecutingAssembly is better
-        Return System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)
+        Return Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)
     End Function
 
-    Public Function GetComboBoxItemText(ByVal cboComboBox As System.Windows.Forms.ComboBox) As String
+    Public Function GetComboBoxItemText(cboComboBox As ComboBox) As String
 
         Try
             If cboComboBox.SelectedIndex >= 0 Then
@@ -574,19 +578,19 @@ Module modDarts
 
     End Function
 
-    Public Sub HandleException(ByVal strCallingFunction As String, ByVal ex As System.Exception)
+    Public Sub HandleException(strCallingFunction As String, ex As Exception)
         Console.WriteLine()
         Console.WriteLine("-------------------------------------------------------------")
         Console.WriteLine("Error in " & strCallingFunction & ": " & ex.Message)
         Console.WriteLine("-------------------------------------------------------------")
 
-        If glbShowExceptionMessageBoxes Then
-            System.Windows.Forms.MessageBox.Show("Error in " & strCallingFunction & ": " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        If mShowExceptionMessageBoxes Then
+            MessageBox.Show("Error in " & strCallingFunction & ": " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         End If
 
     End Sub
 
-    Public Function LookUpAngle(ByVal intScore As Short) As Short
+    Public Function LookUpAngle(intScore As Short) As Short
         Dim intCentralAngle As Short
 
         Select Case intScore
@@ -617,7 +621,7 @@ Module modDarts
 
     End Function
 
-    Public Function LookupGameTypeByString(ByVal strGameName As String) As gtGameTypeConstants
+    Public Function LookupGameTypeByString(strGameName As String) As gtGameTypeConstants
 
         Select Case strGameName.ToLower()
             Case "301"
@@ -632,7 +636,7 @@ Module modDarts
         End Select
     End Function
 
-    Public Function LookupGameStringByType(ByVal eGameType As gtGameTypeConstants) As String
+    Public Function LookupGameStringByType(eGameType As gtGameTypeConstants) As String
         Select Case eGameType
             Case gtGameTypeConstants.gt301
                 Return "301"
@@ -647,11 +651,11 @@ Module modDarts
         End Select
     End Function
 
-    Public Function MaxVal(ByVal intFirstVal As Short, ByVal intSecondVal As Short, ByVal intThirdVal As Short) As Short
+    Public Function MaxVal(intFirstVal As Short, intSecondVal As Short, intThirdVal As Short) As Short
         Return Math.Max(Math.Max(intFirstVal, intSecondVal), intThirdVal)
     End Function
 
-    Public Function MinVal(ByVal intFirstVal As Short, ByVal intSecondVal As Short, ByVal intThirdVal As Short, ByVal boolAllowZero As Boolean) As Short
+    Public Function MinVal(intFirstVal As Short, intSecondVal As Short, intThirdVal As Short, boolAllowZero As Boolean) As Short
         Dim intMinValue As Short
 
         intMinValue = Short.MaxValue
@@ -678,20 +682,20 @@ Module modDarts
 
     End Function
 
-    Public Function MinutesToTimeString(ByVal dblTotalMinutes As Double) As String
+    Public Function MinutesToTimeString(dblTotalMinutes As Double) As String
 
-        Return CInt(Math.Floor(dblTotalMinutes)).ToString() & ":" & _
+        Return CInt(Math.Floor(dblTotalMinutes)).ToString() & ":" &
                     Math.Round((dblTotalMinutes - Math.Floor(dblTotalMinutes)) * 60, 0).ToString("00")
 
     End Function
 
-    Private Function MsgC(ByVal s As String) As String
+    Private Function MsgC(s As String) As String
         ' This function is used to decode coded messages that are displayed on special dates
 
         Dim x, a As Short
-        Dim b As String = String.Empty
+        Dim b As String
         Dim n As String = String.Empty
-        Dim w As String = String.Empty
+        Dim w As String
 
         Try
             If IsNumeric(s) Then
@@ -719,7 +723,7 @@ Module modDarts
 
     End Function
 
-    Private Function NumC(ByVal v As Short) As Short
+    Private Function NumC(v As Short) As Short
         NumC = (v + 3) / 5
     End Function
 
@@ -729,31 +733,29 @@ Module modDarts
     ''' <param name="strPlayerName"></param>
     ''' <param name="boolPlayDefaultSoundIfCustomNotFound"></param>
     ''' <param name="boolWaitForSoundFileToEnd"></param>
-    ''' <returns></returns>
-    ''' <remarks>True if a sound file was successfully found and played (even if it is just the default sound file)</remarks>
-    Public Function PlayWaveFileForPlayer(ByVal strPlayerName As String, _
-                                          Optional ByVal boolPlayDefaultSoundIfCustomNotFound As Boolean = True, _
+    ''' <returns>True if a sound file was successfully found and played (even if it is just the default sound file)</returns>
+    Public Function PlayWaveFileForPlayer(strPlayerName As String,
+                                          Optional ByVal boolPlayDefaultSoundIfCustomNotFound As Boolean = True,
                                           Optional ByVal boolWaitForSoundFileToEnd As Boolean = True) As Boolean
 
-        Static objRandom As New System.Random
+        Static objRandom As New Random()
 
         Try
 
             Const MAX_SOUND_FILE_COUNT As Short = 100
-            Dim diSoundFolder As System.IO.DirectoryInfo
-            Dim diSoundFile As System.IO.FileInfo
+            Dim diSoundFolder As DirectoryInfo
+            Dim diSoundFile As FileInfo
 
-            Dim strSoundFilePaths As New System.Collections.Generic.List(Of String)
-            Dim strFilePathMatch As String = String.Empty
+            Dim strSoundFilePaths As New List(Of String)
+            Dim strFilePathMatch As String
 
             If String.IsNullOrEmpty(strPlayerName) Then
                 ' Look for and play (if found) the default next player sound
-                Return WaveFilePlay(String.Empty, False, boolWaitForSoundFileToEnd)
-                Exit Function
+                WaveFilePlay(String.Empty, False, boolWaitForSoundFileToEnd)
             End If
 
             ' First look for folder matching strPlayerName
-            diSoundFolder = New System.IO.DirectoryInfo(System.IO.Path.Combine(GetAppFolderPath, strPlayerName.Trim()))
+            diSoundFolder = New DirectoryInfo(Path.Combine(GetAppFolderPath, strPlayerName.Trim()))
 
             If diSoundFolder.Exists Then
                 ' Folder found with name of player and containing .Wav files
@@ -770,9 +772,9 @@ Module modDarts
                 strFilePathMatch = strSoundFilePaths.Item(intIndexToUse)
             Else
                 ' Player folder not found, now look for file with name strPlayerName
-                strFilePathMatch = System.IO.Path.Combine(GetAppFolderPath, strPlayerName.Trim() & ".wav")
+                strFilePathMatch = Path.Combine(GetAppFolderPath, strPlayerName.Trim() & ".wav")
 
-                If Not System.IO.File.Exists(strFilePathMatch) Then
+                If Not File.Exists(strFilePathMatch) Then
                     strFilePathMatch = String.Empty
                 End If
             End If
@@ -791,6 +793,8 @@ Module modDarts
             HandleException("PlayWaveFileForPlayer", ex)
         End Try
 
+        Return False
+
     End Function
 
     Public Sub ReserveMemoryForGlobalArrays()
@@ -799,7 +803,7 @@ Module modDarts
 
     End Sub
 
-    Public Sub SetDartboardDistances(ByVal eBoardSize As bsBoardSizeConstants)
+    Public Sub SetDartboardDistances(eBoardSize As bsBoardSizeConstants)
 
         Dim sngDiameterMultiplier As Single
 
@@ -829,11 +833,11 @@ Module modDarts
 
     End Sub
 
-    Public Sub SizeAndCenterWindow(ByRef frmThisForm As System.Windows.Forms.Form, _
-                                   Optional ByVal intCenterMode As Short = 0, _
-                                   Optional ByVal lngWindowWidth As Integer = -1, _
-                                   Optional ByVal lngWindowHeight As Integer = -1, _
-                                   Optional ByVal boolSizeAndCenterOnlyOncePerProgramSession As Boolean = True, _
+    Public Sub SizeAndCenterWindow(ByRef frmThisForm As Form,
+                                   Optional ByVal intCenterMode As Short = 0,
+                                   Optional ByVal lngWindowWidth As Integer = -1,
+                                   Optional ByVal lngWindowHeight As Integer = -1,
+                                   Optional ByVal boolSizeAndCenterOnlyOncePerProgramSession As Boolean = True,
                                    Optional ByVal intDualMonitorToUse As Short = -1)
 
         ' Sub revision 1.23
@@ -858,14 +862,14 @@ Module modDarts
         ' boolSizeAndCenterOnlyOncePerProgramSession is useful when the SizeAndCenterWindow sub is called from the Form_Activate sub of a form
         '  Note: It is suggested that this be set to false if called from Form_Load in case the user closes the form (thus unloading it)
 
-        Static strFormsCentered As New System.Collections.Generic.List(Of String)
+        Static strFormsCentered As New List(Of String)
 
         Dim lngWindowAreaWidth, lngWindowAreaHeight As Integer
         Dim dblAspectRatio As Double
         Dim lngWorkingAreaWidth, lngWorkingAreaHeight As Integer
         Dim boolDualMonitor, boolHorizontalDual As Boolean
         Dim lngWindowTopToSet, lngWindowLeftToSet As Integer
-        Dim frmMainAppForm As System.Windows.Forms.Form
+        Dim frmMainAppForm As Form
         Dim boolSubCalledPreviously As Boolean
 
         ' See if the form has already called this sub
@@ -885,7 +889,7 @@ Module modDarts
 
         ' Resize Window
         With frmThisForm
-            .WindowState = System.Windows.Forms.FormWindowState.Normal
+            .WindowState = FormWindowState.Normal
             If lngWindowWidth > 0 Then .Width = lngWindowWidth
             If lngWindowHeight > 0 Then .Height = lngWindowHeight
         End With
@@ -895,8 +899,8 @@ Module modDarts
         frmMainAppForm = My.Application.OpenForms.Item(0)
 
         ' Find the desktop area (width and height)
-        lngWindowAreaWidth = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width
-        lngWindowAreaHeight = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height
+        lngWindowAreaWidth = Screen.PrimaryScreen.Bounds.Width
+        lngWindowAreaHeight = Screen.PrimaryScreen.Bounds.Height
 
         ' Check the aspect ratio of WindowAreaWidth / WindowAreaHeight
         If lngWindowAreaHeight > 0 Then
@@ -917,8 +921,8 @@ Module modDarts
             If dblAspectRatio > 2 Then
                 ' Aspect ratio greater than 2 - using horizontal dual monitors
                 boolHorizontalDual = True
-                lngWorkingAreaWidth = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width / 2
-                lngWorkingAreaHeight = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height
+                lngWorkingAreaWidth = Screen.PrimaryScreen.Bounds.Width / 2
+                lngWorkingAreaHeight = Screen.PrimaryScreen.Bounds.Height
 
                 If frmMainAppForm.Left > lngWorkingAreaWidth Then
                     ' Main app window on second monitor
@@ -930,8 +934,8 @@ Module modDarts
             Else
                 ' Aspect ratio must be less than 1 - using vertical dual monitors
                 boolHorizontalDual = False
-                lngWorkingAreaWidth = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width
-                lngWorkingAreaHeight = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height / 2
+                lngWorkingAreaWidth = Screen.PrimaryScreen.Bounds.Width
+                lngWorkingAreaHeight = Screen.PrimaryScreen.Bounds.Height / 2
 
                 If frmMainAppForm.Top > lngWorkingAreaHeight Then
                     ' Main app window on second monitor
@@ -945,8 +949,8 @@ Module modDarts
             ' Aspect ratio between 1 and 2
             ' Using a single monitor
             boolDualMonitor = False
-            lngWorkingAreaWidth = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width
-            lngWorkingAreaHeight = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height
+            lngWorkingAreaWidth = Screen.PrimaryScreen.Bounds.Width
+            lngWorkingAreaHeight = Screen.PrimaryScreen.Bounds.Height
         End If
 
         With frmThisForm
@@ -1000,12 +1004,12 @@ Module modDarts
             End If
 
             ' Actually position the window
-            .SetBounds(lngWindowLeftToSet, lngWindowTopToSet, 0, 0, Windows.Forms.BoundsSpecified.X Or Windows.Forms.BoundsSpecified.Y)
+            .SetBounds(lngWindowLeftToSet, lngWindowTopToSet, 0, 0, BoundsSpecified.X Or BoundsSpecified.Y)
         End With
 
     End Sub
 
-    Public Function SortCompare(ByVal blnSortReverse As Boolean, ByVal Item1 As String, ByVal Item2 As String, ByVal NumericCompare As Boolean) As Boolean
+    Public Function SortCompare(blnSortReverse As Boolean, Item1 As String, Item2 As String, NumericCompare As Boolean) As Boolean
         Dim SwapThem As Boolean
         Dim UseItem1, UseItem2 As String
         Dim x As Short
@@ -1075,9 +1079,9 @@ Module modDarts
 
     End Function
 
-    Public Sub TextBoxKeyPressHandlerCheckControlChars(ByRef txtThisTextBox As System.Windows.Forms.TextBox, ByRef e As System.Windows.Forms.KeyPressEventArgs, Optional ByVal AllowCutCopyPaste As Boolean = True)
+    Public Sub TextBoxKeyPressHandlerCheckControlChars(ByRef txtThisTextBox As TextBox, ByRef e As KeyPressEventArgs, Optional ByVal AllowCutCopyPaste As Boolean = True)
         If Char.IsControl(e.KeyChar) Then
-            Select Case System.Convert.ToInt32(e.KeyChar)
+            Select Case Convert.ToInt32(e.KeyChar)
                 Case 1
                     ' Ctrl+A -- Highlight entire text box
                     txtThisTextBox.SelectionStart = 0
@@ -1098,7 +1102,7 @@ Module modDarts
         End If
     End Sub
 
-    Public Sub TextBoxKeyPressHandler(ByRef txtThisTextBox As System.Windows.Forms.TextBox, ByRef e As System.Windows.Forms.KeyPressEventArgs, Optional ByVal AllowNumbers As Boolean = True, Optional ByVal AllowDecimalPoint As Boolean = False, Optional ByVal AllowNegativeSign As Boolean = False, Optional ByVal AllowCharacters As Boolean = False, Optional ByVal AllowPlusSign As Boolean = False, Optional ByVal AllowUnderscore As Boolean = False, Optional ByVal AllowDollarSign As Boolean = False, Optional ByVal AllowEmailChars As Boolean = False, Optional ByVal AllowSpaces As Boolean = False, Optional ByVal AllowECharacter As Boolean = False, Optional ByVal AllowCutCopyPaste As Boolean = True, Optional ByVal AllowDateSeparatorChars As Boolean = False)
+    Public Sub TextBoxKeyPressHandler(ByRef txtThisTextBox As TextBox, ByRef e As KeyPressEventArgs, Optional ByVal AllowNumbers As Boolean = True, Optional ByVal AllowDecimalPoint As Boolean = False, Optional ByVal AllowNegativeSign As Boolean = False, Optional ByVal AllowCharacters As Boolean = False, Optional ByVal AllowPlusSign As Boolean = False, Optional ByVal AllowUnderscore As Boolean = False, Optional ByVal AllowDollarSign As Boolean = False, Optional ByVal AllowEmailChars As Boolean = False, Optional ByVal AllowSpaces As Boolean = False, Optional ByVal AllowECharacter As Boolean = False, Optional ByVal AllowCutCopyPaste As Boolean = True, Optional ByVal AllowDateSeparatorChars As Boolean = False)
         ' Checks e.KeyChar to see if it's valid
         ' If it isn't, e.Handled is set to True to ignore it
 
@@ -1139,7 +1143,7 @@ Module modDarts
         End If
     End Sub
 
-    Public Sub TextBoxGotFocusHandler(ByRef txtThisTextBox As System.Windows.Forms.TextBox, Optional ByVal blnSelectAll As Boolean = True)
+    Public Sub TextBoxGotFocusHandler(ByRef txtThisTextBox As TextBox, Optional ByVal blnSelectAll As Boolean = True)
         ' Selects the text in the given textbox if blnSelectAll = true
 
         If blnSelectAll Then
@@ -1153,30 +1157,29 @@ Module modDarts
         Wait(250)
     End Sub
 
-    Public Sub Wait(ByVal Milliseconds As Integer)
+    Public Sub Wait(Milliseconds As Integer)
         ' Wait the specified number of milliseconds
 
         Const THREAD_SLEEP_INTERVAL_MSEC As Short = 10
 
-        Dim dtStart As System.DateTime = System.DateTime.Now
+        Dim dtStart = DateTime.UtcNow
 
         Do
-            System.Threading.Thread.Sleep(THREAD_SLEEP_INTERVAL_MSEC)
-            System.Windows.Forms.Application.DoEvents()
-        Loop While System.DateTime.Now.Subtract(dtStart).TotalMilliseconds < Milliseconds
+            Thread.Sleep(THREAD_SLEEP_INTERVAL_MSEC)
+            Application.DoEvents()
+        Loop While DateTime.UtcNow.Subtract(dtStart).TotalMilliseconds < Milliseconds
 
     End Sub
 
     Public Sub WaveFileStop()
-        Dim lngReturnValue As Integer
 
-        lngReturnValue = sndPlaySound(CStr(0), SND_NODEFAULT)
+        sndPlaySound(CStr(0), SND_NODEFAULT)
 
     End Sub
 
-    Public Function WaveFilePlay(Optional ByVal strSoundFilePath As String = "", _
-                                 Optional ByVal boolPlayDefaultSoundIfWaveNotFound As Boolean = False, _
-                                 Optional ByVal boolWaitForCompletion As Boolean = True, _
+    Public Function WaveFilePlay(Optional ByVal strSoundFilePath As String = "",
+                                 Optional ByVal boolPlayDefaultSoundIfWaveNotFound As Boolean = False,
+                                 Optional ByVal boolWaitForCompletion As Boolean = True,
                                  Optional ByVal boolLoop As Boolean = False) As Boolean
 
         ' Returns True if wave file successfully played
@@ -1188,10 +1191,10 @@ Module modDarts
 
         If String.IsNullOrEmpty(strSoundFilePath) Then
 
-            strSoundFilePath = System.IO.Path.Combine(GetAppFolderPath(), SOUND_NEXT_PLAYER)
+            strSoundFilePath = Path.Combine(GetAppFolderPath(), SOUND_NEXT_PLAYER)
         End If
 
-        If Not System.IO.File.Exists(strSoundFilePath) Then
+        If Not File.Exists(strSoundFilePath) Then
             ' Uncomment the following to hear the default beep if the file isn't found
             ''If strFilePathSearch = "" Then boolPlayDefaultSoundIfWaveNotFound = True
             blnPlaySound = False
@@ -1222,9 +1225,10 @@ Module modDarts
 
         End If
 
+        Return False
     End Function
 
-    Public Sub WindowStayOnTop(ByVal hwnd As Integer, ByVal boolStayOnTop As Boolean, Optional ByVal lngFormPosLeft As Integer = 0, Optional ByVal lngFormPosTop As Integer = 0, Optional ByVal lngFormPosWidth As Integer = 600, Optional ByVal lngFormPosHeight As Integer = 500)
+    Public Sub WindowStayOnTop(hwnd As Integer, boolStayOnTop As Boolean, Optional ByVal lngFormPosLeft As Integer = 0, Optional ByVal lngFormPosTop As Integer = 0, Optional ByVal lngFormPosWidth As Integer = 600, Optional ByVal lngFormPosHeight As Integer = 500)
 
         ' Toggles the behavior of the given window to "stay on top" of all other windows
         ' The new form sizes (lngFormPosLeft, lngFormPosTop, lngFormPosWidth, lngFormPosHeight)

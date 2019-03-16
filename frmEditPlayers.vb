@@ -2,18 +2,18 @@ Option Strict Off
 Option Explicit On
 
 Friend Class frmEditPlayers
-    Inherits System.Windows.Forms.Form
-    
+    Inherits Form
+
     ' -------------------------------------------------------------------------------
     ' Dart Scorekeeper
-    ' Written by Matthew Monroe in Chapel Hill, NC
     '
-    ' Program started July 31, 1999
+    ' Written by Matthew Monroe
+    ' Started in July 1999
+    ' Ported to .NET in 2011
     '
-    ' E-mail: matt@alchemistmatt.com or alchemistmatt@yahoo.com
-    ' Websites: http://www.alchemistmatt.com/
-    '           http://www.geocities.com/alchemistmatt/
-    '           http://come.to/alchemistmatt/
+    ' E-mail: monroem@gmail.com or alchemistmatt@yahoo.com
+    ' Repository: https://github.com/alchemistmatt
+    '
     ' -------------------------------------------------------------------------------
     '
     ' Licensed under the Apache License, Version 2.0; you may not use this file except
@@ -81,7 +81,7 @@ Friend Class frmEditPlayers
 
     End Sub
 
-    Private Sub cmdAddPlayer_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdAddPlayer.Click
+    Private Sub cmdAddPlayer_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdAddPlayer.Click
 
         Try
 
@@ -102,17 +102,17 @@ Friend Class frmEditPlayers
 
     End Sub
 
-    Private Sub cmdCancel_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdCancel.Click
-        Dim eResponse As Windows.Forms.DialogResult
+    Private Sub cmdCancel_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdCancel.Click
+        Dim eResponse As DialogResult
         Dim x As Short
 
         Try
 
             If mPlayerListChangedLocal Then
                 ' Abort changes by copying data from save array
-                eResponse = System.Windows.Forms.MessageBox.Show("Are you sure you want to cancel any changes made?", "Cancel", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
+                eResponse = MessageBox.Show("Are you sure you want to cancel any changes made?", "Cancel", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
 
-                If eResponse <> Windows.Forms.DialogResult.Yes Then
+                If eResponse <> DialogResult.Yes Then
                     Exit Sub
                 End If
 
@@ -131,17 +131,17 @@ Friend Class frmEditPlayers
 
     End Sub
 
-    Private Sub cmdClose_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdClose.Click
+    Private Sub cmdClose_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdClose.Click
         SaveChanges()
         Me.Close()
 
     End Sub
 
-    Private Sub cmdEdit_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdEdit.Click
+    Private Sub cmdEdit_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdEdit.Click
         EditPlayer()
     End Sub
 
-    Private Sub cmdRemove_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdRemove.Click
+    Private Sub cmdRemove_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdRemove.Click
 
         Try
             If lstPlayers.SelectedIndex >= 0 Then
@@ -149,21 +149,21 @@ Friend Class frmEditPlayers
                 mPlayerListChangedLocal = True
             End If
 
-            System.Windows.Forms.Application.DoEvents()
+            Application.DoEvents()
         Catch ex As Exception
             HandleException("frmEditPlayers.cmdRemove_click", ex)
         End Try
 
     End Sub
 
-    Private Sub frmEditPlayers_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
+    Private Sub frmEditPlayers_Load(eventSender As Object, eventArgs As EventArgs) Handles MyBase.Load
         Dim x As Short
 
         Try
 
             ' Position form in window
-            Me.Left = (System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width - Me.Width) / 2
-            Me.Top = (System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height - Me.Height) / 3
+            Me.Left = (Screen.PrimaryScreen.Bounds.Width - Me.Width) / 2
+            Me.Top = (Screen.PrimaryScreen.Bounds.Height - Me.Height) / 3
 
             ReDim mPlayersSave(MAX_PLAYER_COUNT)
             For x = 0 To glbPlayerCount
@@ -183,8 +183,8 @@ Friend Class frmEditPlayers
         End Try
 
     End Sub
-    
-    Private Sub lstPlayers_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstPlayers.DoubleClick
-        EditPlayer()        
+
+    Private Sub lstPlayers_DoubleClick(eventSender As Object, eventArgs As EventArgs) Handles lstPlayers.DoubleClick
+        EditPlayer()
     End Sub
 End Class

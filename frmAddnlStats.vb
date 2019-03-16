@@ -1,49 +1,50 @@
 Option Strict Off
 Option Explicit On
-'Imports VB = Microsoft.VisualBasic
+
+Imports System.Collections.Generic 'Imports VB = Microsoft.VisualBasic
 
 Friend Class frmAddnlStats
-    Inherits System.Windows.Forms.Form
-    
+    Inherits Form
+
     ' -------------------------------------------------------------------------------
     ' Dart Scorekeeper
-    ' Written by Matthew Monroe in Chapel Hill, NC
     '
-    ' Program started July 31, 1999
+    ' Written by Matthew Monroe
+    ' Started in July 1999
+    ' Ported to .NET in 2011
     '
-    ' E-mail: matt@alchemistmatt.com or alchemistmatt@yahoo.com
-    ' Websites: http://www.alchemistmatt.com/
-    '           http://www.geocities.com/alchemistmatt/
-    '           http://come.to/alchemistmatt/
+    ' E-mail: monroem@gmail.com or alchemistmatt@yahoo.com
+    ' Repository: https://github.com/alchemistmatt
+    '
     ' -------------------------------------------------------------------------------
     '
     ' Licensed under the Apache License, Version 2.0; you may not use this file except
     ' in compliance with the License.  You may obtain a copy of the License at
     ' http://www.apache.org/licenses/LICENSE-2.0
-    
-    Private Const UNDEFINED_DATE As System.DateTime = #1/1/1901#
+
+    Private Const UNDEFINED_DATE As DateTime = #1/1/1901#
 
 #Region "Module-wide variables"
     Private mStatsModeSaved As Short ' Nominally of type frmStatOptionsDialog.smStatsMode, but initially - 1
     Private mUpdatingLists As Boolean
     Private mSettingDate As Boolean
 
-    Private mDateStart As System.DateTime
-    Private mDateEnd As System.DateTime
+    Private mDateStart As DateTime
+    Private mDateEnd As DateTime
 
     Private mGameDatesCount As Integer
-    Private mGameDatesUnique() As System.DateTime ' 0-based array
+    Private mGameDatesUnique() As DateTime ' 0-based array
 
     Private mStatsMode As frmStatOptionsDialog.smStatsMode
 
     Private mFormLoaded As Boolean
 #End Region
 
-    Private Sub FindMatchingGames(ByRef objStats As frmPlayerStats.udtGeneralExtendedStats, _
-                                  ByVal dtMatchDate As System.DateTime, _
-                                  ByRef lngTotalScore As Integer, _
-                                  ByRef lngTotalThrowCount As Integer, _
-                                  ByRef dtGameDates As System.Collections.Generic.SortedList(Of System.DateTime, Boolean), _
+    Private Sub FindMatchingGames(ByRef objStats As frmPlayerStats.udtGeneralExtendedStats,
+                                  dtMatchDate As DateTime,
+                                  ByRef lngTotalScore As Integer,
+                                  ByRef lngTotalThrowCount As Integer,
+                                  ByRef dtGameDates As SortedList(Of DateTime, Boolean),
                                   Optional ByVal blnFindDateRange As Boolean = True)
 
 
@@ -74,24 +75,24 @@ Friend Class frmAddnlStats
 
     End Sub
 
-    Private Function GetCurrentMatchDate() As System.DateTime
-        Dim dtMatchDate As System.DateTime
+    Private Function GetCurrentMatchDate() As DateTime
+        Dim dtMatchDate As DateTime
         Dim intDayOfMonth As Short
 
-        dtMatchDate = System.DateTime.Now
+        dtMatchDate = DateTime.Now
 
         If cboYear.SelectedIndex >= 0 And cboMonth.SelectedIndex >= 0 Then
             If Not Short.TryParse(txtDayOfMonth.Text, intDayOfMonth) Then
                 intDayOfMonth = 1
             End If
-            dtMatchDate = New System.DateTime(cboYear.Text, MonthAbbrevToNum(cboMonth.Text), intDayOfMonth)
+            dtMatchDate = New DateTime(cboYear.Text, MonthAbbrevToNum(cboMonth.Text), intDayOfMonth)
         End If
 
         Return dtMatchDate
 
     End Function
 
-    Public Sub InitForm(ByVal eStatsMode As frmStatOptionsDialog.smStatsMode)
+    Public Sub InitForm(eStatsMode As frmStatOptionsDialog.smStatsMode)
 
         mStatsMode = eStatsMode
 
@@ -117,14 +118,14 @@ Friend Class frmAddnlStats
 
     End Sub
 
-    Private Function MonthAbbrevToNum(ByVal strMonthAbbreviation As String) As Integer       
+    Private Function MonthAbbrevToNum(strMonthAbbreviation As String) As Integer
 
-        Dim dtDate As System.DateTime
+        Dim dtDate As DateTime
 
         ' strMonthAbbreviation should be the 3-letter abbreviation for a month
         ' Use TryParse to populate dtDate, then extract out the integer of the month
 
-        If System.DateTime.TryParse(strMonthAbbreviation & " 2010", dtDate) Then
+        If DateTime.TryParse(strMonthAbbreviation & " 2010", dtDate) Then
             Return dtDate.Month
         Else
             Return 1
@@ -134,9 +135,9 @@ Friend Class frmAddnlStats
 
     Private Sub PopulateComboBoxes()
         Dim intIndex As Short
-        Dim dtStart As System.DateTime
+        Dim dtStart As DateTime
 
-        Dim dtCurrentMatchDate As System.DateTime
+        Dim dtCurrentMatchDate As DateTime
 
         Static blnUpdatingDate As Boolean
 
@@ -146,8 +147,8 @@ Friend Class frmAddnlStats
         blnUpdatingDate = True
 
         If mDateStart <= UNDEFINED_DATE Then
-            mDateStart = System.DateTime.Now
-            mDateEnd = System.DateTime.Now
+            mDateStart = DateTime.Now
+            mDateEnd = DateTime.Now
 
             cboGameDates.Items.Clear()
             cboGameDates.Items.Add(mDateStart.ToString("yyyy-MMM-dd"))
@@ -176,7 +177,7 @@ Friend Class frmAddnlStats
                     .SelectedIndex = .Items.Count - 1
                 End If
 
-                dtStart = DateAdd(Microsoft.VisualBasic.DateInterval.Month, 1, dtStart)
+                dtStart = DateAdd(DateInterval.Month, 1, dtStart)
             Next intIndex
             If .SelectedIndex < 0 Then .SelectedIndex = 0
         End With
@@ -194,12 +195,12 @@ Friend Class frmAddnlStats
         cboStatsToShow.Items.Add("All Games") ' 3
     End Sub
 
-    Private Sub SetGameStatsDate(ByVal strDate As String)
+    Private Sub SetGameStatsDate(strDate As String)
 
-        Dim dtNewDate As System.DateTime
+        Dim dtNewDate As DateTime
 
         Try
-            If System.DateTime.TryParse(strDate, dtNewDate) Then
+            If DateTime.TryParse(strDate, dtNewDate) Then
 
                 mSettingDate = True
 
@@ -263,7 +264,7 @@ Friend Class frmAddnlStats
         Me.Width = lngFormWidth
     End Sub
 
-    Private Sub SortLists(ByRef ThisList As System.Windows.Forms.ListBox)
+    Private Sub SortLists(ByRef ThisList As ListBox)
         Dim x, y As Short
         Dim PointerArray(MAX_PLAYER_COUNT) As Short
         Dim SwapThem, NumericCompare As Boolean
@@ -271,8 +272,8 @@ Friend Class frmAddnlStats
         Dim SwapValue As Short
 
 
-        Dim objThisControl As System.Windows.Forms.Control
-        Dim objThisListBox As System.Windows.Forms.ListBox
+        Dim objThisControl As Control
+        Dim objThisListBox As ListBox
 
         Dim blnSortReverse As Boolean
         blnSortReverse = chkReverseSort.Checked
@@ -304,7 +305,7 @@ Friend Class frmAddnlStats
             Next x
 
             For Each objThisControl In Me.Controls
-                If TypeOf objThisControl Is System.Windows.Forms.ListBox Then
+                If TypeOf objThisControl Is ListBox Then
                     ' After sort completes, Actually rearrange the lists
                     objThisListBox = CType(objThisControl, ListControl)
 
@@ -329,13 +330,13 @@ Friend Class frmAddnlStats
 
     End Sub
 
-    Private Sub SynchronizeLists(ByRef objListBox As System.Windows.Forms.ListBox)
-        Dim objThisControl As System.Windows.Forms.Control
+    Private Sub SynchronizeLists(ByRef objListBox As ListBox)
+        Dim objThisControl As Control
 
         For Each objThisControl In Me.Controls
-            If TypeOf objThisControl Is System.Windows.Forms.ListBox Then
+            If TypeOf objThisControl Is ListBox Then
                 If objThisControl.Name <> objListBox.Name Then
-                    CType(objThisControl, System.Windows.Forms.ListBox).TopIndex = objListBox.TopIndex
+                    CType(objThisControl, ListBox).TopIndex = objListBox.TopIndex
                 End If
             End If
         Next objThisControl
@@ -358,14 +359,14 @@ Friend Class frmAddnlStats
 
         Dim eStatsMode As frmStatOptionsDialog.smStatsMode
 
-        Dim dtGameDates As New System.Collections.Generic.SortedList(Of System.DateTime, Boolean)
+        Dim dtGameDates As New SortedList(Of DateTime, Boolean)
 
         Dim intRowIndexSaved As Short
         Dim lngAllTimeDartsThrownWithoutGolf As Integer
         Dim lngAllTimeTotalScoreWithoutGolf As Integer
 
-        Dim dtMatchDate As System.DateTime
-        Dim objThisControl As System.Windows.Forms.Control
+        Dim dtMatchDate As DateTime
+        Dim objThisControl As Control
 
         Dim udtCurrentPlayerStats As frmPlayerStats.udtPlayerStatsParsed
 
@@ -377,8 +378,8 @@ Friend Class frmAddnlStats
             intRowIndexSaved = lstPlayers.SelectedIndex
 
             For Each objThisControl In Me.Controls
-                If TypeOf objThisControl Is System.Windows.Forms.ListBox Then
-                    CType(objThisControl, System.Windows.Forms.ListBox).Items.Clear()
+                If TypeOf objThisControl Is ListBox Then
+                    CType(objThisControl, ListBox).Items.Clear()
                 End If
             Next objThisControl
 
@@ -443,7 +444,7 @@ Friend Class frmAddnlStats
 
                     If lngAllTimeDartsThrownWithoutGolf > 0 And eStatsMode <> frmStatOptionsDialog.smStatsMode.Golf Then
                         AllTimeAverageScore = lngAllTimeTotalScoreWithoutGolf / lngAllTimeDartsThrownWithoutGolf
-                        lstMeanScorePerThrow.Items.Add(CStr(System.Math.Round(AllTimeAverageScore, 1)))
+                        lstMeanScorePerThrow.Items.Add(CStr(Math.Round(AllTimeAverageScore, 1)))
                     Else
                         lstMeanScorePerThrow.Items.Add("")
                     End If
@@ -469,7 +470,7 @@ Friend Class frmAddnlStats
                 End If
 
                 If lngTotalThrowCount > 0 Then
-                    lstMeanScorePerThrowPerDay.Items.Add(CheckForZeroSng(System.Math.Round(lngTotalScore / CSng(lngTotalThrowCount), 1)))
+                    lstMeanScorePerThrowPerDay.Items.Add(CheckForZeroSng(Math.Round(lngTotalScore / CSng(lngTotalThrowCount), 1)))
                 Else
                     lstMeanScorePerThrowPerDay.Items.Add("")
                 End If
@@ -485,7 +486,7 @@ Friend Class frmAddnlStats
                     lstGolfLowestGameScore.Items.Add(CheckForInfinity(.LowestScoringGame))
                     lstGolfHighestGameScore.Items.Add(CheckForInfinity(.HighestScoringGame))
                     If .GameCount > 0 Then
-                        lstGolfAverageGameScore.Items.Add(CStr(System.Math.Round(.TotalPointsAllGames / .GameCount, 1)))
+                        lstGolfAverageGameScore.Items.Add(CStr(Math.Round(.TotalPointsAllGames / .GameCount, 1)))
                     Else
                         lstGolfAverageGameScore.Items.Add("")
                     End If
@@ -502,7 +503,7 @@ Friend Class frmAddnlStats
                     ReDim mGameDatesUnique(dtGameDates.Count - 1)
 
                     ' Populate GameDatesUnique
-                    For Each objDate As System.DateTime In dtGameDates.Keys
+                    For Each objDate As DateTime In dtGameDates.Keys
                         mGameDatesUnique(mGameDatesCount) = objDate
                         mGameDatesCount += 1
                     Next
@@ -592,13 +593,13 @@ Friend Class frmAddnlStats
 
     End Sub
 
-    Private Sub cboGameDates_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboGameDates.SelectedIndexChanged
+    Private Sub cboGameDates_SelectedIndexChanged(eventSender As Object, eventArgs As EventArgs) Handles cboGameDates.SelectedIndexChanged
         If mFormLoaded Then
             SetGameStatsDate(cboGameDates.Text)
         End If
     End Sub
 
-    Private Sub cboMonth_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboMonth.SelectedIndexChanged
+    Private Sub cboMonth_SelectedIndexChanged(eventSender As Object, eventArgs As EventArgs) Handles cboMonth.SelectedIndexChanged
         If mFormLoaded Then
             Try
                 objCalendar.Month = cboMonth.SelectedIndex + 1
@@ -610,14 +611,14 @@ Friend Class frmAddnlStats
         End If
     End Sub
 
-    Private Sub cboStatsToShow_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboStatsToShow.SelectedIndexChanged
+    Private Sub cboStatsToShow_SelectedIndexChanged(eventSender As Object, eventArgs As EventArgs) Handles cboStatsToShow.SelectedIndexChanged
         If mFormLoaded Then
             ' Allow choosing of any game type
             UpdateLists()
         End If
     End Sub
 
-    Private Sub cboYear_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboYear.SelectedIndexChanged
+    Private Sub cboYear_SelectedIndexChanged(eventSender As Object, eventArgs As EventArgs) Handles cboYear.SelectedIndexChanged
         If mFormLoaded Then
             Try
                 objCalendar.Year = cboYear.Text
@@ -629,11 +630,11 @@ Friend Class frmAddnlStats
         End If
     End Sub
 
-    Private Sub cmdok_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdOK.Click
+    Private Sub cmdok_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdOK.Click
         Me.Close()
     End Sub
 
-    Private Sub cmdSelectDate_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdSelectDate.Click
+    Private Sub cmdSelectDate_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdSelectDate.Click
         objCalendar.Visible = Not objCalendar.Visible
         If objCalendar.Visible Then
             cmdSelectDate.Text = "&Hide Calendar"
@@ -708,11 +709,11 @@ Friend Class frmAddnlStats
         SynchronizeLists(lstShortestWinningGame)
     End Sub
 
-    Private Sub objCalendar_ClickEvent(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles objCalendar.ClickEvent
+    Private Sub objCalendar_ClickEvent(eventSender As Object, eventArgs As EventArgs) Handles objCalendar.ClickEvent
         ValidateSelectedDate()
     End Sub
 
-    Private Sub frmAddnlStats_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
+    Private Sub frmAddnlStats_Load(eventSender As Object, eventArgs As EventArgs) Handles MyBase.Load
         mStatsModeSaved = -1
 
         If cboStatsToShow.Items.Count = 0 Then
@@ -720,140 +721,140 @@ Friend Class frmAddnlStats
         End If
 
         ' Position form in window
-        Me.Left = (System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width - Me.Width) / 3
-        Me.Top = (System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height - Me.Height) / 3
+        Me.Left = (Screen.PrimaryScreen.Bounds.Width - Me.Width) / 3
+        Me.Top = (Screen.PrimaryScreen.Bounds.Height - Me.Height) / 3
 
         mFormLoaded = True
     End Sub
 
-    Private Sub lbl301GamesLostWithoutDoublingIn_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lbl301GamesLostWithoutDoublingIn.Click
+    Private Sub lbl301GamesLostWithoutDoublingIn_Click(eventSender As Object, eventArgs As EventArgs) Handles lbl301GamesLostWithoutDoublingIn.Click
         SortLists(lst301GamesLostWithoutDoublingIn)
     End Sub
 
-    Private Sub lbl301MostUntilDoubleIn_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lbl301MostUntilDoubleIn.Click
+    Private Sub lbl301MostUntilDoubleIn_Click(eventSender As Object, eventArgs As EventArgs) Handles lbl301MostUntilDoubleIn.Click
         SortLists(lst301MostUntilDoubleIn)
     End Sub
 
-    Private Sub lblGolfAverageGameScore_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lblGolfAverageGameScore.Click
+    Private Sub lblGolfAverageGameScore_Click(eventSender As Object, eventArgs As EventArgs) Handles lblGolfAverageGameScore.Click
         SortLists(lstGolfAverageGameScore)
     End Sub
 
-    Private Sub lblGolfHighestGameScore_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lblGolfHighestGameScore.Click
+    Private Sub lblGolfHighestGameScore_Click(eventSender As Object, eventArgs As EventArgs) Handles lblGolfHighestGameScore.Click
         SortLists(lstGolfHighestGameScore)
     End Sub
 
-    Private Sub lblGolfLowestGameScore_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lblGolfLowestGameScore.Click
+    Private Sub lblGolfLowestGameScore_Click(eventSender As Object, eventArgs As EventArgs) Handles lblGolfLowestGameScore.Click
         SortLists(lstGolfLowestGameScore)
     End Sub
 
-    Private Sub lblHighestScoringFirstTurn_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lblHighestScoringFirstTurn.Click
+    Private Sub lblHighestScoringFirstTurn_Click(eventSender As Object, eventArgs As EventArgs) Handles lblHighestScoringFirstTurn.Click
         SortLists(lstHighestScoringFirstTurn)
     End Sub
 
-    Private Sub lblHighScoreTurn_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lblHighScoreTurn.Click
+    Private Sub lblHighScoreTurn_Click(eventSender As Object, eventArgs As EventArgs) Handles lblHighScoreTurn.Click
         SortLists(lstHighScoreTurn)
     End Sub
 
-    Private Sub lblLongestScoringDrought_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lblLongestScoringDrought.Click
+    Private Sub lblLongestScoringDrought_Click(eventSender As Object, eventArgs As EventArgs) Handles lblLongestScoringDrought.Click
         SortLists(lstLongestScoringDrought)
     End Sub
 
-    Private Sub lblLongestWinningGameLength_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lblLongestWinningGameLength.Click
+    Private Sub lblLongestWinningGameLength_Click(eventSender As Object, eventArgs As EventArgs) Handles lblLongestWinningGameLength.Click
         SortLists(lstLongestWinningGame)
     End Sub
 
-    Private Sub lblMeanScorePerThrow_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lblMeanScorePerThrow.Click
+    Private Sub lblMeanScorePerThrow_Click(eventSender As Object, eventArgs As EventArgs) Handles lblMeanScorePerThrow.Click
         SortLists(lstMeanScorePerThrow)
     End Sub
 
-    Private Sub lblMeanScorePerThrowPerDay_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lblMeanScorePerThrowPerDay.Click
+    Private Sub lblMeanScorePerThrowPerDay_Click(eventSender As Object, eventArgs As EventArgs) Handles lblMeanScorePerThrowPerDay.Click
         SortLists(lstMeanScorePerThrowPerDay)
     End Sub
 
-    Private Sub lblPlayer_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lblPlayer.Click
+    Private Sub lblPlayer_Click(eventSender As Object, eventArgs As EventArgs) Handles lblPlayer.Click
         SortLists(lstPlayers)
     End Sub
 
-    Private Sub lblShortestGameLength_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lblShortestGameLength.Click
+    Private Sub lblShortestGameLength_Click(eventSender As Object, eventArgs As EventArgs) Handles lblShortestGameLength.Click
         SortLists(lstShortestWinningGame)
     End Sub
 
-    Private Sub lst301GamesLostWithoutDoublingIn_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lst301GamesLostWithoutDoublingIn.SelectedIndexChanged
+    Private Sub lst301GamesLostWithoutDoublingIn_SelectedIndexChanged(eventSender As Object, eventArgs As EventArgs) Handles lst301GamesLostWithoutDoublingIn.SelectedIndexChanged
         If mFormLoaded Then
             lstPlayers.SelectedIndex = lst301GamesLostWithoutDoublingIn.SelectedIndex
         End If
     End Sub
 
-    Private Sub lst301MostUntilDoubleIn_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lst301MostUntilDoubleIn.SelectedIndexChanged
+    Private Sub lst301MostUntilDoubleIn_SelectedIndexChanged(eventSender As Object, eventArgs As EventArgs) Handles lst301MostUntilDoubleIn.SelectedIndexChanged
         If mFormLoaded Then
             lstPlayers.SelectedIndex = lst301MostUntilDoubleIn.SelectedIndex
         End If
     End Sub
 
-    Private Sub lstGolfAverageGameScore_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstGolfAverageGameScore.SelectedIndexChanged
+    Private Sub lstGolfAverageGameScore_SelectedIndexChanged(eventSender As Object, eventArgs As EventArgs) Handles lstGolfAverageGameScore.SelectedIndexChanged
         If mFormLoaded Then
             lstPlayers.SelectedIndex = lstGolfAverageGameScore.SelectedIndex
         End If
     End Sub
 
-    Private Sub lstGolfHighestGameScore_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstGolfHighestGameScore.SelectedIndexChanged
+    Private Sub lstGolfHighestGameScore_SelectedIndexChanged(eventSender As Object, eventArgs As EventArgs) Handles lstGolfHighestGameScore.SelectedIndexChanged
         If mFormLoaded Then
             lstPlayers.SelectedIndex = lstGolfHighestGameScore.SelectedIndex
         End If
     End Sub
 
-    Private Sub lstGolfLowestGameScore_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstGolfLowestGameScore.SelectedIndexChanged
+    Private Sub lstGolfLowestGameScore_SelectedIndexChanged(eventSender As Object, eventArgs As EventArgs) Handles lstGolfLowestGameScore.SelectedIndexChanged
         If mFormLoaded Then
             lstPlayers.SelectedIndex = lstGolfLowestGameScore.SelectedIndex
         End If
     End Sub
 
-    Private Sub lstHighestScoringFirstTurn_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstHighestScoringFirstTurn.SelectedIndexChanged
+    Private Sub lstHighestScoringFirstTurn_SelectedIndexChanged(eventSender As Object, eventArgs As EventArgs) Handles lstHighestScoringFirstTurn.SelectedIndexChanged
         If mFormLoaded Then
             lstPlayers.SelectedIndex = lstHighestScoringFirstTurn.SelectedIndex
         End If
     End Sub
 
-    Private Sub lstHighScoreTurn_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstHighScoreTurn.SelectedIndexChanged
+    Private Sub lstHighScoreTurn_SelectedIndexChanged(eventSender As Object, eventArgs As EventArgs) Handles lstHighScoreTurn.SelectedIndexChanged
         If mFormLoaded Then
             lstPlayers.SelectedIndex = lstHighScoreTurn.SelectedIndex
         End If
     End Sub
 
-    Private Sub lstLongestScoringDrought_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstLongestScoringDrought.SelectedIndexChanged
+    Private Sub lstLongestScoringDrought_SelectedIndexChanged(eventSender As Object, eventArgs As EventArgs) Handles lstLongestScoringDrought.SelectedIndexChanged
         If mFormLoaded Then
             lstPlayers.SelectedIndex = lstLongestScoringDrought.SelectedIndex
         End If
     End Sub
 
-    Private Sub lstLongestWinningGame_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstLongestWinningGame.SelectedIndexChanged
+    Private Sub lstLongestWinningGame_SelectedIndexChanged(eventSender As Object, eventArgs As EventArgs) Handles lstLongestWinningGame.SelectedIndexChanged
         If mFormLoaded Then
             lstPlayers.SelectedIndex = lstLongestWinningGame.SelectedIndex
         End If
     End Sub
 
-    Private Sub lstMeanScorePerThrow_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstMeanScorePerThrow.SelectedIndexChanged
+    Private Sub lstMeanScorePerThrow_SelectedIndexChanged(eventSender As Object, eventArgs As EventArgs) Handles lstMeanScorePerThrow.SelectedIndexChanged
         If mFormLoaded Then
             lstPlayers.SelectedIndex = lstMeanScorePerThrow.SelectedIndex
         End If
     End Sub
 
-    Private Sub lstMeanScorePerThrowPerDay_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstMeanScorePerThrowPerDay.SelectedIndexChanged
+    Private Sub lstMeanScorePerThrowPerDay_SelectedIndexChanged(eventSender As Object, eventArgs As EventArgs) Handles lstMeanScorePerThrowPerDay.SelectedIndexChanged
         If mFormLoaded Then
             lstPlayers.SelectedIndex = lstMeanScorePerThrowPerDay.SelectedIndex
         End If
     End Sub
 
-    Private Sub lstPlayers_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstPlayers.SelectedIndexChanged
+    Private Sub lstPlayers_SelectedIndexChanged(eventSender As Object, eventArgs As EventArgs) Handles lstPlayers.SelectedIndexChanged
 
-        Dim objThisControl As System.Windows.Forms.Control
+        Dim objThisControl As Control
 
         If mFormLoaded Then
 
             For Each objThisControl In Me.Controls
-                If TypeOf objThisControl Is System.Windows.Forms.ListBox Then
+                If TypeOf objThisControl Is ListBox Then
                     If objThisControl.Name <> "lstPlayers" Then
-                        CType(objThisControl, System.Windows.Forms.ListBox).SelectedIndex = lstPlayers.SelectedIndex
+                        CType(objThisControl, ListBox).SelectedIndex = lstPlayers.SelectedIndex
                     End If
                 End If
             Next objThisControl
@@ -861,13 +862,13 @@ Friend Class frmAddnlStats
 
     End Sub
 
-    Private Sub lstShortestWinningGame_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstShortestWinningGame.SelectedIndexChanged
+    Private Sub lstShortestWinningGame_SelectedIndexChanged(eventSender As Object, eventArgs As EventArgs) Handles lstShortestWinningGame.SelectedIndexChanged
         If mFormLoaded Then
             lstPlayers.SelectedIndex = lstShortestWinningGame.SelectedIndex
         End If
     End Sub
 
-    Private Sub txtDayOfMonth_TextChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles txtDayOfMonth.TextChanged
+    Private Sub txtDayOfMonth_TextChanged(eventSender As Object, eventArgs As EventArgs) Handles txtDayOfMonth.TextChanged
 
         Dim intDayOfMonth As Short
 
@@ -894,7 +895,7 @@ Friend Class frmAddnlStats
 
     End Sub
 
-    Private Sub txtDayOfMonth_KeyPress(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.KeyPressEventArgs) Handles txtDayOfMonth.KeyPress
+    Private Sub txtDayOfMonth_KeyPress(eventSender As Object, eventArgs As KeyPressEventArgs) Handles txtDayOfMonth.KeyPress
         TextBoxKeyPressHandler(txtDayOfMonth, eventArgs, True, False)
     End Sub
 End Class

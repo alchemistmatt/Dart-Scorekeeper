@@ -1,20 +1,21 @@
 Option Strict Off
 Option Explicit On
-'Imports VB = Microsoft.VisualBasic
+
+Imports System.IO 'Imports VB = Microsoft.VisualBasic
 
 Friend Class frmDarts
-    Inherits System.Windows.Forms.Form
+    Inherits Form
 
     ' -------------------------------------------------------------------------------
     ' Dart Scorekeeper
-    ' Written by Matthew Monroe in Chapel Hill, NC
     '
-    ' Program started July 31, 1999
+    ' Written by Matthew Monroe
+    ' Started in July 1999
+    ' Ported to .NET in 2011
     '
-    ' E-mail: matt@alchemistmatt.com or alchemistmatt@yahoo.com
-    ' Websites: http://www.alchemistmatt.com/
-    '           http://www.geocities.com/alchemistmatt/
-    '           http://come.to/alchemistmatt/
+    ' E-mail: monroem@gmail.com or alchemistmatt@yahoo.com
+    ' Repository: https://github.com/alchemistmatt
+    '
     ' -------------------------------------------------------------------------------
     '
     ' Licensed under the Apache License, Version 2.0; you may not use this file except
@@ -46,7 +47,7 @@ Friend Class frmDarts
         glbScoreFontSize = DEFAULT_SCORE_FONT_SIZE
         glbBoolPlayWaveFileForPlayer = True
         glbMinimumScoreToPlaySound = 60
-        modDarts.glbDartBoardSizeVal = modDarts.bsBoardSizeConstants.bsMedium
+        glbDartBoardSizeVal = bsBoardSizeConstants.bsMedium
 
         UpdateDartBoardSize()
     End Sub
@@ -61,11 +62,11 @@ Friend Class frmDarts
             HandleException("frmMain.ShowPlayerStats", ex)
         End Try
 
-        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+        Cursor.Current = Cursors.Default
     End Sub
 
-    Public Sub StartNewGameType(ByVal eGameTypeNewGame As gtGameTypeConstants)
-        Dim eResponse As Windows.Forms.DialogResult
+    Public Sub StartNewGameType(eGameTypeNewGame As gtGameTypeConstants)
+        Dim eResponse As DialogResult
         Dim eCurrentGameType As gtGameTypeConstants
         Dim strMessage As String
 
@@ -81,7 +82,7 @@ Friend Class frmDarts
                     If Not frmCricket.CheckForGameOver(True) Then
                         strMessage = "A " & LookupGameStringByType(eCurrentGameType) & " game is currently in progress.  Abort game and start a new game of " & LookupGameStringByType(eGameTypeNewGame) & "?"
 
-                        eResponse = System.Windows.Forms.MessageBox.Show(strMessage, "Game in Progress", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
+                        eResponse = MessageBox.Show(strMessage, "Game in Progress", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
 
                         If eResponse <> DialogResult.Yes Then
                             Exit Sub
@@ -109,37 +110,37 @@ Friend Class frmDarts
 
     End Sub
 
-    Private Sub cmdExit_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdExit.Click
+    Private Sub cmdExit_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdExit.Click
         EndProgram()
     End Sub
 
-    Private Sub cmdGolf_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdGolf.Click
-        StartNewGameType(modDarts.gtGameTypeConstants.gtGolf)
+    Private Sub cmdGolf_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdGolf.Click
+        StartNewGameType(gtGameTypeConstants.gtGolf)
     End Sub
 
-    Private Sub cmdPlay301_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdPlay301.Click
-        StartNewGameType(modDarts.gtGameTypeConstants.gt301)
+    Private Sub cmdPlay301_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdPlay301.Click
+        StartNewGameType(gtGameTypeConstants.gt301)
     End Sub
 
-    Private Sub cmdPlayCricket_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdPlayCricket.Click
-        StartNewGameType(modDarts.gtGameTypeConstants.gtCricket)
+    Private Sub cmdPlayCricket_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdPlayCricket.Click
+        StartNewGameType(gtGameTypeConstants.gtCricket)
     End Sub
 
-    Private Sub cmdShowStats_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdShowStats.Click
+    Private Sub cmdShowStats_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdShowStats.Click
         ShowPlayerStats()
     End Sub
 
     'UPGRADE_WARNING: Form event frmDarts.Activate has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
-    Private Sub frmDarts_Activated(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Activated
-        Dim LabelColor As System.Drawing.Color
+    Private Sub frmDarts_Activated(eventSender As Object, eventArgs As EventArgs) Handles MyBase.Activated
+        Dim LabelColor As Color
 
         Try
-            LabelColor = System.Drawing.Color.Black
+            LabelColor = Color.Black
 
             lblDatePhrase.Text = DateLabelText(LabelColor)
             lblDatePhrase.ForeColor = LabelColor
 
-            If Me.WindowState <> System.Windows.Forms.FormWindowState.Minimized Then
+            If Me.WindowState <> FormWindowState.Minimized Then
                 If lblDatePhrase.Text.Length > 45 Then
                     lblDatePhrase.Width = 333
                     Me.Width = 360
@@ -155,12 +156,12 @@ Friend Class frmDarts
 
     End Sub
 
-    Private Sub frmDarts_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
+    Private Sub frmDarts_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         ' Save players and number of hits in Darts.ini file
         frmOptions.WriteIniFile(False)
     End Sub
 
-    Private Sub frmDarts_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
+    Private Sub frmDarts_Load(eventSender As Object, eventArgs As EventArgs) Handles MyBase.Load
 
         Try
 
@@ -169,17 +170,17 @@ Friend Class frmDarts
             Me.Height = 253             ' 3800 Twips
 
             ' Center form in window
-            Me.Left = (System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width - Me.Width) / 2
-            Me.Top = (System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height - Me.Height) / 2
+            Me.Left = (Screen.PrimaryScreen.Bounds.Width - Me.Width) / 2
+            Me.Top = (Screen.PrimaryScreen.Bounds.Height - Me.Height) / 2
 
             ' Reserve memory for arrays
             ReserveMemoryForGlobalArrays()
 
             SetDefaultOptions()
 
-            IniFilePath = System.IO.Path.Combine(GetAppDataFolderPath, "Darts.ini")
-            StatsFileNameBase = System.IO.Path.Combine(GetAppDataFolderPath, "Stats")
-            StatsExtendedFilenameBase = System.IO.Path.Combine(GetAppDataFolderPath, "StatsExtd")
+            IniFilePath = Path.Combine(GetAppDataFolderPath, "Darts.ini")
+            StatsFileNameBase = Path.Combine(GetAppDataFolderPath, "Stats")
+            StatsExtendedFilenameBase = Path.Combine(GetAppDataFolderPath, "StatsExtd")
 
             frmOptions.ReadIniFile()
 
@@ -189,11 +190,11 @@ Friend Class frmDarts
 
     End Sub
 
-    Public Sub mnu301_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnu301.Click
-        StartNewGameType(modDarts.gtGameTypeConstants.gt301)
+    Public Sub mnu301_Click(eventSender As Object, eventArgs As EventArgs) Handles mnu301.Click
+        StartNewGameType(gtGameTypeConstants.gt301)
     End Sub
 
-    Public Sub mnuAbout_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuAbout.Click
+    Public Sub mnuAbout_Click(eventSender As Object, eventArgs As EventArgs) Handles mnuAbout.Click
 
         Try
             frmAbout.ShowDialog()
@@ -206,11 +207,11 @@ Friend Class frmDarts
 
     End Sub
 
-    Public Sub mnuCricket_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuCricket.Click
-        StartNewGameType(modDarts.gtGameTypeConstants.gtCricket)
+    Public Sub mnuCricket_Click(eventSender As Object, eventArgs As EventArgs) Handles mnuCricket.Click
+        StartNewGameType(gtGameTypeConstants.gtCricket)
     End Sub
 
-    Public Sub mnuEditPlayers_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuEditPlayers.Click
+    Public Sub mnuEditPlayers_Click(eventSender As Object, eventArgs As EventArgs) Handles mnuEditPlayers.Click
 
         Try
             frmEditPlayers.ShowDialog()
@@ -227,15 +228,15 @@ Friend Class frmDarts
 
     End Sub
 
-    Public Sub mnuExit_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuExit.Click
+    Public Sub mnuExit_Click(eventSender As Object, eventArgs As EventArgs) Handles mnuExit.Click
         EndProgram()
     End Sub
 
-    Public Sub mnuGolf_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuGolf.Click
-        StartNewGameType(modDarts.gtGameTypeConstants.gtGolf)
+    Public Sub mnuGolf_Click(eventSender As Object, eventArgs As EventArgs) Handles mnuGolf.Click
+        StartNewGameType(gtGameTypeConstants.gtGolf)
     End Sub
 
-    Public Sub mnuProgramOptions_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuProgramOptions.Click
+    Public Sub mnuProgramOptions_Click(eventSender As Object, eventArgs As EventArgs) Handles mnuProgramOptions.Click
 
         Try
             frmOptions.ShowDialog()
@@ -248,7 +249,7 @@ Friend Class frmDarts
 
     End Sub
 
-    Public Sub mnuStats_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles mnuStats.Click
+    Public Sub mnuStats_Click(eventSender As Object, eventArgs As EventArgs) Handles mnuStats.Click
         ShowPlayerStats()
     End Sub
 End Class

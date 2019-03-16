@@ -1,4 +1,6 @@
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> Partial Class frmPlayerStats
+Imports Microsoft.VisualBasic.CompilerServices
+
+<DesignerGenerated()> Partial Class frmPlayerStats
 #Region "Windows Form Designer generated code "
     <System.Diagnostics.DebuggerNonUserCode()> Public Sub New()
         MyBase.New()
@@ -85,7 +87,7 @@
         '
         Me.lblDirections.BackColor = System.Drawing.SystemColors.Control
         Me.lblDirections.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblDirections.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDirections.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblDirections.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblDirections.Location = New System.Drawing.Point(8, 0)
         Me.lblDirections.Name = "lblDirections"
@@ -99,7 +101,7 @@
         '
         Me.Label7.BackColor = System.Drawing.SystemColors.Control
         Me.Label7.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label7.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.Label7.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label7.Location = New System.Drawing.Point(104, 72)
         Me.Label7.Name = "Label7"
@@ -114,7 +116,7 @@
         '
         Me.Label3.BackColor = System.Drawing.SystemColors.Control
         Me.Label3.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label3.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.Label3.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label3.Location = New System.Drawing.Point(353, 24)
         Me.Label3.Name = "Label3"
@@ -129,7 +131,7 @@
         '
         Me.Label2.BackColor = System.Drawing.SystemColors.Control
         Me.Label2.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label2.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.Label2.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label2.Location = New System.Drawing.Point(175, 44)
         Me.Label2.Name = "Label2"
@@ -144,7 +146,7 @@
         '
         Me.Label1.BackColor = System.Drawing.SystemColors.Control
         Me.Label1.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label1.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.Label1.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label1.Location = New System.Drawing.Point(274, 40)
         Me.Label1.Name = "Label1"
@@ -159,7 +161,7 @@
         '
         Me.lblPlayer.BackColor = System.Drawing.SystemColors.Control
         Me.lblPlayer.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblPlayer.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblPlayer.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblPlayer.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblPlayer.Location = New System.Drawing.Point(24, 72)
         Me.lblPlayer.Name = "lblPlayer"
@@ -174,7 +176,7 @@
         '
         Me.Label4.BackColor = System.Drawing.SystemColors.Control
         Me.Label4.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label4.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.Label4.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label4.Location = New System.Drawing.Point(424, 72)
         Me.Label4.Name = "Label4"
@@ -199,7 +201,7 @@
         Me.fraControls.Controls.Add(Me.lblBestPlayerName)
         Me.fraControls.Controls.Add(Me.lblWorstPlayerName)
         Me.fraControls.Cursor = System.Windows.Forms.Cursors.Default
-        Me.fraControls.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.fraControls.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.fraControls.ForeColor = System.Drawing.SystemColors.ControlText
         Me.fraControls.Location = New System.Drawing.Point(8, 359)
         Me.fraControls.Name = "fraControls"
@@ -212,7 +214,7 @@
         Me.cmdOK.BackColor = System.Drawing.SystemColors.Control
         Me.cmdOK.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdOK.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.cmdOK.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdOK.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.cmdOK.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdOK.Location = New System.Drawing.Point(496, 8)
         Me.cmdOK.Name = "cmdOK"
@@ -227,7 +229,7 @@
         Me.cboDaysForStats.BackColor = System.Drawing.SystemColors.Window
         Me.cboDaysForStats.Cursor = System.Windows.Forms.Cursors.Default
         Me.cboDaysForStats.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboDaysForStats.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboDaysForStats.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.cboDaysForStats.ForeColor = System.Drawing.SystemColors.WindowText
         Me.cboDaysForStats.Location = New System.Drawing.Point(32, 7)
         Me.cboDaysForStats.Name = "cboDaysForStats"
@@ -239,7 +241,7 @@
         '
         Me.cmdHelp.BackColor = System.Drawing.SystemColors.Control
         Me.cmdHelp.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmdHelp.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdHelp.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.cmdHelp.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdHelp.Location = New System.Drawing.Point(568, 8)
         Me.cmdHelp.Name = "cmdHelp"
@@ -253,7 +255,7 @@
         '
         Me.lblBestPlayer.BackColor = System.Drawing.SystemColors.Control
         Me.lblBestPlayer.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblBestPlayer.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblBestPlayer.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblBestPlayer.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblBestPlayer.Location = New System.Drawing.Point(128, 0)
         Me.lblBestPlayer.Name = "lblBestPlayer"
@@ -266,7 +268,7 @@
         '
         Me.lblWorstPlayer.BackColor = System.Drawing.SystemColors.Control
         Me.lblWorstPlayer.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblWorstPlayer.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblWorstPlayer.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblWorstPlayer.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblWorstPlayer.Location = New System.Drawing.Point(128, 20)
         Me.lblWorstPlayer.Name = "lblWorstPlayer"
@@ -279,7 +281,7 @@
         '
         Me.Label8.BackColor = System.Drawing.SystemColors.Control
         Me.Label8.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label8.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.Label8.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label8.Location = New System.Drawing.Point(0, 7)
         Me.Label8.Name = "Label8"
@@ -292,7 +294,7 @@
         '
         Me.Label9.BackColor = System.Drawing.SystemColors.Control
         Me.Label9.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label9.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.Label9.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label9.Location = New System.Drawing.Point(85, 7)
         Me.Label9.Name = "Label9"
@@ -305,7 +307,7 @@
         '
         Me.lblBestPlayerName.BackColor = System.Drawing.SystemColors.Control
         Me.lblBestPlayerName.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblBestPlayerName.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblBestPlayerName.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblBestPlayerName.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblBestPlayerName.Location = New System.Drawing.Point(224, 0)
         Me.lblBestPlayerName.Name = "lblBestPlayerName"
@@ -317,7 +319,7 @@
         '
         Me.lblWorstPlayerName.BackColor = System.Drawing.SystemColors.Control
         Me.lblWorstPlayerName.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblWorstPlayerName.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblWorstPlayerName.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblWorstPlayerName.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblWorstPlayerName.Location = New System.Drawing.Point(224, 20)
         Me.lblWorstPlayerName.Name = "lblWorstPlayerName"
@@ -329,7 +331,7 @@
         '
         Me.cmdAddnlStats.BackColor = System.Drawing.SystemColors.Control
         Me.cmdAddnlStats.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmdAddnlStats.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdAddnlStats.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.cmdAddnlStats.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdAddnlStats.Location = New System.Drawing.Point(8, 24)
         Me.cmdAddnlStats.Name = "cmdAddnlStats"
@@ -345,7 +347,7 @@
                     Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lstRank.BackColor = System.Drawing.SystemColors.Window
         Me.lstRank.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lstRank.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lstRank.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lstRank.ForeColor = System.Drawing.SystemColors.WindowText
         Me.lstRank.ItemHeight = 14
         Me.lstRank.Location = New System.Drawing.Point(112, 96)
@@ -360,7 +362,7 @@
                     Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lstGamesWon.BackColor = System.Drawing.SystemColors.Window
         Me.lstGamesWon.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lstGamesWon.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lstGamesWon.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lstGamesWon.ForeColor = System.Drawing.SystemColors.WindowText
         Me.lstGamesWon.ItemHeight = 14
         Me.lstGamesWon.Location = New System.Drawing.Point(168, 96)
@@ -373,7 +375,7 @@
         '
         Me.chkReverseSort.BackColor = System.Drawing.SystemColors.Control
         Me.chkReverseSort.Cursor = System.Windows.Forms.Cursors.Default
-        Me.chkReverseSort.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkReverseSort.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.chkReverseSort.ForeColor = System.Drawing.SystemColors.ControlText
         Me.chkReverseSort.Location = New System.Drawing.Point(536, 24)
         Me.chkReverseSort.Name = "chkReverseSort"
@@ -389,7 +391,7 @@
                     Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lstWorstPartner.BackColor = System.Drawing.SystemColors.Window
         Me.lstWorstPartner.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lstWorstPartner.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lstWorstPartner.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lstWorstPartner.ForeColor = System.Drawing.SystemColors.WindowText
         Me.lstWorstPartner.ItemHeight = 14
         Me.lstWorstPartner.Location = New System.Drawing.Point(528, 96)
@@ -404,7 +406,7 @@
                     Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lstBestPartner.BackColor = System.Drawing.SystemColors.Window
         Me.lstBestPartner.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lstBestPartner.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lstBestPartner.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lstBestPartner.ForeColor = System.Drawing.SystemColors.WindowText
         Me.lstBestPartner.ItemHeight = 14
         Me.lstBestPartner.Location = New System.Drawing.Point(416, 96)
@@ -419,7 +421,7 @@
                     Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lstGamesPlayedPerMonth.BackColor = System.Drawing.SystemColors.Window
         Me.lstGamesPlayedPerMonth.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lstGamesPlayedPerMonth.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lstGamesPlayedPerMonth.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lstGamesPlayedPerMonth.ForeColor = System.Drawing.SystemColors.WindowText
         Me.lstGamesPlayedPerMonth.ItemHeight = 14
         Me.lstGamesPlayedPerMonth.Location = New System.Drawing.Point(360, 96)
@@ -434,7 +436,7 @@
                     Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lstGamesWonWithPartner.BackColor = System.Drawing.SystemColors.Window
         Me.lstGamesWonWithPartner.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lstGamesWonWithPartner.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lstGamesWonWithPartner.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lstGamesWonWithPartner.ForeColor = System.Drawing.SystemColors.WindowText
         Me.lstGamesWonWithPartner.ItemHeight = 14
         Me.lstGamesWonWithPartner.Location = New System.Drawing.Point(264, 96)
@@ -449,7 +451,7 @@
                     Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lstPlayers.BackColor = System.Drawing.SystemColors.Window
         Me.lstPlayers.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lstPlayers.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lstPlayers.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lstPlayers.ForeColor = System.Drawing.SystemColors.WindowText
         Me.lstPlayers.ItemHeight = 14
         Me.lstPlayers.Location = New System.Drawing.Point(8, 96)
@@ -462,7 +464,7 @@
         '
         Me.Label5.BackColor = System.Drawing.SystemColors.Control
         Me.Label5.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label5.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.Label5.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label5.Location = New System.Drawing.Point(536, 72)
         Me.Label5.Name = "Label5"
@@ -499,7 +501,7 @@
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label5)
         Me.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Location = New System.Drawing.Point(55, 111)
         Me.MinimumSize = New System.Drawing.Size(16, 270)
@@ -511,5 +513,5 @@
         Me.ResumeLayout(False)
 
     End Sub
-#End Region 
+#End Region
 End Class

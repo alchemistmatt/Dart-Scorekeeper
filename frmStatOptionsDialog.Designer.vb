@@ -1,4 +1,6 @@
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> Partial Class frmStatOptionsDialog
+Imports Microsoft.VisualBasic.CompilerServices
+
+<DesignerGenerated()> Partial Class frmStatOptionsDialog
 #Region "Windows Form Designer generated code "
     <System.Diagnostics.DebuggerNonUserCode()> Public Sub New()
         MyBase.New()
@@ -44,7 +46,7 @@
         '
         Me.optStatsModeAllGames.BackColor = System.Drawing.SystemColors.Control
         Me.optStatsModeAllGames.Cursor = System.Windows.Forms.Cursors.Default
-        Me.optStatsModeAllGames.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.optStatsModeAllGames.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.optStatsModeAllGames.ForeColor = System.Drawing.SystemColors.ControlText
         Me.optStatsModeAllGames.Location = New System.Drawing.Point(16, 112)
         Me.optStatsModeAllGames.Name = "optStatsModeAllGames"
@@ -59,7 +61,7 @@
         '
         Me.optStatsModeGolf.BackColor = System.Drawing.SystemColors.Control
         Me.optStatsModeGolf.Cursor = System.Windows.Forms.Cursors.Default
-        Me.optStatsModeGolf.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.optStatsModeGolf.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.optStatsModeGolf.ForeColor = System.Drawing.SystemColors.ControlText
         Me.optStatsModeGolf.Location = New System.Drawing.Point(16, 88)
         Me.optStatsModeGolf.Name = "optStatsModeGolf"
@@ -75,7 +77,7 @@
         Me.optStatsModeCricket.BackColor = System.Drawing.SystemColors.Control
         Me.optStatsModeCricket.Checked = True
         Me.optStatsModeCricket.Cursor = System.Windows.Forms.Cursors.Default
-        Me.optStatsModeCricket.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.optStatsModeCricket.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.optStatsModeCricket.ForeColor = System.Drawing.SystemColors.ControlText
         Me.optStatsModeCricket.Location = New System.Drawing.Point(16, 40)
         Me.optStatsModeCricket.Name = "optStatsModeCricket"
@@ -90,7 +92,7 @@
         '
         Me.optStatsMode301.BackColor = System.Drawing.SystemColors.Control
         Me.optStatsMode301.Cursor = System.Windows.Forms.Cursors.Default
-        Me.optStatsMode301.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.optStatsMode301.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.optStatsMode301.ForeColor = System.Drawing.SystemColors.ControlText
         Me.optStatsMode301.Location = New System.Drawing.Point(16, 64)
         Me.optStatsMode301.Name = "optStatsMode301"
@@ -105,7 +107,7 @@
         '
         Me.cmdOK.BackColor = System.Drawing.SystemColors.Control
         Me.cmdOK.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmdOK.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdOK.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.cmdOK.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdOK.Location = New System.Drawing.Point(112, 72)
         Me.cmdOK.Name = "cmdOK"
@@ -119,7 +121,7 @@
         '
         Me.lblNote.BackColor = System.Drawing.SystemColors.Control
         Me.lblNote.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblNote.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblNote.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblNote.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblNote.Location = New System.Drawing.Point(13, 135)
         Me.lblNote.Name = "lblNote"
@@ -132,7 +134,7 @@
         '
         Me.lblDirections.BackColor = System.Drawing.SystemColors.Control
         Me.lblDirections.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblDirections.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDirections.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblDirections.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblDirections.Location = New System.Drawing.Point(24, 8)
         Me.lblDirections.Name = "lblDirections"
@@ -157,7 +159,7 @@
         Me.Controls.Add(Me.lblNote)
         Me.Controls.Add(Me.lblDirections)
         Me.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Location = New System.Drawing.Point(70, 140)
@@ -171,5 +173,5 @@
         Me.ResumeLayout(False)
 
     End Sub
-#End Region 
+#End Region
 End Class

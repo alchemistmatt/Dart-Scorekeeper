@@ -1,4 +1,6 @@
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> Partial Class frmDartBoard
+Imports Microsoft.VisualBasic.CompilerServices
+
+<DesignerGenerated()> Partial Class frmDartBoard
 #Region "Windows Form Designer generated code "
     <System.Diagnostics.DebuggerNonUserCode()> Public Sub New()
         MyBase.New()
@@ -78,7 +80,7 @@
         '
         Me.cmdClose.BackColor = System.Drawing.SystemColors.Control
         Me.cmdClose.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmdClose.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdClose.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.cmdClose.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdClose.Location = New System.Drawing.Point(520, 592)
         Me.cmdClose.Name = "cmdClose"
@@ -93,7 +95,7 @@
         Me.pctDartBoardSourcePicLarge.BackColor = System.Drawing.SystemColors.Control
         Me.pctDartBoardSourcePicLarge.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.pctDartBoardSourcePicLarge.Cursor = System.Windows.Forms.Cursors.Default
-        Me.pctDartBoardSourcePicLarge.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.pctDartBoardSourcePicLarge.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.pctDartBoardSourcePicLarge.ForeColor = System.Drawing.SystemColors.ControlText
         Me.pctDartBoardSourcePicLarge.Image = CType(resources.GetObject("pctDartBoardSourcePicLarge.Image"), System.Drawing.Image)
         Me.pctDartBoardSourcePicLarge.Location = New System.Drawing.Point(352, 632)
@@ -109,7 +111,7 @@
         Me.pctDartBoardSourcePicMedium.BackColor = System.Drawing.SystemColors.Control
         Me.pctDartBoardSourcePicMedium.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.pctDartBoardSourcePicMedium.Cursor = System.Windows.Forms.Cursors.Default
-        Me.pctDartBoardSourcePicMedium.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.pctDartBoardSourcePicMedium.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.pctDartBoardSourcePicMedium.ForeColor = System.Drawing.SystemColors.ControlText
         Me.pctDartBoardSourcePicMedium.Image = CType(resources.GetObject("pctDartBoardSourcePicMedium.Image"), System.Drawing.Image)
         Me.pctDartBoardSourcePicMedium.Location = New System.Drawing.Point(240, 632)
@@ -125,7 +127,7 @@
         Me.pctDartBoardSourcePicSmall.BackColor = System.Drawing.SystemColors.Control
         Me.pctDartBoardSourcePicSmall.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.pctDartBoardSourcePicSmall.Cursor = System.Windows.Forms.Cursors.Default
-        Me.pctDartBoardSourcePicSmall.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.pctDartBoardSourcePicSmall.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.pctDartBoardSourcePicSmall.ForeColor = System.Drawing.SystemColors.ControlText
         Me.pctDartBoardSourcePicSmall.Image = CType(resources.GetObject("pctDartBoardSourcePicSmall.Image"), System.Drawing.Image)
         Me.pctDartBoardSourcePicSmall.Location = New System.Drawing.Point(128, 632)
@@ -141,7 +143,7 @@
         Me.pctDartBoardSourcePicTiny.BackColor = System.Drawing.SystemColors.Control
         Me.pctDartBoardSourcePicTiny.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.pctDartBoardSourcePicTiny.Cursor = System.Windows.Forms.Cursors.Default
-        Me.pctDartBoardSourcePicTiny.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.pctDartBoardSourcePicTiny.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.pctDartBoardSourcePicTiny.ForeColor = System.Drawing.SystemColors.ControlText
         Me.pctDartBoardSourcePicTiny.Image = CType(resources.GetObject("pctDartBoardSourcePicTiny.Image"), System.Drawing.Image)
         Me.pctDartBoardSourcePicTiny.Location = New System.Drawing.Point(16, 632)
@@ -170,7 +172,7 @@
         Me.pctDartBoard.Controls.Add(Me.lblDirections)
         Me.pctDartBoard.Controls.Add(Me.lblCurrentPlayer)
         Me.pctDartBoard.Cursor = System.Windows.Forms.Cursors.Default
-        Me.pctDartBoard.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.pctDartBoard.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.pctDartBoard.ForeColor = System.Drawing.SystemColors.ControlText
         Me.pctDartBoard.Location = New System.Drawing.Point(0, 0)
         Me.pctDartBoard.Name = "pctDartBoard"
@@ -184,7 +186,7 @@
         Me.lblDartScore2.AutoSize = True
         Me.lblDartScore2.BackColor = System.Drawing.SystemColors.Window
         Me.lblDartScore2.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblDartScore2.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDartScore2.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblDartScore2.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblDartScore2.Location = New System.Drawing.Point(10, 541)
         Me.lblDartScore2.Name = "lblDartScore2"
@@ -198,7 +200,7 @@
         Me.lblDartScore1.AutoSize = True
         Me.lblDartScore1.BackColor = System.Drawing.SystemColors.Window
         Me.lblDartScore1.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblDartScore1.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDartScore1.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblDartScore1.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblDartScore1.Location = New System.Drawing.Point(10, 519)
         Me.lblDartScore1.Name = "lblDartScore1"
@@ -212,7 +214,7 @@
         Me.lblDartScore0.AutoSize = True
         Me.lblDartScore0.BackColor = System.Drawing.SystemColors.Window
         Me.lblDartScore0.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblDartScore0.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDartScore0.Font = New System.Drawing.Font("Arial", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblDartScore0.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblDartScore0.Location = New System.Drawing.Point(10, 497)
         Me.lblDartScore0.Name = "lblDartScore0"
@@ -255,7 +257,7 @@
         '
         Me.lblDirections.BackColor = System.Drawing.SystemColors.Window
         Me.lblDirections.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblDirections.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDirections.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblDirections.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblDirections.Location = New System.Drawing.Point(464, 552)
         Me.lblDirections.Name = "lblDirections"
@@ -268,7 +270,7 @@
         '
         Me.lblCurrentPlayer.BackColor = System.Drawing.Color.Transparent
         Me.lblCurrentPlayer.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblCurrentPlayer.Font = New System.Drawing.Font("Arial", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCurrentPlayer.Font = New System.Drawing.Font("Arial", 20.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblCurrentPlayer.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblCurrentPlayer.Location = New System.Drawing.Point(8, 0)
         Me.lblCurrentPlayer.Name = "lblCurrentPlayer"
@@ -283,7 +285,7 @@
         Me.fraUndoRedo.Controls.Add(Me.cmdRedo)
         Me.fraUndoRedo.Controls.Add(Me.cmdUndo)
         Me.fraUndoRedo.Cursor = System.Windows.Forms.Cursors.Default
-        Me.fraUndoRedo.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.fraUndoRedo.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.fraUndoRedo.ForeColor = System.Drawing.SystemColors.ControlText
         Me.fraUndoRedo.Location = New System.Drawing.Point(224, 592)
         Me.fraUndoRedo.Name = "fraUndoRedo"
@@ -295,7 +297,7 @@
         '
         Me.cmdRedo.BackColor = System.Drawing.SystemColors.Control
         Me.cmdRedo.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmdRedo.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdRedo.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.cmdRedo.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdRedo.Location = New System.Drawing.Point(72, 0)
         Me.cmdRedo.Name = "cmdRedo"
@@ -309,7 +311,7 @@
         '
         Me.cmdUndo.BackColor = System.Drawing.SystemColors.Control
         Me.cmdUndo.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmdUndo.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdUndo.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.cmdUndo.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdUndo.Location = New System.Drawing.Point(0, 0)
         Me.cmdUndo.Name = "cmdUndo"
@@ -325,7 +327,7 @@
         Me.fraPreviousNext.Controls.Add(Me.cmdNextTeam)
         Me.fraPreviousNext.Controls.Add(Me.cmdPreviousTeam)
         Me.fraPreviousNext.Cursor = System.Windows.Forms.Cursors.Default
-        Me.fraPreviousNext.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.fraPreviousNext.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.fraPreviousNext.ForeColor = System.Drawing.SystemColors.ControlText
         Me.fraPreviousNext.Location = New System.Drawing.Point(8, 592)
         Me.fraPreviousNext.Name = "fraPreviousNext"
@@ -337,7 +339,7 @@
         '
         Me.cmdNextTeam.BackColor = System.Drawing.SystemColors.Control
         Me.cmdNextTeam.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmdNextTeam.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdNextTeam.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.cmdNextTeam.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdNextTeam.Location = New System.Drawing.Point(72, 0)
         Me.cmdNextTeam.Name = "cmdNextTeam"
@@ -351,7 +353,7 @@
         '
         Me.cmdPreviousTeam.BackColor = System.Drawing.SystemColors.Control
         Me.cmdPreviousTeam.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmdPreviousTeam.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdPreviousTeam.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.cmdPreviousTeam.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdPreviousTeam.Location = New System.Drawing.Point(0, 0)
         Me.cmdPreviousTeam.Name = "cmdPreviousTeam"
@@ -399,7 +401,7 @@
         Me.Controls.Add(Me.fraUndoRedo)
         Me.Controls.Add(Me.fraPreviousNext)
         Me.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Location = New System.Drawing.Point(4, 23)
         Me.MaximizeBox = False

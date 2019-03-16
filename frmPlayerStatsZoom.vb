@@ -1,44 +1,45 @@
 Option Strict Off
 Option Explicit On
-'Imports VB = Microsoft.VisualBasic
+
+Imports System.Collections.Generic 'Imports VB = Microsoft.VisualBasic
 'Imports Microsoft.VisualBasic.PowerPacks
 
 Friend Class frmPlayerStatsZoom
-    Inherits System.Windows.Forms.Form
+    Inherits Form
 
     ' -------------------------------------------------------------------------------
     ' Dart Scorekeeper
-    ' Written by Matthew Monroe in Chapel Hill, NC
     '
-    ' Program started July 31, 1999
+    ' Written by Matthew Monroe
+    ' Started in July 1999
+    ' Ported to .NET in 2011
     '
-    ' E-mail: matt@alchemistmatt.com or alchemistmatt@yahoo.com
-    ' Websites: http://www.alchemistmatt.com/
-    '           http://www.geocities.com/alchemistmatt/
-    '           http://come.to/alchemistmatt/
+    ' E-mail: monroem@gmail.com or alchemistmatt@yahoo.com
+    ' Repository: https://github.com/alchemistmatt
+    '
     ' -------------------------------------------------------------------------------
     '
     ' Licensed under the Apache License, Version 2.0; you may not use this file except
     ' in compliance with the License.  You may obtain a copy of the License at
     ' http://www.apache.org/licenses/LICENSE-2.0
 
-    Private Const BarBottom As Short = 224          ' Pixels
-    Private Const BarFullHeight As Short = 200      ' Pixels
+    Private Const BarBottom = 224          ' Pixels
+    Private Const BarFullHeight = 200      ' Pixels
 
     Private mPlayerName As String = String.Empty
-    Private mPlayerGameInfo As System.Collections.Generic.List(Of frmPlayerStats.udtPlayerStatsGameInfoType)
+    Private mPlayerGameInfo As List(Of frmPlayerStats.udtPlayerStatsGameInfoType)
 
-    Public Sub SetPlayerInfo(ByVal strPlayerName As String, ByRef udtGameInfo As System.Collections.Generic.List(Of frmPlayerStats.udtPlayerStatsGameInfoType))
+    Public Sub SetPlayerInfo(strPlayerName As String, ByRef udtGameInfo As List(Of frmPlayerStats.udtPlayerStatsGameInfoType))
         mPlayerName = String.Copy(strPlayerName)
         mPlayerGameInfo = udtGameInfo
     End Sub
 
     Private Sub UpdateControls()
 
-        Dim dtStartMonth As System.DateTime
+        Dim dtStartMonth As DateTime
 
         Dim StartYear, StartMonth, StartYearCaption As Short
-        Dim CompareDateStart, CompareDateEnd As System.DateTime
+        Dim CompareDateStart, CompareDateEnd As DateTime
         Dim x, intSlashIndex As Short
         Dim GamesPlayed, GamesWon, NewHeight As Short
         Dim ValidDate As Boolean
@@ -48,7 +49,7 @@ Friend Class frmPlayerStatsZoom
             lblPlayer.Text = mPlayerName
 
             ' Fill in months
-            If txtStartMonth.Text.IndexOf("/") > 0 Then
+            If txtStartMonth.Text.IndexOf("/", StringComparison.Ordinal) > 0 Then
                 dtStartMonth = CDate(txtStartMonth.Text)
 
                 StartMonth = CShort(dtStartMonth.ToString("MM"))
@@ -60,13 +61,13 @@ Friend Class frmPlayerStatsZoom
             End If
 
             If Not ValidDate Then
-                System.Windows.Forms.MessageBox.Show("Invalid starting month.  Please enter a date in the format month/year, for example, 1/1999 or 1/2000", "Invalid Date", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                MessageBox.Show("Invalid starting month.  Please enter a date in the format month/year, for example, 1/1999 or 1/2000", "Invalid Date", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 Exit Sub
             End If
 
             For x = 0 To 11
-                lblMonth(x).Text = StartMonth.ToString & "/" & StartYearCaption.ToString("00")
-                lblMonth(x).Tag = StartMonth.ToString & "/" & StartYear.ToString
+                lblMonth.Item(x).Text = StartMonth.ToString & "/" & StartYearCaption.ToString("00")
+                lblMonth.Item(x).Tag = StartMonth.ToString & "/" & StartYear.ToString
                 StartMonth += 1
 
                 If StartMonth > 12 Then
@@ -79,14 +80,14 @@ Friend Class frmPlayerStatsZoom
 
 
             For x = 0 To 11
-                CompareDateStart = CDate(lblMonth(x).Tag)
+                CompareDateStart = CDate(lblMonth.Item(x).Tag)
                 If x < 11 Then
-                    CompareDateEnd = CDate(lblMonth(x + 1).Tag)
+                    CompareDateEnd = CDate(lblMonth.Item(x + 1).Tag)
                 Else
-                    intSlashIndex = CStr(lblMonth(x).Tag).IndexOf("/")
+                    intSlashIndex = CStr(lblMonth.Item(x).Tag).IndexOf("/", StringComparison.Ordinal)
                     If intSlashIndex > 0 Then
-                        StartMonth = CStr(lblMonth(x).Tag).Substring(0, intSlashIndex)
-                        StartYear = CStr(lblMonth(x).Tag).Substring(intSlashIndex + 1)
+                        StartMonth = CStr(lblMonth.Item(x).Tag).Substring(0, intSlashIndex)
+                        StartYear = CStr(lblMonth.Item(x).Tag).Substring(intSlashIndex + 1)
                         StartMonth += 1
                         If StartMonth = 13 Then
                             StartMonth = 1
@@ -94,7 +95,7 @@ Friend Class frmPlayerStatsZoom
                         End If
                         CompareDateEnd = CDate(StartMonth.ToString() & "/" & StartYear.ToString())
                     Else
-                        CompareDateEnd = CDate(lblMonth(x).Tag).AddDays(30)
+                        CompareDateEnd = CDate(lblMonth.Item(x).Tag).AddDays(30)
                     End If
                 End If
 
@@ -116,20 +117,20 @@ Friend Class frmPlayerStatsZoom
                     'shpWinPercent(x).Top = BarBottom - NewHeight
                     'shpWinPercent(x).Height = NewHeight
 
-                    lblWinRatio(x).Text = GamesWon.ToString & "/" & GamesPlayed.ToString
+                    lblWinRatio.Item(x).Text = GamesWon.ToString & "/" & GamesPlayed.ToString
 
-                    'lblWinRatio(x).Top = shpWinPercent(x).Top - 12
-                    lblWinRatio(x).Top = BarBottom - NewHeight - 12
+                    'lblWinRatio.Item(x).Top = shpWinPercent(x).Top - 12
+                    lblWinRatio.Item(x).Top = BarBottom - NewHeight - 12
 
-                    If lblWinRatio(x).Top < BarBottom - BarFullHeight Then
-                        lblWinRatio(x).Top = (BarBottom - BarFullHeight) - 12
+                    If lblWinRatio.Item(x).Top < BarBottom - BarFullHeight Then
+                        lblWinRatio.Item(x).Top = (BarBottom - BarFullHeight) - 12
                     End If
                 Else
                     'shpWinPercent(x).Height = 0
                     'shpWinPercent(x).Top = BarBottom
 
-                    lblWinRatio(x).Text = "N/A"
-                    lblWinRatio(x).Top = BarBottom - 16
+                    lblWinRatio.Item(x).Text = "N/A"
+                    lblWinRatio.Item(x).Top = BarBottom - 16
                 End If
             Next x
 
@@ -139,9 +140,9 @@ Friend Class frmPlayerStatsZoom
 
     End Sub
 
-    Private Sub cmdNextPlayer_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdNextPlayer.Click
+    Private Sub cmdNextPlayer_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdNextPlayer.Click
         Dim strPlayerName As String
-        Dim udtGameInfo As New System.Collections.Generic.List(Of frmPlayerStats.udtPlayerStatsGameInfoType)
+        Dim udtGameInfo As New List(Of frmPlayerStats.udtPlayerStatsGameInfoType)
 
         Try
             strPlayerName = frmPlayerStats.SelectNextPlayer()
@@ -157,13 +158,13 @@ Friend Class frmPlayerStatsZoom
 
     End Sub
 
-    Private Sub cmdok_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdOK.Click
+    Private Sub cmdok_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdOK.Click
         Me.Hide()
     End Sub
 
-    Private Sub cmdPreviousPlayer_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdPreviousPlayer.Click
+    Private Sub cmdPreviousPlayer_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdPreviousPlayer.Click
         Dim strPlayerName As String
-        Dim udtGameInfo As New System.Collections.Generic.List(Of frmPlayerStats.udtPlayerStatsGameInfoType)
+        Dim udtGameInfo As New List(Of frmPlayerStats.udtPlayerStatsGameInfoType)
 
         Try
             strPlayerName = frmPlayerStats.SelectPreviousPlayer()
@@ -180,12 +181,12 @@ Friend Class frmPlayerStatsZoom
     End Sub
 
     'UPGRADE_WARNING: Form event frmPlayerStatsZoom.Activate has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
-    Private Sub frmPlayerStatsZoom_Activated(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Activated
+    Private Sub frmPlayerStatsZoom_Activated(eventSender As Object, eventArgs As EventArgs) Handles MyBase.Activated
 
         UpdateControls()
     End Sub
 
-    Private Sub frmPlayerStatsZoom_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
+    Private Sub frmPlayerStatsZoom_Load(eventSender As Object, eventArgs As EventArgs) Handles MyBase.Load
         Dim ThisMonth, x, StartYear As Short
 
         Try
@@ -195,44 +196,71 @@ Friend Class frmPlayerStatsZoom
             Me.Height = 313
 
             ' Position form in window
-            Me.Left = (System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width - Me.Width) / 2
-            Me.Top = (System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height - Me.Height) / 3
+            Me.Left = (Screen.PrimaryScreen.Bounds.Width - Me.Width) / 2
+            Me.Top = (Screen.PrimaryScreen.Bounds.Height - Me.Height) / 3
+
+            With lblMonth.Item(0)
+                .TextAlign = ContentAlignment.TopCenter
+                .Text = "12/99"
+                .Size = New Size(33, 17)
+                .Location = New Point(56, 232)
+                .TabIndex = 8
+                .Font = New Font("Arial", 8.0!, FontStyle.Regular, GraphicsUnit.Point, 0)
+                .BackColor = SystemColors.Control
+                .Enabled = True
+                .ForeColor = SystemColors.ControlText
+                .Cursor = Cursors.Default
+                .RightToLeft = RightToLeft.No
+                .UseMnemonic = True
+                .Visible = True
+                .AutoSize = False
+                .BorderStyle = BorderStyle.None
+            End With
+
+            With lblWinRatio.Item(0)
+                .TextAlign = ContentAlignment.TopCenter
+                .Text = "0/0"
+                .Size = New Size(33, 17)
+                .Location = New Point(56, 200)
+                .TabIndex = 10
+                .Font = New Font("Arial", 8.0!, FontStyle.Regular, GraphicsUnit.Point, 0)
+                .BackColor = Color.Transparent
+                .Enabled = True
+                .ForeColor = SystemColors.ControlText
+                .Cursor = Cursors.Default
+                .RightToLeft = RightToLeft.No
+                .UseMnemonic = True
+                .Visible = True
+                .AutoSize = False
+                .BorderStyle = BorderStyle.None
+            End With
 
             ' Load the bars and set height to 0
             For x = 1 To 11
-                'With shpWinPercent(0)
-                '    _shpWinPercent_0
-                '    shpWinPercent.Load(x)
-                '    shpWinPercent(x).Left = .Left + 40 * x
-                '    shpWinPercent(x).Height = .Height
-                '    shpWinPercent(x).Top = .Top
-                '    shpWinPercent(x).Width = .Width
-                '    shpWinPercent(x).Visible = True
-                'End With
+                lblMonth.AddNewLabel()
+                lblWinRatio.AddNewLabel()
 
-                With lblMonth(0)
-                    lblMonth.Load(x)
-                    lblMonth(x).Left = .Left + 40 * x
-                    lblMonth(x).Height = .Height
-                    lblMonth(x).Top = .Top
-                    lblMonth(x).Width = .Width
-                    lblMonth(x).Visible = True
+                With lblMonth.Item(0)
+                    lblMonth.Item(x).Left = .Left + 40 * x
+                    lblMonth.Item(x).Height = .Height
+                    lblMonth.Item(x).Top = .Top
+                    lblMonth.Item(x).Width = .Width
+                    lblMonth.Item(x).Visible = True
                 End With
 
-                With lblWinRatio(0)
-                    lblWinRatio.Load(x)
-                    lblWinRatio(x).Left = .Left + 40 * x
-                    lblWinRatio(x).Height = .Height
-                    lblWinRatio(x).Top = .Top
-                    lblWinRatio(x).Width = .Width
-                    lblWinRatio(x).Visible = True
-                    lblWinRatio(x).BringToFront()
+                With lblWinRatio.Item(0)
+                    lblWinRatio.Item(x).Left = .Left + 40 * x
+                    lblWinRatio.Item(x).Height = .Height
+                    lblWinRatio.Item(x).Top = .Top
+                    lblWinRatio.Item(x).Width = .Width
+                    lblWinRatio.Item(x).Visible = True
+                    lblWinRatio.Item(x).BringToFront()
                 End With
 
             Next x
 
-            ThisMonth = System.DateTime.Now.ToString("MM")
-            StartYear = System.DateTime.Now.ToString("yyyy")
+            ThisMonth = DateTime.Now.ToString("MM")
+            StartYear = DateTime.Now.ToString("yyyy")
             For x = 1 To 11
                 ThisMonth -= 1
                 If ThisMonth < 1 Then

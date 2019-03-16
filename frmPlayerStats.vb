@@ -1,20 +1,22 @@
 Option Strict Off
 Option Explicit On
-'Imports VB = Microsoft.VisualBasic
+
+Imports System.Collections.Generic
+Imports System.IO 'Imports VB = Microsoft.VisualBasic
 
 Friend Class frmPlayerStats
-    Inherits System.Windows.Forms.Form
-    
+    Inherits Form
+
     ' -------------------------------------------------------------------------------
     ' Dart Scorekeeper
-    ' Written by Matthew Monroe in Chapel Hill, NC
     '
-    ' Program started July 31, 1999
+    ' Written by Matthew Monroe
+    ' Started in July 1999
+    ' Ported to .NET in 2011
     '
-    ' E-mail: matt@alchemistmatt.com or alchemistmatt@yahoo.com
-    ' Websites: http://www.alchemistmatt.com/
-    '           http://www.geocities.com/alchemistmatt/
-    '           http://come.to/alchemistmatt/
+    ' E-mail: monroem@gmail.com or alchemistmatt@yahoo.com
+    ' Repository: https://github.com/alchemistmatt
+    '
     ' -------------------------------------------------------------------------------
     '
     ' Licensed under the Apache License, Version 2.0; you may not use this file except
@@ -30,14 +32,14 @@ Friend Class frmPlayerStats
 #Region "Structures"
 
     Public Structure udtPlayerStatsGameInfoType
-        Public GameDate As System.DateTime
+        Public GameDate As DateTime
         Public GameWon As Boolean               ' True if the game was won; false if lost
-        Public GameOpponentsIndex As System.Collections.Generic.List(Of Short)
+        Public GameOpponentsIndex As List(Of Short)
     End Structure
 
 
     Public Structure udtGameStatsType
-        Public GameDateTime As System.DateTime
+        Public GameDateTime As DateTime
         Public PlayerName As String
         Public GameWon As Boolean
         Public PartnerName As String
@@ -45,7 +47,7 @@ Friend Class frmPlayerStats
     End Structure
 
     Public Structure udtExtendedStats
-        Public GameDateTime As System.DateTime
+        Public GameDateTime As DateTime
         Public TeamNumber As Short
         Public PlayerName As String
         Public DartValue As Short
@@ -61,7 +63,7 @@ Friend Class frmPlayerStats
     End Structure
 
     Public Structure udtPlayerStatsType
-        Public GameDateTime As System.DateTime
+        Public GameDateTime As DateTime
         Public GameTimeElapsed As String
         Public PlayerName As String
         Public GameWon As Boolean
@@ -92,10 +94,10 @@ Friend Class frmPlayerStats
         Public LongestScoringDrought As Short
         Public AllTimeDartsThrown As Integer
         Public AllTimeTotalScore As Integer
-        Public GameInfo As System.Collections.Generic.List(Of udtExtendedStatGameInfoType)
+        Public GameInfo As List(Of udtExtendedStatGameInfoType)
 
         Public Sub Initialize()
-            GameInfo = New System.Collections.Generic.List(Of udtExtendedStatGameInfoType)
+            GameInfo = New List(Of udtExtendedStatGameInfoType)
         End Sub
     End Structure
 
@@ -105,7 +107,7 @@ Friend Class frmPlayerStats
     End Structure
 
     Public Structure udtExtendedStatGameInfoType
-        Public GameDate As System.DateTime
+        Public GameDate As DateTime
         Public GameMeanScorePerThrow As Single
         Public GameThrowCount As Short
     End Structure
@@ -116,15 +118,15 @@ Friend Class frmPlayerStats
         Public GamesPlayedAlone As Integer
         Public GamesWonWithPartner As Integer
         Public GamesPlayedWithPartner As Integer
-        Public FirstGameDate As System.DateTime
-        Public LastGameDate As System.DateTime
+        Public FirstGameDate As DateTime
+        Public LastGameDate As DateTime
         Public GamesPlayedPerMonth As Single
 
         Public PartnerNameCount As Short
         Public PartnerNameIndex() As Short
         Public GamesWonByPartner() As udtPartnerGameStatsType
 
-        Public GameInfo As System.Collections.Generic.List(Of udtPlayerStatsGameInfoType)
+        Public GameInfo As List(Of udtPlayerStatsGameInfoType)
 
         Public StatsFor301 As udtGeneralExtendedStats
         Public StatsForCricket As udtGeneralExtendedStats
@@ -137,7 +139,7 @@ Friend Class frmPlayerStats
 #End Region
 
 #Region "Module-wide Variables"
-    Private mGameStats As System.Collections.Generic.List(Of udtGameStatsType)
+    Private mGameStats As List(Of udtGameStatsType)
 
     ' Note: mExtendedStats() is 1 based, not 0 based
     Private mExtendedStatsCount As Integer
@@ -163,7 +165,7 @@ Friend Class frmPlayerStats
         End Get
     End Property
 
-    Private Sub AddToGameStats(ByVal udtPlayerStatEntry As udtPlayerStatsType)
+    Private Sub AddToGameStats(udtPlayerStatEntry As udtPlayerStatsType)
 
         Dim udtGameStatsEntry As udtGameStatsType
 
@@ -261,9 +263,9 @@ Friend Class frmPlayerStats
 
     End Sub
 
-    Private Sub DoRankings(ByVal StopDate As System.DateTime)
+    Private Sub DoRankings(StopDate As DateTime)
         Dim x As Short
-        Dim StartingDate, EndingDate As System.DateTime
+        Dim StartingDate, EndingDate As DateTime
         Dim DateWeight As Single
 
         ' Erase values in PlayerRanking(x)
@@ -277,20 +279,20 @@ Friend Class frmPlayerStats
         For x = 1 To 4
             Select Case x
                 Case 1 ' 1 month ago to today
-                    StartingDate = System.DateTime.Now.AddDays(-30)
-                    EndingDate = System.DateTime.Now
+                    StartingDate = DateTime.Now.AddDays(-30)
+                    EndingDate = DateTime.Now
                     DateWeight = 0.6
                 Case 2 ' 4 months ago to 1 month ago
-                    StartingDate = System.DateTime.Now.AddDays(-120)
-                    EndingDate = System.DateTime.Now.AddDays(-30)
+                    StartingDate = DateTime.Now.AddDays(-120)
+                    EndingDate = DateTime.Now.AddDays(-30)
                     DateWeight = 0.25
                 Case 3 ' 8 months ago to 4 months ago
-                    StartingDate = System.DateTime.Now.AddDays(-240)
-                    EndingDate = System.DateTime.Now.AddDays(-120)
+                    StartingDate = DateTime.Now.AddDays(-240)
+                    EndingDate = DateTime.Now.AddDays(-120)
                     DateWeight = 0.1
                 Case Else ' 12 months ago to 8 months ago
-                    StartingDate = System.DateTime.Now.AddDays(-365)
-                    EndingDate = System.DateTime.Now.AddDays(-240)
+                    StartingDate = DateTime.Now.AddDays(-365)
+                    EndingDate = DateTime.Now.AddDays(-240)
                     DateWeight = 0.05
             End Select
 
@@ -303,7 +305,7 @@ Friend Class frmPlayerStats
 
     End Sub
 
-    Private Sub FindBestWorstPlayer(ByVal StartingDate As System.DateTime)
+    Private Sub FindBestWorstPlayer(StartingDate As DateTime)
 
         ' Finds the best and worst player simply by looking at the rankings list
         Dim x As Short
@@ -339,7 +341,7 @@ Friend Class frmPlayerStats
                         RecentGamesWonTemp = 0
 
                         For Each udtGameDetails As udtPlayerStatsGameInfoType In mPlayerStats(intPlayerIndex).GameInfo
-                            If udtGameDetails.GameDate >= StartingDate AndAlso StartingDate <= System.DateTime.Now Then
+                            If udtGameDetails.GameDate >= StartingDate AndAlso StartingDate <= DateTime.Now Then
                                 RecentGamesPlayedTemp += 1
                                 If udtGameDetails.GameWon Then
                                     RecentGamesWonTemp += 1
@@ -389,9 +391,9 @@ Friend Class frmPlayerStats
 
     End Sub
 
-    Private Function FindMatchingFiles(ByVal strFilePathBase As String, ByRef strFileMatchList As System.Collections.Generic.SortedList(Of String, String)) As Integer
-        Dim ioDirInfo As System.IO.DirectoryInfo
-        Dim ioFileInfo As System.IO.FileInfo
+    Private Function FindMatchingFiles(strFilePathBase As String, ByRef strFileMatchList As SortedList(Of String, String)) As Integer
+        Dim ioDirInfo As DirectoryInfo
+        Dim ioFileInfo As FileInfo
 
         Dim strFileSpecToFind As String
         Dim strFileMatchCheck As String
@@ -403,7 +405,7 @@ Friend Class frmPlayerStats
 
             strFileMatchList.Clear()
 
-            ioDirInfo = New System.IO.DirectoryInfo(System.IO.Path.GetDirectoryName(strFilePathBase))
+            ioDirInfo = New DirectoryInfo(Path.GetDirectoryName(strFilePathBase))
 
             If Not ioDirInfo.Exists() Then
                 ' Directory not found
@@ -411,11 +413,11 @@ Friend Class frmPlayerStats
             End If
 
             ' Step through all of the .Ini files in the folder
-            strFileSpecToFind = System.IO.Path.GetFileNameWithoutExtension(strFilePathBase) & "*.ini"
+            strFileSpecToFind = Path.GetFileNameWithoutExtension(strFilePathBase) & "*.ini"
 
             ' If the name matches the base exactly, or if it matches the base plus an underscore, then count this as a match
-            strFileBaseCompare1 = (System.IO.Path.GetFileNameWithoutExtension(strFilePathBase) & ".ini").ToLower()
-            strFileBaseCompare2 = (System.IO.Path.GetFileNameWithoutExtension(strFilePathBase) & "_").ToLower()
+            strFileBaseCompare1 = (Path.GetFileNameWithoutExtension(strFilePathBase) & ".ini").ToLower()
+            strFileBaseCompare2 = (Path.GetFileNameWithoutExtension(strFilePathBase) & "_").ToLower()
 
             For Each ioFileInfo In ioDirInfo.GetFiles(strFileSpecToFind)
                 strFileMatchCheck = ioFileInfo.Name.ToLower()
@@ -433,7 +435,7 @@ Friend Class frmPlayerStats
 
     End Function
 
-    Public Function GetPlayerGameInfo(ByVal strPlayerName As String, ByRef udtGameInfo As System.Collections.Generic.List(Of udtPlayerStatsGameInfoType)) As Boolean
+    Public Function GetPlayerGameInfo(strPlayerName As String, ByRef udtGameInfo As List(Of udtPlayerStatsGameInfoType)) As Boolean
         Dim intPlayerIndex As Integer
 
         intPlayerIndex = GetPlayerIndex(strPlayerName)
@@ -445,7 +447,7 @@ Friend Class frmPlayerStats
         End If
     End Function
 
-    Public Function GetPlayerGameInfo(ByVal intPlayerIndex As Integer, ByRef udtGameInfo As System.Collections.Generic.List(Of udtPlayerStatsGameInfoType)) As Boolean
+    Public Function GetPlayerGameInfo(intPlayerIndex As Integer, ByRef udtGameInfo As List(Of udtPlayerStatsGameInfoType)) As Boolean
 
         If intPlayerIndex >= 0 Then
             udtGameInfo = mPlayerStats(intPlayerIndex).GameInfo
@@ -475,7 +477,7 @@ Friend Class frmPlayerStats
 
     End Function
 
-    Public Function GetPlayerNameByIndex(ByVal intPlayerIndex As Integer) As String
+    Public Function GetPlayerNameByIndex(intPlayerIndex As Integer) As String
         If intPlayerIndex >= 0 And intPlayerIndex < MasterPlayerListCount Then
             Return MasterPlayerList(intPlayerIndex)
         Else
@@ -483,7 +485,7 @@ Friend Class frmPlayerStats
         End If
     End Function
 
-    Public Function GetPlayerStatsByIndex(ByVal intPlayerIndex As Integer) As udtPlayerStatsParsed
+    Public Function GetPlayerStatsByIndex(intPlayerIndex As Integer) As udtPlayerStatsParsed
         If intPlayerIndex >= 0 And intPlayerIndex < MasterPlayerListCount Then
             Return mPlayerStats(intPlayerIndex)
         Else
@@ -504,7 +506,7 @@ Friend Class frmPlayerStats
                 ReDim .PartnerNameIndex(MAX_PLAYER_COUNT)
                 ReDim .GamesWonByPartner(MAX_PLAYER_COUNT)
 
-                .GameInfo = New System.Collections.Generic.List(Of udtPlayerStatsGameInfoType)
+                .GameInfo = New List(Of udtPlayerStatsGameInfoType)
 
                 .StatsFor301.Initialize()
                 .StatsForCricket.Initialize()
@@ -515,14 +517,14 @@ Friend Class frmPlayerStats
 
     End Sub
 
-    Private Sub ParseExtendedGameStats(ByVal lngCurrentTurnStartIndex As Integer, _
-                                       ByVal lngCurrentTurnStopIndex As Integer, _
-                                       ByRef ThisPlayerStats As udtPlayerStatsParsed, _
-                                       ByRef intDartsThrownThisGame As Short, _
-                                       ByRef intDartsSinceLastScore As Short, _
-                                       ByRef lngTotalScoreThisGame As Integer, _
-                                       ByVal eGameType As gtGameTypeConstants, _
-                                       ByVal blnRequireDoubleInFor301 As Boolean, _
+    Private Sub ParseExtendedGameStats(lngCurrentTurnStartIndex As Integer,
+                                       lngCurrentTurnStopIndex As Integer,
+                                       ByRef ThisPlayerStats As udtPlayerStatsParsed,
+                                       ByRef intDartsThrownThisGame As Short,
+                                       ByRef intDartsSinceLastScore As Short,
+                                       ByRef lngTotalScoreThisGame As Integer,
+                                       eGameType As gtGameTypeConstants,
+                                       blnRequireDoubleInFor301 As Boolean,
                                        ByRef blnHasScoredThisGame As Boolean)
 
         ' This sub gets called for each recorded "turn", typically every 3 darts thrown (though not necessarily true for golf)
@@ -543,7 +545,7 @@ Friend Class frmPlayerStats
                 objThisPlayerExtStats = ThisPlayerStats.StatsForGolf
             Case Else
                 ' Unknown mode
-                System.Windows.Forms.MessageBox.Show("Unknown game mode in ParseExtendedGameStats: " & LookupGameStringByType(eGameType), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                MessageBox.Show("Unknown game mode in ParseExtendedGameStats: " & LookupGameStringByType(eGameType), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 objThisPlayerExtStats = New udtGeneralExtendedStats
         End Select
 
@@ -562,7 +564,7 @@ Friend Class frmPlayerStats
                         If blnRequireDoubleInFor301 And Not blnHasScoredThisGame Then
                             If .ValidHits <> 2 Then
                                 ' This spot should not be reached
-                                System.Windows.Forms.MessageBox.Show(".ValidHits <> 2 in ParseExtendedGameStats; this is unexpected", "Code error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                                MessageBox.Show(".ValidHits <> 2 in ParseExtendedGameStats; this is unexpected", "Code error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                             End If
 
                             blnHasScoredThisGame = True
@@ -626,9 +628,9 @@ Friend Class frmPlayerStats
 
     End Sub
 
-    Private Sub ParseGameStats(ByVal boolParseExtendedStatFile As Boolean, _
-                               ByVal strGameTypeName As String, _
-                               ByVal eStatsMode As frmStatOptionsDialog.smStatsMode)
+    Private Sub ParseGameStats(boolParseExtendedStatFile As Boolean,
+                               strGameTypeName As String,
+                               eStatsMode As frmStatOptionsDialog.smStatsMode)
 
         ' When eStatsMode is 0, just show Cricket stats
         ' When eStatsMode is 1, just show 301 stats
@@ -771,7 +773,7 @@ Friend Class frmPlayerStats
                                 udtGameDetails.GameDate = udtGameStatEntry.GameDateTime
 
                                 ' Record Opponents -- all if player won, or only the winner if player lost
-                                udtGameDetails.GameOpponentsIndex = New System.Collections.Generic.List(Of Short)
+                                udtGameDetails.GameOpponentsIndex = New List(Of Short)
 
                                 For Each udtGameStatCompare As udtGameStatsType In mGameStats
                                     OpponentIndex1 = GetPlayerIndex(udtGameStatCompare.PlayerName)
@@ -964,7 +966,7 @@ Friend Class frmPlayerStats
     ''' <param name="KeyString"></param>
     ''' <returns></returns>
     ''' <remarks>The number of items parsed out of strLineToParse</remarks>
-    Private Function ParseLine(ByVal strLineToParse As String, ByRef KeyString() As String) As Integer
+    Private Function ParseLine(strLineToParse As String, ByRef KeyString() As String) As Integer
         Static chSepChars() As Char = New Char() {","c}
 
         Dim x As Short
@@ -992,7 +994,7 @@ Friend Class frmPlayerStats
 
     End Function
 
-    Private Sub RankPlayers(ByVal StartingDate As System.DateTime, ByVal EndingDate As System.DateTime, ByVal DateWeight As Single)
+    Private Sub RankPlayers(StartingDate As DateTime, EndingDate As DateTime, DateWeight As Single)
         Dim x As Short
         Dim OpponentRankSum, OpponentRank As Single
         Dim RecentGamesWonRelative As Single
@@ -1101,20 +1103,20 @@ Friend Class frmPlayerStats
 
     End Sub
 
-    Private Sub ReadStatsFile(ByVal eStatsMode As frmStatOptionsDialog.smStatsMode)
+    Private Sub ReadStatsFile(eStatsMode As frmStatOptionsDialog.smStatsMode)
         ' When eStatsMode is 0, just show Cricket stats
         ' When eStatsMode is 1, just show 301 stats
         ' When eStatsMode is 2, just show Golf stats
         ' When eStatsMode is 3, show cumulative stats for all games (excluding golf from the rankings)
 
-        Dim diFolderInfo As System.IO.DirectoryInfo
+        Dim diFolderInfo As DirectoryInfo
         Dim strStatsFileWildcard As String
 
-        Dim srInFile As System.IO.StreamReader
+        Dim srInFile As StreamReader
 
         Dim intFileMatchCount As Integer
-        Dim strFileMatchList As New System.Collections.Generic.SortedList(Of String, String)
-        Dim strFilePath As System.Collections.Generic.KeyValuePair(Of String, String)
+        Dim strFileMatchList As New SortedList(Of String, String)
+        Dim strFilePath As KeyValuePair(Of String, String)
 
         Dim boolExtFileExist As Boolean
         Dim strLineIn As String
@@ -1123,7 +1125,7 @@ Friend Class frmPlayerStats
         Dim intKeyStringItemCount As Short
 
         Dim ValidGame As Boolean
-        Dim PreviousGameDateTime As System.DateTime
+        Dim PreviousGameDateTime As DateTime
         Dim LineWaiting As Boolean
         Dim strGameTypeName As String
         Dim PredictedGameCount, ActualGameCount As Integer
@@ -1146,29 +1148,29 @@ Friend Class frmPlayerStats
 
             MasterPlayerListCount = 0
 
-            PreviousGameDateTime = System.DateTime.MinValue
+            PreviousGameDateTime = DateTime.MinValue
             PredictedGameCount = 0
 
             If mGameStats Is Nothing Then
-                mGameStats = New System.Collections.Generic.List(Of udtGameStatsType)
+                mGameStats = New List(Of udtGameStatsType)
             Else
                 mGameStats.Clear()
             End If
 
             strStatsFileWildcard = StatsFileNameBase & "*.ini"
 
-            diFolderInfo = New System.IO.DirectoryInfo(System.IO.Path.GetDirectoryName(strStatsFileWildcard))
+            diFolderInfo = New DirectoryInfo(Path.GetDirectoryName(strStatsFileWildcard))
 
-            If diFolderInfo.GetFiles(System.IO.Path.GetFileName(strStatsFileWildcard)).Length = 0 Then
+            If diFolderInfo.GetFiles(Path.GetFileName(strStatsFileWildcard)).Length = 0 Then
                 ' Stats file missing
-                System.Windows.Forms.MessageBox.Show("The statistics file cannot be found: " & strStatsFileWildcard & ";  Process aborted.", "File not Found", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                MessageBox.Show("The statistics file cannot be found: " & strStatsFileWildcard & ";  Process aborted.", "File not Found", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 Exit Sub
             End If
 
             objProgress = New frmProgress
             objProgress.InitializeForm("Loading Extended Stats", 0, 2)
             objProgress.Show()
-            System.Windows.Forms.Application.DoEvents()
+            Application.DoEvents()
 
             ' Find all of the StatsExtd_*.ini and StatsExtd.ini files
             intFileMatchCount = FindMatchingFiles(StatsExtendedFilenameBase, strFileMatchList)
@@ -1183,7 +1185,7 @@ Friend Class frmPlayerStats
 
                 For Each strFilePath In strFileMatchList
 
-                    srInFile = New System.IO.StreamReader(New System.IO.FileStream(strFilePath.Key, IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read))
+                    srInFile = New StreamReader(New FileStream(strFilePath.Key, FileMode.Open, FileAccess.Read, FileShare.Read))
 
                     Do While srInFile.Peek() >= 0
 
@@ -1228,7 +1230,7 @@ Friend Class frmPlayerStats
                 objProgress.InitializeForm("Loading and Parsing Stats", 1, PredictedGameCount)
             End If
 
-            PreviousGameDateTime = System.DateTime.MinValue
+            PreviousGameDateTime = DateTime.MinValue
             ActualGameCount = 0
             strGameTypeName = String.Empty
 
@@ -1236,7 +1238,7 @@ Friend Class frmPlayerStats
             intFileMatchCount = FindMatchingFiles(StatsFileNameBase, strFileMatchList)
 
             For Each strFilePath In strFileMatchList
-                srInFile = New System.IO.StreamReader(New System.IO.FileStream(strFilePath.Key, IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.Read))
+                srInFile = New StreamReader(New FileStream(strFilePath.Key, FileMode.Open, FileAccess.Read, FileShare.Read))
 
                 Do While srInFile.Peek() >= 0 And MasterPlayerListCount < MAX_PLAYER_COUNT
 
@@ -1246,7 +1248,7 @@ Friend Class frmPlayerStats
 
                     If intKeyStringItemCount >= 7 Then
                         With udtPlayerStatEntry
-                            System.DateTime.TryParse(KeyString(0), .GameDateTime)
+                            DateTime.TryParse(KeyString(0), .GameDateTime)
                             .GameTimeElapsed = KeyString(1)
                             .PlayerName = KeyString(2)
                             .PartnerName = KeyString(3)
@@ -1261,8 +1263,8 @@ Friend Class frmPlayerStats
                             ValidGame = True
                         Else
                             ' Check gametype
-                            If eStatsMode = frmStatOptionsDialog.smStatsMode.Cricket AndAlso eGameType = gtGameTypeConstants.gtCricket OrElse _
-                               eStatsMode = frmStatOptionsDialog.smStatsMode.Three01 AndAlso eGameType = gtGameTypeConstants.gt301 OrElse _
+                            If eStatsMode = frmStatOptionsDialog.smStatsMode.Cricket AndAlso eGameType = gtGameTypeConstants.gtCricket OrElse
+                               eStatsMode = frmStatOptionsDialog.smStatsMode.Three01 AndAlso eGameType = gtGameTypeConstants.gt301 OrElse
                                eStatsMode = frmStatOptionsDialog.smStatsMode.Golf AndAlso eGameType = gtGameTypeConstants.gtGolf Then
                                 ValidGame = True
                             Else
@@ -1306,9 +1308,9 @@ Friend Class frmPlayerStats
 
             If MasterPlayerListCount >= MAX_PLAYER_COUNT Then
                 Dim strMessage As String
-                strMessage = "Can only parse " & MAX_PLAYER_COUNT & " players in the stats file.  Please delete old games/players by archiving the old Stats and StatsExtd Ini files in the application folder (" & System.IO.Path.GetDirectoryName(StatsExtendedFilenameBase) & ")"
+                strMessage = "Can only parse " & MAX_PLAYER_COUNT & " players in the stats file.  Please delete old games/players by archiving the old Stats and StatsExtd Ini files in the application folder (" & Path.GetDirectoryName(StatsExtendedFilenameBase) & ")"
 
-                System.Windows.Forms.MessageBox.Show(strMessage, "Too many players", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                MessageBox.Show(strMessage, "Too many players", MessageBoxButtons.OK, MessageBoxIcon.Information)
             End If
 
             objProgress.InitializeForm("Parsing Stats", 0, 2)
@@ -1318,7 +1320,7 @@ Friend Class frmPlayerStats
             objProgress.Hide()
 
             If MasterPlayerListCount <= 0 Then
-                System.Windows.Forms.MessageBox.Show("No valid statistics were found in the Statistics file.", "No Statistics", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                MessageBox.Show("No valid statistics were found in the Statistics file.", "No Statistics", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
 
         Catch ex As Exception
@@ -1328,10 +1330,10 @@ Friend Class frmPlayerStats
 
     End Sub
 
-    Private Sub RecordMeanThrowGameStats(ByRef ThisPlayerExtStats As udtGeneralExtendedStats, _
-                                         ByVal dtGameDate As System.DateTime, _
-                                         ByVal intDartsThrownThisGame As Short, _
-                                         ByVal lngTotalScoreThisGame As Integer)
+    Private Sub RecordMeanThrowGameStats(ByRef ThisPlayerExtStats As udtGeneralExtendedStats,
+                                         dtGameDate As DateTime,
+                                         intDartsThrownThisGame As Short,
+                                         lngTotalScoreThisGame As Integer)
 
         Dim udtGameInfo As udtExtendedStatGameInfoType
 
@@ -1351,7 +1353,7 @@ Friend Class frmPlayerStats
 
     End Sub
 
-    Private Sub RecordExtendedGameStats(ByRef ThisPlayerExtStats As udtGeneralExtendedStats, ByVal intDartsThrownThisGame As Short)
+    Private Sub RecordExtendedGameStats(ByRef ThisPlayerExtStats As udtGeneralExtendedStats, intDartsThrownThisGame As Short)
         ' Note: This sub only gets called if the player won the game
 
         With ThisPlayerExtStats
@@ -1418,7 +1420,7 @@ Friend Class frmPlayerStats
 
     Private Sub ShowAdditionalStats()
 
-        Try            
+        Try
             frmAddnlStats.InitForm(mStatsMode)
 
             frmAddnlStats.ShowDialog()
@@ -1435,7 +1437,7 @@ Friend Class frmPlayerStats
 
         Dim strPlayerName As String
         Dim intPlayerIndex As Integer
-        Dim udtGameInfo As New System.Collections.Generic.List(Of udtPlayerStatsGameInfoType)
+        Dim udtGameInfo As New List(Of udtPlayerStatsGameInfoType)
 
         Try
             strPlayerName = CStr(lstPlayers.SelectedItem)
@@ -1447,7 +1449,7 @@ Friend Class frmPlayerStats
             intPlayerIndex = GetPlayerIndex(strPlayerName)
 
             If intPlayerIndex < 0 Then
-                System.Windows.Forms.MessageBox.Show("Player '" + strPlayerName + "' not found in MasterPlayerList; unable to continue.", "Unknown Player", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                MessageBox.Show("Player '" + strPlayerName + "' not found in MasterPlayerList; unable to continue.", "Unknown Player", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             Else
                 If GetPlayerGameInfo(intPlayerIndex, udtGameInfo) Then
 
@@ -1464,19 +1466,19 @@ Friend Class frmPlayerStats
         Catch ex As Exception
             HandleException("ShowZoomStats for current player", ex)
         End Try
-      
+
 
     End Sub
 
-    Private Sub SortLists(ByRef ThisList As System.Windows.Forms.ListBox)
+    Private Sub SortLists(ByRef ThisList As ListBox)
         Dim x, y As Short
         Dim PointerArray(MAX_PLAYER_COUNT) As Short
         Dim SwapThem, NumericCompare As Boolean
         Dim SaveListArray(MAX_PLAYER_COUNT) As String
         Dim SwapValue As Short
 
-        Dim objThisControl As System.Windows.Forms.Control
-        Dim objThisListBox As System.Windows.Forms.ListBox
+        Dim objThisControl As Control
+        Dim objThisListBox As ListBox
 
         Dim blnSortReverse As Boolean
         blnSortReverse = chkReverseSort.Checked
@@ -1508,7 +1510,7 @@ Friend Class frmPlayerStats
             Next x
 
             For Each objThisControl In Me.Controls
-                If TypeOf objThisControl Is System.Windows.Forms.ListBox Then
+                If TypeOf objThisControl Is ListBox Then
                     ' After sort completes, Actually rearrange the lists
                     objThisListBox = CType(objThisControl, ListControl)
 
@@ -1533,12 +1535,12 @@ Friend Class frmPlayerStats
 
     End Sub
 
-    Private Sub SynchronizeLists(ByRef objListBox As System.Windows.Forms.ListBox)
-        Dim objThisControl As System.Windows.Forms.Control
-        Dim objThisListBox As System.Windows.Forms.ListBox
+    Private Sub SynchronizeLists(ByRef objListBox As ListBox)
+        Dim objThisControl As Control
+        Dim objThisListBox As ListBox
 
         For Each objThisControl In Me.Controls
-            If TypeOf objThisControl Is System.Windows.Forms.ListBox Then
+            If TypeOf objThisControl Is ListBox Then
 
                 objThisListBox = CType(objThisControl, ListControl)
 
@@ -1549,7 +1551,7 @@ Friend Class frmPlayerStats
         Next objThisControl
     End Sub
 
-    Private Sub cboDaysForStats_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboDaysForStats.SelectedIndexChanged
+    Private Sub cboDaysForStats_SelectedIndexChanged(eventSender As Object, eventArgs As EventArgs) Handles cboDaysForStats.SelectedIndexChanged
         Dim x, workx As Short
         Dim MaxRanking As Single
 
@@ -1557,22 +1559,22 @@ Friend Class frmPlayerStats
             Exit Sub
         End If
 
-        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.WaitCursor
+        Cursor.Current = Cursors.WaitCursor
 
         ' First find rankings for times up to value in cboDaysForStats
-        Dim dtStopDate As System.DateTime
-        dtStopDate = System.DateTime.Now.AddDays(-GetComboBoxItemText(cboDaysForStats))
+        Dim dtStopDate As DateTime
+        dtStopDate = DateTime.Now.AddDays(-GetComboBoxItemText(cboDaysForStats))
 
         DoRankings(dtStopDate)
 
-        Dim dtStartDate As System.DateTime
+        Dim dtStartDate As DateTime
 
         ' ToDo: Validate this logic (carryover from VB6)
         dtStartDate = dtStopDate
         FindBestWorstPlayer(dtStartDate)
 
         ' Now find rankings for the last year
-        DoRankings(System.DateTime.Now.AddYears(-1))
+        DoRankings(DateTime.Now.AddYears(-1))
 
         ' Normalize scores to player with highest score
         MaxRanking = -1
@@ -1605,35 +1607,35 @@ Friend Class frmPlayerStats
             End If
         Next x
 
-        dtStartDate = System.DateTime.Now.AddDays(-GetComboBoxItemText(cboDaysForStats))
+        dtStartDate = DateTime.Now.AddDays(-GetComboBoxItemText(cboDaysForStats))
         FindBestWorstPlayer(dtStartDate)
 
-        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+        Cursor.Current = Cursors.Default
         SortLists(lstRank)
 
     End Sub
 
-    Private Sub cmdAddnlStats_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdAddnlStats.Click
+    Private Sub cmdAddnlStats_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdAddnlStats.Click
         ShowAdditionalStats()
     End Sub
 
-    Private Sub cmdHelp_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdHelp.Click
+    Private Sub cmdHelp_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdHelp.Click
         Dim objHelp As New frmRankHelp
         objHelp.ShowDialog()
         If Not objHelp Is Nothing Then objHelp.Close()
     End Sub
 
-    Private Sub cmdok_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdOK.Click
+    Private Sub cmdok_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdOK.Click
         Me.Close()
     End Sub
 
-    Private Sub frmPlayerStats_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
+    Private Sub frmPlayerStats_Load(eventSender As Object, eventArgs As EventArgs) Handles MyBase.Load
 
         Try
 
             ' Center form in window
-            Me.Left = (System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width - Me.Width) / 2
-            Me.Top = (System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height - Me.Height) / 2
+            Me.Left = (Screen.PrimaryScreen.Bounds.Width - Me.Width) / 2
+            Me.Top = (Screen.PrimaryScreen.Bounds.Height - Me.Height) / 2
 
             ' Show the statistics options form
             frmStatOptionsDialog.ShowDialog()
@@ -1665,109 +1667,109 @@ Friend Class frmPlayerStats
         End Try
 
     End Sub
-    
-    Private Sub Label1_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Label1.Click
+
+    Private Sub Label1_Click(eventSender As Object, eventArgs As EventArgs) Handles Label1.Click
         SortLists(lstGamesWonWithPartner)
     End Sub
-    
-    Private Sub Label2_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Label2.Click
+
+    Private Sub Label2_Click(eventSender As Object, eventArgs As EventArgs) Handles Label2.Click
         SortLists(lstGamesWon)
     End Sub
-    
-    Private Sub Label3_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Label3.Click
+
+    Private Sub Label3_Click(eventSender As Object, eventArgs As EventArgs) Handles Label3.Click
         SortLists(lstGamesPlayedPerMonth)
     End Sub
-    
-    Private Sub Label4_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Label4.Click
+
+    Private Sub Label4_Click(eventSender As Object, eventArgs As EventArgs) Handles Label4.Click
         SortLists(lstBestPartner)
     End Sub
-    
-    Private Sub Label5_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Label5.Click
+
+    Private Sub Label5_Click(eventSender As Object, eventArgs As EventArgs) Handles Label5.Click
         SortLists(lstWorstPartner)
     End Sub
-    
-    Private Sub Label7_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles Label7.Click
+
+    Private Sub Label7_Click(eventSender As Object, eventArgs As EventArgs) Handles Label7.Click
         SortLists(lstRank)
     End Sub
-    
-    Private Sub lblBestPlayer_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lblBestPlayer.Click
-        cboDaysForStats_SelectedIndexChanged(cboDaysForStats, New System.EventArgs())
+
+    Private Sub lblBestPlayer_Click(eventSender As Object, eventArgs As EventArgs) Handles lblBestPlayer.Click
+        cboDaysForStats_SelectedIndexChanged(cboDaysForStats, New EventArgs())
     End Sub
-    
-    Private Sub lblBestPlayerName_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lblBestPlayerName.Click
-        cboDaysForStats_SelectedIndexChanged(cboDaysForStats, New System.EventArgs())
+
+    Private Sub lblBestPlayerName_Click(eventSender As Object, eventArgs As EventArgs) Handles lblBestPlayerName.Click
+        cboDaysForStats_SelectedIndexChanged(cboDaysForStats, New EventArgs())
     End Sub
-    
-    Private Sub lblPlayer_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lblPlayer.Click
+
+    Private Sub lblPlayer_Click(eventSender As Object, eventArgs As EventArgs) Handles lblPlayer.Click
         SortLists(lstPlayers)
     End Sub
-    
-    Private Sub lblWorstPlayer_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lblWorstPlayer.Click
-        cboDaysForStats_SelectedIndexChanged(cboDaysForStats, New System.EventArgs())
+
+    Private Sub lblWorstPlayer_Click(eventSender As Object, eventArgs As EventArgs) Handles lblWorstPlayer.Click
+        cboDaysForStats_SelectedIndexChanged(cboDaysForStats, New EventArgs())
     End Sub
-    
-    Private Sub lblWorstPlayerName_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lblWorstPlayerName.Click
-        cboDaysForStats_SelectedIndexChanged(cboDaysForStats, New System.EventArgs())
+
+    Private Sub lblWorstPlayerName_Click(eventSender As Object, eventArgs As EventArgs) Handles lblWorstPlayerName.Click
+        cboDaysForStats_SelectedIndexChanged(cboDaysForStats, New EventArgs())
     End Sub
-    
+
     'UPGRADE_WARNING: Event lstBestPartner.SelectedIndexChanged may fire when form is initialized. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"'
-    Private Sub lstBestPartner_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstBestPartner.SelectedIndexChanged
+    Private Sub lstBestPartner_SelectedIndexChanged(eventSender As Object, eventArgs As EventArgs) Handles lstBestPartner.SelectedIndexChanged
         lstPlayers.SelectedIndex = lstBestPartner.SelectedIndex
     End Sub
-    
-    Private Sub lstBestPartner_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstBestPartner.DoubleClick
+
+    Private Sub lstBestPartner_DoubleClick(eventSender As Object, eventArgs As EventArgs) Handles lstBestPartner.DoubleClick
         ShowZoomStats()
     End Sub
-    
+
     'UPGRADE_ISSUE: ListBox event lstBestPartner.Scroll was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"'
     Private Sub lstBestPartner_Scroll()
         SynchronizeLists(lstBestPartner)
     End Sub
-    
+
     'UPGRADE_WARNING: Event lstGamesPlayedPerMonth.SelectedIndexChanged may fire when form is initialized. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"'
-    Private Sub lstGamesPlayedPerMonth_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstGamesPlayedPerMonth.SelectedIndexChanged
+    Private Sub lstGamesPlayedPerMonth_SelectedIndexChanged(eventSender As Object, eventArgs As EventArgs) Handles lstGamesPlayedPerMonth.SelectedIndexChanged
         lstPlayers.SelectedIndex = lstGamesPlayedPerMonth.SelectedIndex
     End Sub
-    
-    Private Sub lstGamesPlayedPerMonth_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstGamesPlayedPerMonth.DoubleClick
+
+    Private Sub lstGamesPlayedPerMonth_DoubleClick(eventSender As Object, eventArgs As EventArgs) Handles lstGamesPlayedPerMonth.DoubleClick
         ShowZoomStats()
     End Sub
-    
+
     'UPGRADE_ISSUE: ListBox event lstGamesPlayedPerMonth.Scroll was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"'
     Private Sub lstGamesPlayedPerMonth_Scroll()
         SynchronizeLists(lstGamesPlayedPerMonth)
     End Sub
-    
+
     'UPGRADE_WARNING: Event lstGamesWon.SelectedIndexChanged may fire when form is initialized. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"'
-    Private Sub lstGamesWon_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstGamesWon.SelectedIndexChanged
+    Private Sub lstGamesWon_SelectedIndexChanged(eventSender As Object, eventArgs As EventArgs) Handles lstGamesWon.SelectedIndexChanged
         lstPlayers.SelectedIndex = lstGamesWon.SelectedIndex
     End Sub
-    
-    Private Sub lstGamesWon_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstGamesWon.DoubleClick
+
+    Private Sub lstGamesWon_DoubleClick(eventSender As Object, eventArgs As EventArgs) Handles lstGamesWon.DoubleClick
         ShowZoomStats()
     End Sub
-    
+
     'UPGRADE_ISSUE: ListBox event lstGamesWon.Scroll was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"'
     Private Sub lstGamesWon_Scroll()
         SynchronizeLists(lstGamesWon)
     End Sub
-    
+
     'UPGRADE_WARNING: Event lstGamesWonWithPartner.SelectedIndexChanged may fire when form is initialized. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"'
-    Private Sub lstGamesWonWithPartner_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstGamesWonWithPartner.SelectedIndexChanged
+    Private Sub lstGamesWonWithPartner_SelectedIndexChanged(eventSender As Object, eventArgs As EventArgs) Handles lstGamesWonWithPartner.SelectedIndexChanged
         lstPlayers.SelectedIndex = lstGamesWonWithPartner.SelectedIndex
     End Sub
-    
-    Private Sub lstGamesWonWithPartner_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstGamesWonWithPartner.DoubleClick
+
+    Private Sub lstGamesWonWithPartner_DoubleClick(eventSender As Object, eventArgs As EventArgs) Handles lstGamesWonWithPartner.DoubleClick
         ShowZoomStats()
     End Sub
-    
+
     'UPGRADE_ISSUE: ListBox event lstGamesWonWithPartner.Scroll was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"'
     Private Sub lstGamesWonWithPartner_Scroll()
         SynchronizeLists(lstGamesWonWithPartner)
     End Sub
-    
+
     'UPGRADE_WARNING: Event lstPlayers.SelectedIndexChanged may fire when form is initialized. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"'
-    Private Sub lstPlayers_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstPlayers.SelectedIndexChanged
+    Private Sub lstPlayers_SelectedIndexChanged(eventSender As Object, eventArgs As EventArgs) Handles lstPlayers.SelectedIndexChanged
         lstRank.SelectedIndex = lstPlayers.SelectedIndex
         lstGamesWon.SelectedIndex = lstPlayers.SelectedIndex
         lstGamesWonWithPartner.SelectedIndex = lstPlayers.SelectedIndex
@@ -1775,39 +1777,39 @@ Friend Class frmPlayerStats
         lstBestPartner.SelectedIndex = lstPlayers.SelectedIndex
         lstWorstPartner.SelectedIndex = lstPlayers.SelectedIndex
     End Sub
-    
-    Private Sub lstPlayers_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstPlayers.DoubleClick
+
+    Private Sub lstPlayers_DoubleClick(eventSender As Object, eventArgs As EventArgs) Handles lstPlayers.DoubleClick
         ShowZoomStats()
     End Sub
-    
+
     'UPGRADE_ISSUE: ListBox event lstPlayers.Scroll was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"'
     Private Sub lstPlayers_Scroll()
         SynchronizeLists(lstPlayers)
     End Sub
-    
+
     'UPGRADE_WARNING: Event lstRank.SelectedIndexChanged may fire when form is initialized. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"'
-    Private Sub lstRank_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstRank.SelectedIndexChanged
+    Private Sub lstRank_SelectedIndexChanged(eventSender As Object, eventArgs As EventArgs) Handles lstRank.SelectedIndexChanged
         lstPlayers.SelectedIndex = lstRank.SelectedIndex
     End Sub
-    
-    Private Sub lstRank_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstRank.DoubleClick
+
+    Private Sub lstRank_DoubleClick(eventSender As Object, eventArgs As EventArgs) Handles lstRank.DoubleClick
         ShowZoomStats()
     End Sub
-    
+
     'UPGRADE_ISSUE: ListBox event lstRank.Scroll was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"'
     Private Sub lstRank_Scroll()
         SynchronizeLists(lstRank)
     End Sub
-    
+
     'UPGRADE_WARNING: Event lstWorstPartner.SelectedIndexChanged may fire when form is initialized. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"'
-    Private Sub lstWorstPartner_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstWorstPartner.SelectedIndexChanged
+    Private Sub lstWorstPartner_SelectedIndexChanged(eventSender As Object, eventArgs As EventArgs) Handles lstWorstPartner.SelectedIndexChanged
         lstPlayers.SelectedIndex = lstWorstPartner.SelectedIndex
     End Sub
-    
-    Private Sub lstWorstPartner_DoubleClick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles lstWorstPartner.DoubleClick
+
+    Private Sub lstWorstPartner_DoubleClick(eventSender As Object, eventArgs As EventArgs) Handles lstWorstPartner.DoubleClick
         ShowZoomStats()
     End Sub
-    
+
     'UPGRADE_ISSUE: ListBox event lstWorstPartner.Scroll was not upgraded. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="ABD9AF39-7E24-4AFF-AD8D-3675C1AA3054"'
     Private Sub lstWorstPartner_Scroll()
         SynchronizeLists(lstWorstPartner)

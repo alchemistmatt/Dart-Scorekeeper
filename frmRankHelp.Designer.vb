@@ -1,4 +1,6 @@
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> Partial Class frmRankHelp
+Imports Microsoft.VisualBasic.CompilerServices
+
+<DesignerGenerated()> Partial Class frmRankHelp
 #Region "Windows Form Designer generated code "
     <System.Diagnostics.DebuggerNonUserCode()> Public Sub New()
         MyBase.New()
@@ -39,7 +41,7 @@
         Me.cmdOK.BackColor = System.Drawing.SystemColors.Control
         Me.cmdOK.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdOK.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.cmdOK.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdOK.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.cmdOK.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdOK.Location = New System.Drawing.Point(272, 232)
         Me.cmdOK.Name = "cmdOK"
@@ -53,7 +55,7 @@
         '
         Me.lblHelp2.BackColor = System.Drawing.SystemColors.Control
         Me.lblHelp2.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblHelp2.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblHelp2.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblHelp2.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblHelp2.Location = New System.Drawing.Point(8, 152)
         Me.lblHelp2.Name = "lblHelp2"
@@ -66,7 +68,7 @@
         '
         Me.lblHelp1.BackColor = System.Drawing.SystemColors.Control
         Me.lblHelp1.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblHelp1.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblHelp1.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblHelp1.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblHelp1.Location = New System.Drawing.Point(8, 72)
         Me.lblHelp1.Name = "lblHelp1"
@@ -79,7 +81,7 @@
         '
         Me.lblHelp0.BackColor = System.Drawing.SystemColors.Control
         Me.lblHelp0.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblHelp0.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblHelp0.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblHelp0.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblHelp0.Location = New System.Drawing.Point(8, 8)
         Me.lblHelp0.Name = "lblHelp0"
@@ -102,7 +104,7 @@
         Me.Controls.Add(Me.lblHelp1)
         Me.Controls.Add(Me.lblHelp0)
         Me.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Location = New System.Drawing.Point(60, 116)
@@ -115,5 +117,5 @@
         Me.ResumeLayout(False)
 
     End Sub
-#End Region 
+#End Region
 End Class

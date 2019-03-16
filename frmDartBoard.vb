@@ -1,21 +1,22 @@
 Option Strict Off
 Option Explicit On
-'Imports VB = Microsoft.VisualBasic
-'Imports Microsoft.VisualBasic.PowerPacks
+
+Imports System.Collections.Generic
+Imports System.IO
 
 Friend Class frmDartBoard
-    Inherits System.Windows.Forms.Form
-    
+    Inherits Form
+
     ' -------------------------------------------------------------------------------
     ' Dart Scorekeeper
-    ' Written by Matthew Monroe in Chapel Hill, NC
     '
-    ' Program started July 31, 1999
+    ' Written by Matthew Monroe
+    ' Started in July 1999
+    ' Ported to .NET in 2011
     '
-    ' E-mail: matt@alchemistmatt.com or alchemistmatt@yahoo.com
-    ' Websites: http://www.alchemistmatt.com/
-    '           http://www.geocities.com/alchemistmatt/
-    '           http://come.to/alchemistmatt/
+    ' E-mail: monroem@gmail.com or alchemistmatt@yahoo.com
+    ' Repository: https://github.com/alchemistmatt
+    '
     ' -------------------------------------------------------------------------------
     '
     ' Licensed under the Apache License, Version 2.0; you may not use this file except
@@ -32,12 +33,12 @@ Friend Class frmDartBoard
 #Region "Module-wide variables"
     Private mLastActionUndo As Boolean
     Private mCompletingTurn As Boolean
-    
+
     Private mDartThrowCount As Short ' 0, 1, 2, or 3
-    Private mLastThreeDarts(3) As Short ' 1-based array; Keep track of most recent three darts
-    Private mLastThreeDartMultipliers(3) As Short ' 1-based array; Also keep track of the multipliers
-    
-    Private mDartClickTime As System.DateTime
+    Private ReadOnly mLastThreeDarts(3) As Short ' 1-based array; Keep track of most recent three darts
+    Private ReadOnly mLastThreeDartMultipliers(3) As Short ' 1-based array; Also keep track of the multipliers
+
+    Private mDartClickTime As DateTime
 
 #End Region
 
@@ -59,8 +60,8 @@ Friend Class frmDartBoard
         mDartThrowCount = 0
     End Sub
 
-    Public Sub CompleteTurn(ByVal eGameType As modDarts.gtGameTypeConstants)
-        Dim intComboMatchValues As System.Collections.Generic.SortedDictionary(Of Short, Short)
+    Public Sub CompleteTurn(eGameType As gtGameTypeConstants)
+        Dim intComboMatchValues As SortedDictionary(Of Short, Short)
 
         Dim intThisDartIndex, intDartsThrownAlready As Short
         Dim intDartValueTotal, intTurnTotal As Short
@@ -70,7 +71,7 @@ Friend Class frmDartBoard
         Dim strSoundFileToPlay As String = String.Empty
 
         ' Initialize intComboMatchValues
-        intComboMatchValues = New System.Collections.Generic.SortedDictionary(Of Short, Short)
+        intComboMatchValues = New SortedDictionary(Of Short, Short)
 
         intComboMatchValues.Add(1, 0)
         intComboMatchValues.Add(5, 0)
@@ -82,9 +83,9 @@ Friend Class frmDartBoard
         mCompletingTurn = True
 
         Select Case eGameType
-            Case modDarts.gtGameTypeConstants.gt301, modDarts.gtGameTypeConstants.gtCricket
-                If eGameType = modDarts.gtGameTypeConstants.gtCricket AndAlso _
-                   frmCricket.lblWinStatus(frmCricket.lstCurrentTeam.SelectedIndex).Text = "Out" Then
+            Case gtGameTypeConstants.gt301, gtGameTypeConstants.gtCricket
+                If eGameType = gtGameTypeConstants.gtCricket AndAlso
+                   frmCricket.lblWinStatus.Item(frmCricket.lstCurrentTeam.SelectedIndex).Text = "Out" Then
                     mCompletingTurn = False
                     Exit Sub
                 End If
@@ -108,7 +109,7 @@ Friend Class frmDartBoard
                     Next intThisDartIndex
                 End If
 
-            Case modDarts.gtGameTypeConstants.gtGolf
+            Case gtGameTypeConstants.gtGolf
                 If mDartThrowCount = 0 Then
                     ' No darts were thrown, so assume a miss
                     ' Show "Miss" on DartBoard
@@ -155,7 +156,7 @@ Friend Class frmDartBoard
                     ' Combo thrown (1, 5, and 20)
                     strSoundFileToPlay = "DartCombo"
 
-                    If Not System.IO.File.Exists(System.IO.Path.Combine(GetAppFolderPath(), strSoundFileToPlay & ".wav")) Then
+                    If Not File.Exists(Path.Combine(GetAppFolderPath(), strSoundFileToPlay & ".wav")) Then
                         strSoundFileToPlay = String.Empty
                     End If
                 End If
@@ -167,9 +168,9 @@ Friend Class frmDartBoard
         If String.IsNullOrEmpty(strSoundFileToPlay) And intTurnTotal >= glbMinimumScoreToPlaySound Then
             ' Score was above minimum value for playing sounds; see if a file named Dart##.wav exists
             '  based on frmCricket.LastThreeDartsTotal
-            strSoundFileToPlay = System.IO.Path.Combine(GetAppFolderPath(), "Dart" & intTurnTotal.ToString() & ".wav")
+            strSoundFileToPlay = Path.Combine(GetAppFolderPath(), "Dart" & intTurnTotal.ToString() & ".wav")
 
-            If Not System.IO.File.Exists(strSoundFileToPlay) Then
+            If Not File.Exists(strSoundFileToPlay) Then
                 strSoundFileToPlay = String.Empty
             End If
         End If
@@ -185,7 +186,7 @@ Friend Class frmDartBoard
 
     End Sub
 
-    Private Function GetDartScoreLabel(ByVal DartIndex As Integer) As Label
+    Private Function GetDartScoreLabel(DartIndex As Integer) As Label
 
         Select Case DartIndex
             Case 0
@@ -200,7 +201,7 @@ Friend Class frmDartBoard
 
     End Function
 
-    Private Function GetDartPicture(ByVal DartIndex As Integer) As PictureBox
+    Private Function GetDartPicture(DartIndex As Integer) As PictureBox
 
         Select Case DartIndex
             Case 0
@@ -215,7 +216,7 @@ Friend Class frmDartBoard
 
     End Function
 
-    Public Function LookUpScore(ByVal intDistance As Short, ByVal intAngle As Short) As usrDartHitStats
+    Public Function LookUpScore(intDistance As Short, intAngle As Short) As usrDartHitStats
         Dim ScoreToAdd As usrDartHitStats
 
         If intDistance <= glbDartBoardSizes.SingleBullRing Then
@@ -300,9 +301,9 @@ Friend Class frmDartBoard
 
     End Function
 
-    Private Sub ShowHitDescription(ByVal intDartValue As Short, ByVal intDartMultiplier As Short, ByVal intDistance As Short)
+    Private Sub ShowHitDescription(intDartValue As Short, intDartMultiplier As Short, intDistance As Short)
 
-        If frmCricket.GetGameType() = modDarts.gtGameTypeConstants.gtGolf Then
+        If frmCricket.GetGameType() = gtGameTypeConstants.gtGolf Then
             ' Playing Golf
             With GetDartScoreLabel(mDartThrowCount - 1)
                 .Text = CStr(ComputeGolfDartScore(CShort(frmCricket.lblCurrentHole.Text), intDartValue, intDartMultiplier, intDistance))
@@ -339,8 +340,8 @@ Friend Class frmDartBoard
         CompleteTurn(frmCricket.GetGameType())
 
         ' Erase history of last three darts
-        System.Array.Clear(mLastThreeDarts, 0, mLastThreeDarts.Length)
-        System.Array.Clear(mLastThreeDartMultipliers, 0, mLastThreeDartMultipliers.Length)
+        Array.Clear(mLastThreeDarts, 0, mLastThreeDarts.Length)
+        Array.Clear(mLastThreeDartMultipliers, 0, mLastThreeDartMultipliers.Length)
 
         If frmCricket.CheckForGameOver(True) Then
             Exit Sub
@@ -349,7 +350,7 @@ Friend Class frmDartBoard
         frmCricket.AdvanceToNextTeam(True)
     End Sub
 
-    Public Sub PlaceDart(ByVal DartValue As Short, ByVal Multiplier As Short)
+    Public Sub PlaceDart(DartValue As Short, Multiplier As Short)
         Dim intNewDartDistance As Short
 
         If mDartThrowCount < 3 Then
@@ -361,13 +362,13 @@ Friend Class frmDartBoard
 
             intNewDartDistance = PositionDartShape(mDartThrowCount)
             ShowHitDescription(DartValue, Multiplier, intNewDartDistance)
-            mDartClickTime = System.DateTime.Now
+            mDartClickTime = DateTime.Now
             mLastActionUndo = False
         End If
 
     End Sub
 
-    Public Function PositionDartShape(ByVal intDartThrowNumber As Short) As Short
+    Public Function PositionDartShape(intDartThrowNumber As Short) As Short
         ' Returns the dart distance
 
         Dim objDart As PictureBox
@@ -431,8 +432,8 @@ Friend Class frmDartBoard
                 ' Determine X-Y coordinate based on Angle and Distance from Center
                 ' By keeping intWorkingAngle < 90 degrees, both intDeltaX and intDeltaY should
                 '  always be positive
-                intDeltaX = intNewDartDistance * System.Math.Sin(intWorkingAngle * 2 * Math.PI / 360)
-                intDeltaY = intNewDartDistance * System.Math.Cos(intWorkingAngle * 2 * Math.PI / 360)
+                intDeltaX = intNewDartDistance * Math.Sin(intWorkingAngle * 2 * Math.PI / 360)
+                intDeltaY = intNewDartDistance * Math.Cos(intWorkingAngle * 2 * Math.PI / 360)
 
                 ' Determine correct sin of intDeltaX and intDeltaY
                 If intNewDartAngle < 90 Then
@@ -486,7 +487,7 @@ Friend Class frmDartBoard
         With lblDirections
             .Height = 27
             .Width = 110
-            If modDarts.glbDartBoardSizeVal = modDarts.bsBoardSizeConstants.bsSmall Then
+            If glbDartBoardSizeVal = bsBoardSizeConstants.bsSmall Then
                 .Top = pctDartBoard.ClientRectangle.Height - .Height
             Else
                 .Top = pctDartBoard.ClientRectangle.Height - .Height - 4
@@ -499,12 +500,12 @@ Friend Class frmDartBoard
         objDartScoreLabel0 = GetDartScoreLabel(0)
 
         With objDartScoreLabel0
-            Select Case modDarts.glbDartBoardSizeVal
-                Case modDarts.bsBoardSizeConstants.bsSmall
+            Select Case glbDartBoardSizeVal
+                Case bsBoardSizeConstants.bsSmall
                     .Font = UpdateFontSize(.Font, 12)
-                Case modDarts.bsBoardSizeConstants.bsLarge
+                Case bsBoardSizeConstants.bsLarge
                     .Font = UpdateFontSize(.Font, 12)
-                Case modDarts.bsBoardSizeConstants.bsHuge
+                Case bsBoardSizeConstants.bsHuge
                     .Font = UpdateFontSize(.Font, 12)
                 Case Else
                     ' Includes .bsMedium
@@ -534,7 +535,7 @@ Friend Class frmDartBoard
     Private Sub RedoThrow()
         frmCricket.RedoThrow()
     End Sub
-   
+
     Public Sub RemoveMostRecentThrow()
         If mDartThrowCount > 0 Then
             GetDartPicture(mDartThrowCount - 1).Visible = False
@@ -552,50 +553,50 @@ Friend Class frmDartBoard
         frmCricket.UndoThrow()
     End Sub
 
-    Private Sub cmdClose_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdClose.Click
+    Private Sub cmdClose_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdClose.Click
         Me.Hide()
     End Sub
 
-    Private Sub cmdNextTeam_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdNextTeam.Click
+    Private Sub cmdNextTeam_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdNextTeam.Click
         SmartAdvanceToNextTeam()
     End Sub
 
-    Private Sub cmdPreviousTeam_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdPreviousTeam.Click
+    Private Sub cmdPreviousTeam_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdPreviousTeam.Click
         frmCricket.SelectPreviousTeam()
     End Sub
 
-    Private Sub cmdRedo_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdRedo.Click
+    Private Sub cmdRedo_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdRedo.Click
         RedoThrow()
     End Sub
 
-    Private Sub cmdUndo_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdUndo.Click
+    Private Sub cmdUndo_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdUndo.Click
         UndoThrow()
     End Sub
 
-    Private Sub frmDartBoard_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
+    Private Sub frmDartBoard_Load(eventSender As Object, eventArgs As EventArgs) Handles MyBase.Load
         Dim intThisDart As Short
 
         For intThisDart = 0 To 2
             With GetDartPicture(intThisDart)
-                '.Height = 13
-                '.Width = 13
+                .Height = 13
+                .Width = 13
                 .Visible = False
             End With
             GetDartScoreLabel(intThisDart).Visible = False
         Next intThisDart
 
-        mDartClickTime = System.DateTime.Now.Subtract(New System.TimeSpan(0, 0, CLICK_KEEP_TIME * 2))
+        mDartClickTime = DateTime.Now.Subtract(New TimeSpan(0, 0, CLICK_KEEP_TIME * 2))
         mDartThrowCount = 0
 
         UpdateDartBoardSize()
 
     End Sub
 
-    Private Sub frmDartBoard_MouseMove(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles MyBase.MouseMove
-        Me.Cursor = System.Windows.Forms.Cursors.Default
+    Private Sub frmDartBoard_MouseMove(eventSender As Object, eventArgs As MouseEventArgs) Handles MyBase.MouseMove
+        Me.Cursor = Cursors.Default
     End Sub
 
-    Private Sub pctDartBoard_MouseDown(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles pctDartBoard.MouseDown
+    Private Sub pctDartBoard_MouseDown(eventSender As Object, eventArgs As MouseEventArgs) Handles pctDartBoard.MouseDown
 
         Dim ptCurrentLoc As usrXYLocation
         Dim intDistance, intAngle As Short
@@ -607,15 +608,15 @@ Friend Class frmDartBoard
             Exit Sub
         End If
 
-        If frmCricket.GetGameType() = modDarts.gtGameTypeConstants.gtCricket Then
+        If frmCricket.GetGameType() = gtGameTypeConstants.gtCricket Then
             ' Assure team throwing dart is not mathematically eliminated (if playing cricket)
             intCurrentTeamIndex = frmCricket.lstCurrentTeam.SelectedIndex
             If intCurrentTeamIndex >= 0 Then
-                With frmCricket.lblWinStatus(intCurrentTeamIndex)
+                With frmCricket.lblWinStatus.Item(intCurrentTeamIndex)
                     If .Visible And .Text = "Out" Then
                         Dim strMessage As String
                         strMessage = "Team " & (intCurrentTeamIndex + 1).ToString() & " has been mathematically eliminated.  Advancing to next team."
-                        System.Windows.Forms.MessageBox.Show(strMessage, "Team is out", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        MessageBox.Show(strMessage, "Team is out", MessageBoxButtons.OK, MessageBoxIcon.Information)
                         SmartAdvanceToNextTeam()
                         Exit Sub
                     End If
@@ -623,7 +624,7 @@ Friend Class frmDartBoard
             End If
         End If
 
-        If eventArgs.Button <> Windows.Forms.MouseButtons.Left Then
+        If eventArgs.Button <> MouseButtons.Left Then
             ' User undoing a dart throw -- Click cmdUndo for user
             UndoThrow()
         Else
@@ -663,25 +664,25 @@ Friend Class frmDartBoard
             ' Add dart to mLastThreeDarts
             mLastThreeDarts(mDartThrowCount) = usrScoreToAdd.intValue
 
-            mDartClickTime = System.DateTime.Now
+            mDartClickTime = DateTime.Now
             mLastActionUndo = False
         End If
 
     End Sub
 
-    Private Sub pctDartBoard_MouseMove(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.MouseEventArgs) Handles pctDartBoard.MouseMove
+    Private Sub pctDartBoard_MouseMove(eventSender As Object, eventArgs As MouseEventArgs) Handles pctDartBoard.MouseMove
 
-        Me.Cursor = System.Windows.Forms.Cursors.Cross
+        Me.Cursor = Cursors.Cross
 
         If chkShowMousePos.Checked Then
             lblMouseCoord.Text = "Mouse Pos: " & eventArgs.X & ", " & eventArgs.Y
         End If
     End Sub
 
-    Private Sub tmrShowDart_Tick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles tmrShowDart.Tick
+    Private Sub tmrShowDart_Tick(eventSender As Object, eventArgs As EventArgs) Handles tmrShowDart.Tick
         If mDartThrowCount >= 3 Then
             If Not mLastActionUndo AndAlso Not mCompletingTurn Then
-                If System.DateTime.Now.Subtract(mDartClickTime).TotalSeconds >= 2 Then
+                If DateTime.Now.Subtract(mDartClickTime).TotalSeconds >= 2 Then
                     ' Automatically click Next Team button, unless last event was an Undo Event
                     SmartAdvanceToNextTeam()
                 End If
@@ -689,7 +690,7 @@ Friend Class frmDartBoard
         End If
     End Sub
 
-    Private Sub chkShowMousePos_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles chkShowMousePos.CheckedChanged
+    Private Sub chkShowMousePos_CheckedChanged(sender As Object, e As EventArgs) Handles chkShowMousePos.CheckedChanged
         lblMouseCoord.Visible = chkShowMousePos.Checked
     End Sub
 End Class

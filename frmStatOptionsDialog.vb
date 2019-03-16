@@ -2,18 +2,18 @@ Option Strict Off
 Option Explicit On
 
 Friend Class frmStatOptionsDialog
-    Inherits System.Windows.Forms.Form
-    
+    Inherits Form
+
     ' -------------------------------------------------------------------------------
     ' Dart Scorekeeper
-    ' Written by Matthew Monroe in Chapel Hill, NC
     '
-    ' Program started July 31, 1999
+    ' Written by Matthew Monroe
+    ' Started in July 1999
+    ' Ported to .NET in 2011
     '
-    ' E-mail: matt@alchemistmatt.com or alchemistmatt@yahoo.com
-    ' Websites: http://www.alchemistmatt.com/
-    '           http://www.geocities.com/alchemistmatt/
-    '           http://come.to/alchemistmatt/
+    ' E-mail: monroem@gmail.com or alchemistmatt@yahoo.com
+    ' Repository: https://github.com/alchemistmatt
+    '
     ' -------------------------------------------------------------------------------
     '
     ' Licensed under the Apache License, Version 2.0; you may not use this file except
@@ -46,6 +46,8 @@ Friend Class frmStatOptionsDialog
                 Return smStatsMode.Golf
             ElseIf optStatsModeAllGames.Checked Then
                 Return smStatsMode.AllGames
+            Else
+                Return smStatsMode.Cricket
             End If
 
         End Get
@@ -55,17 +57,17 @@ Friend Class frmStatOptionsDialog
         mOKClicked = False
     End Sub
 
-    Private Sub cmdOK_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdOK.Click
+    Private Sub cmdOK_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdOK.Click
         mOKClicked = True
         Me.Hide()
 
     End Sub
 
-    Private Sub frmStatOptionsDialog_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
+    Private Sub frmStatOptionsDialog_Load(eventSender As Object, eventArgs As EventArgs) Handles MyBase.Load
 
         ' Position form in window
-        Me.Left = (2 * System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width - Me.Width) / 3
-        Me.Top = (System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height - Me.Height) / 2
+        Me.Left = (2 * Screen.PrimaryScreen.Bounds.Width - Me.Width) / 3
+        Me.Top = (Screen.PrimaryScreen.Bounds.Height - Me.Height) / 2
 
         optStatsModeAllGames.Checked = True
         mOKClicked = False

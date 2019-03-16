@@ -1,4 +1,6 @@
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> Partial Class frmRealtimeStatistics
+Imports Microsoft.VisualBasic.CompilerServices
+
+<DesignerGenerated()> Partial Class frmRealtimeStatistics
 #Region "Windows Form Designer generated code "
     <System.Diagnostics.DebuggerNonUserCode()> Public Sub New()
         MyBase.New()
@@ -42,7 +44,7 @@
         '
         Me.lblPlayer.BackColor = System.Drawing.SystemColors.Control
         Me.lblPlayer.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblPlayer.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblPlayer.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblPlayer.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblPlayer.Location = New System.Drawing.Point(24, 24)
         Me.lblPlayer.Name = "lblPlayer"
@@ -57,7 +59,7 @@
         '
         Me.lblMeanScorePerThrow.BackColor = System.Drawing.SystemColors.Control
         Me.lblMeanScorePerThrow.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblMeanScorePerThrow.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblMeanScorePerThrow.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblMeanScorePerThrow.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblMeanScorePerThrow.Location = New System.Drawing.Point(120, 0)
         Me.lblMeanScorePerThrow.Name = "lblMeanScorePerThrow"
@@ -73,7 +75,7 @@
         Me.chkReverseSort.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.chkReverseSort.BackColor = System.Drawing.SystemColors.Control
         Me.chkReverseSort.Cursor = System.Windows.Forms.Cursors.Default
-        Me.chkReverseSort.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkReverseSort.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.chkReverseSort.ForeColor = System.Drawing.SystemColors.ControlText
         Me.chkReverseSort.Location = New System.Drawing.Point(104, 188)
         Me.chkReverseSort.Name = "chkReverseSort"
@@ -88,7 +90,7 @@
         Me.cmdOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.cmdOK.BackColor = System.Drawing.SystemColors.Control
         Me.cmdOK.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmdOK.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdOK.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.cmdOK.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdOK.Location = New System.Drawing.Point(24, 184)
         Me.cmdOK.Name = "cmdOK"
@@ -104,7 +106,7 @@
                     Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lstPlayers.BackColor = System.Drawing.SystemColors.Window
         Me.lstPlayers.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lstPlayers.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lstPlayers.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lstPlayers.ForeColor = System.Drawing.SystemColors.WindowText
         Me.lstPlayers.ItemHeight = 14
         Me.lstPlayers.Location = New System.Drawing.Point(8, 56)
@@ -119,7 +121,7 @@
                     Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lstMeanScorePerThrow.BackColor = System.Drawing.SystemColors.Window
         Me.lstMeanScorePerThrow.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lstMeanScorePerThrow.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lstMeanScorePerThrow.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lstMeanScorePerThrow.ForeColor = System.Drawing.SystemColors.WindowText
         Me.lstMeanScorePerThrow.ItemHeight = 14
         Me.lstMeanScorePerThrow.Location = New System.Drawing.Point(120, 56)
@@ -143,7 +145,7 @@
         Me.Controls.Add(Me.lblPlayer)
         Me.Controls.Add(Me.lblMeanScorePerThrow)
         Me.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Location = New System.Drawing.Point(3, 21)
@@ -157,5 +159,5 @@
         Me.ResumeLayout(False)
 
     End Sub
-#End Region 
+#End Region
 End Class

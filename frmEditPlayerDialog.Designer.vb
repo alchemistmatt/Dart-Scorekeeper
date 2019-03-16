@@ -1,4 +1,6 @@
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> Partial Class frmEditPlayerDialog
+Imports Microsoft.VisualBasic.CompilerServices
+
+<DesignerGenerated()> Partial Class frmEditPlayerDialog
 #Region "Windows Form Designer generated code "
     <System.Diagnostics.DebuggerNonUserCode()> Public Sub New()
         MyBase.New()
@@ -38,7 +40,7 @@
         '
         Me.cmdOK.BackColor = System.Drawing.SystemColors.Control
         Me.cmdOK.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmdOK.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdOK.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.cmdOK.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdOK.Location = New System.Drawing.Point(24, 48)
         Me.cmdOK.Name = "cmdOK"
@@ -53,7 +55,7 @@
         Me.cmdCancel.BackColor = System.Drawing.SystemColors.Control
         Me.cmdCancel.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.cmdCancel.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdCancel.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.cmdCancel.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdCancel.Location = New System.Drawing.Point(96, 48)
         Me.cmdCancel.Name = "cmdCancel"
@@ -68,7 +70,7 @@
         Me.txtPlayerName.AcceptsReturn = True
         Me.txtPlayerName.BackColor = System.Drawing.SystemColors.Window
         Me.txtPlayerName.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtPlayerName.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtPlayerName.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.txtPlayerName.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtPlayerName.Location = New System.Drawing.Point(88, 16)
         Me.txtPlayerName.MaxLength = 0
@@ -81,7 +83,7 @@
         '
         Me.lblPlayerName.BackColor = System.Drawing.SystemColors.Control
         Me.lblPlayerName.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblPlayerName.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblPlayerName.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblPlayerName.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblPlayerName.Location = New System.Drawing.Point(8, 16)
         Me.lblPlayerName.Name = "lblPlayerName"
@@ -104,7 +106,7 @@
         Me.Controls.Add(Me.txtPlayerName)
         Me.Controls.Add(Me.lblPlayerName)
         Me.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Location = New System.Drawing.Point(494, 141)
@@ -119,5 +121,5 @@
         Me.PerformLayout()
 
     End Sub
-#End Region 
+#End Region
 End Class

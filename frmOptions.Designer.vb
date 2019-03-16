@@ -1,4 +1,6 @@
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> Partial Class frmOptions
+Imports Microsoft.VisualBasic.CompilerServices
+
+<DesignerGenerated()> Partial Class frmOptions
 #Region "Windows Form Designer generated code "
     <System.Diagnostics.DebuggerNonUserCode()> Public Sub New()
         MyBase.New()
@@ -99,7 +101,7 @@
         '
         Me.chkRotateBoardClockwise.BackColor = System.Drawing.SystemColors.Control
         Me.chkRotateBoardClockwise.Cursor = System.Windows.Forms.Cursors.Default
-        Me.chkRotateBoardClockwise.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkRotateBoardClockwise.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.chkRotateBoardClockwise.ForeColor = System.Drawing.SystemColors.ControlText
         Me.chkRotateBoardClockwise.Location = New System.Drawing.Point(224, 48)
         Me.chkRotateBoardClockwise.Name = "chkRotateBoardClockwise"
@@ -115,7 +117,7 @@
         Me.txtLastRotateHit.AcceptsReturn = True
         Me.txtLastRotateHit.BackColor = System.Drawing.SystemColors.Window
         Me.txtLastRotateHit.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtLastRotateHit.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtLastRotateHit.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.txtLastRotateHit.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtLastRotateHit.Location = New System.Drawing.Point(160, 96)
         Me.txtLastRotateHit.MaxLength = 0
@@ -131,7 +133,7 @@
         Me.txtCurrentWinmauNumber.AcceptsReturn = True
         Me.txtCurrentWinmauNumber.BackColor = System.Drawing.SystemColors.Window
         Me.txtCurrentWinmauNumber.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtCurrentWinmauNumber.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtCurrentWinmauNumber.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.txtCurrentWinmauNumber.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtCurrentWinmauNumber.Location = New System.Drawing.Point(160, 72)
         Me.txtCurrentWinmauNumber.MaxLength = 0
@@ -148,7 +150,7 @@
         Me.txtHitsBetweenRotate.AcceptsReturn = True
         Me.txtHitsBetweenRotate.BackColor = System.Drawing.SystemColors.Window
         Me.txtHitsBetweenRotate.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtHitsBetweenRotate.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtHitsBetweenRotate.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.txtHitsBetweenRotate.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtHitsBetweenRotate.Location = New System.Drawing.Point(160, 48)
         Me.txtHitsBetweenRotate.MaxLength = 0
@@ -165,7 +167,7 @@
         Me.txtTotalHits.AcceptsReturn = True
         Me.txtTotalHits.BackColor = System.Drawing.SystemColors.Window
         Me.txtTotalHits.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtTotalHits.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtTotalHits.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.txtTotalHits.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtTotalHits.Location = New System.Drawing.Point(160, 24)
         Me.txtTotalHits.MaxLength = 0
@@ -181,7 +183,7 @@
         '
         Me.cmdDefaults.BackColor = System.Drawing.SystemColors.Control
         Me.cmdDefaults.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmdDefaults.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdDefaults.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.cmdDefaults.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdDefaults.Location = New System.Drawing.Point(312, 360)
         Me.cmdDefaults.Name = "cmdDefaults"
@@ -197,7 +199,7 @@
         Me.fraButtons.Controls.Add(Me.cmdClose)
         Me.fraButtons.Controls.Add(Me.cmdCancel)
         Me.fraButtons.Cursor = System.Windows.Forms.Cursors.Default
-        Me.fraButtons.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.fraButtons.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.fraButtons.ForeColor = System.Drawing.SystemColors.ControlText
         Me.fraButtons.Location = New System.Drawing.Point(320, 240)
         Me.fraButtons.Name = "fraButtons"
@@ -209,7 +211,7 @@
         '
         Me.cmdClose.BackColor = System.Drawing.SystemColors.Control
         Me.cmdClose.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmdClose.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdClose.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.cmdClose.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdClose.Location = New System.Drawing.Point(0, 0)
         Me.cmdClose.Name = "cmdClose"
@@ -224,7 +226,7 @@
         Me.cmdCancel.BackColor = System.Drawing.SystemColors.Control
         Me.cmdCancel.Cursor = System.Windows.Forms.Cursors.Default
         Me.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.cmdCancel.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdCancel.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.cmdCancel.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdCancel.Location = New System.Drawing.Point(0, 32)
         Me.cmdCancel.Name = "cmdCancel"
@@ -246,7 +248,7 @@
         Me.fraOtherOptions.Controls.Add(Me.lblDartBoardSize)
         Me.fraOtherOptions.Controls.Add(Me.lblMinimumScoreToPlaySound)
         Me.fraOtherOptions.Controls.Add(Me.lblScoreFontSize)
-        Me.fraOtherOptions.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.fraOtherOptions.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.fraOtherOptions.ForeColor = System.Drawing.SystemColors.ControlText
         Me.fraOtherOptions.Location = New System.Drawing.Point(8, 296)
         Me.fraOtherOptions.Name = "fraOtherOptions"
@@ -262,7 +264,7 @@
         Me.cboScoreAreaSize.BackColor = System.Drawing.SystemColors.Window
         Me.cboScoreAreaSize.Cursor = System.Windows.Forms.Cursors.Default
         Me.cboScoreAreaSize.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboScoreAreaSize.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboScoreAreaSize.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.cboScoreAreaSize.ForeColor = System.Drawing.SystemColors.WindowText
         Me.cboScoreAreaSize.Location = New System.Drawing.Point(96, 112)
         Me.cboScoreAreaSize.Name = "cboScoreAreaSize"
@@ -275,7 +277,7 @@
         Me.cboDartBoardSize.BackColor = System.Drawing.SystemColors.Window
         Me.cboDartBoardSize.Cursor = System.Windows.Forms.Cursors.Default
         Me.cboDartBoardSize.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboDartBoardSize.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboDartBoardSize.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.cboDartBoardSize.ForeColor = System.Drawing.SystemColors.WindowText
         Me.cboDartBoardSize.Location = New System.Drawing.Point(96, 139)
         Me.cboDartBoardSize.Name = "cboDartBoardSize"
@@ -288,7 +290,7 @@
         Me.txtMinimumScoreToPlaySound.AcceptsReturn = True
         Me.txtMinimumScoreToPlaySound.BackColor = System.Drawing.SystemColors.Window
         Me.txtMinimumScoreToPlaySound.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtMinimumScoreToPlaySound.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtMinimumScoreToPlaySound.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.txtMinimumScoreToPlaySound.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtMinimumScoreToPlaySound.Location = New System.Drawing.Point(192, 56)
         Me.txtMinimumScoreToPlaySound.MaxLength = 0
@@ -303,7 +305,7 @@
         Me.cboScoreFontSize.BackColor = System.Drawing.SystemColors.Window
         Me.cboScoreFontSize.Cursor = System.Windows.Forms.Cursors.Default
         Me.cboScoreFontSize.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboScoreFontSize.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboScoreFontSize.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.cboScoreFontSize.ForeColor = System.Drawing.SystemColors.WindowText
         Me.cboScoreFontSize.Location = New System.Drawing.Point(96, 86)
         Me.cboScoreFontSize.Name = "cboScoreFontSize"
@@ -315,7 +317,7 @@
         '
         Me.chkPlaySounds.BackColor = System.Drawing.SystemColors.Control
         Me.chkPlaySounds.Cursor = System.Windows.Forms.Cursors.Default
-        Me.chkPlaySounds.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkPlaySounds.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.chkPlaySounds.ForeColor = System.Drawing.SystemColors.ControlText
         Me.chkPlaySounds.Location = New System.Drawing.Point(16, 16)
         Me.chkPlaySounds.Name = "chkPlaySounds"
@@ -329,7 +331,7 @@
         '
         Me.lblScoreAreaSize.BackColor = System.Drawing.SystemColors.Control
         Me.lblScoreAreaSize.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblScoreAreaSize.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblScoreAreaSize.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblScoreAreaSize.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblScoreAreaSize.Location = New System.Drawing.Point(8, 114)
         Me.lblScoreAreaSize.Name = "lblScoreAreaSize"
@@ -342,7 +344,7 @@
         '
         Me.lblDartBoardSize.BackColor = System.Drawing.SystemColors.Control
         Me.lblDartBoardSize.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblDartBoardSize.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDartBoardSize.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblDartBoardSize.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblDartBoardSize.Location = New System.Drawing.Point(8, 141)
         Me.lblDartBoardSize.Name = "lblDartBoardSize"
@@ -355,7 +357,7 @@
         '
         Me.lblMinimumScoreToPlaySound.BackColor = System.Drawing.SystemColors.Control
         Me.lblMinimumScoreToPlaySound.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblMinimumScoreToPlaySound.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblMinimumScoreToPlaySound.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblMinimumScoreToPlaySound.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblMinimumScoreToPlaySound.Location = New System.Drawing.Point(8, 56)
         Me.lblMinimumScoreToPlaySound.Name = "lblMinimumScoreToPlaySound"
@@ -368,7 +370,7 @@
         '
         Me.lblScoreFontSize.BackColor = System.Drawing.SystemColors.Control
         Me.lblScoreFontSize.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblScoreFontSize.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblScoreFontSize.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblScoreFontSize.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblScoreFontSize.Location = New System.Drawing.Point(8, 88)
         Me.lblScoreFontSize.Name = "lblScoreFontSize"
@@ -382,7 +384,7 @@
         Me.frm301Options.BackColor = System.Drawing.SystemColors.Control
         Me.frm301Options.Controls.Add(Me.txtDefault301StartScore)
         Me.frm301Options.Controls.Add(Me.lblDefault301StartScore)
-        Me.frm301Options.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.frm301Options.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.frm301Options.ForeColor = System.Drawing.SystemColors.ControlText
         Me.frm301Options.Location = New System.Drawing.Point(8, 232)
         Me.frm301Options.Name = "frm301Options"
@@ -398,7 +400,7 @@
         Me.txtDefault301StartScore.AcceptsReturn = True
         Me.txtDefault301StartScore.BackColor = System.Drawing.SystemColors.Window
         Me.txtDefault301StartScore.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtDefault301StartScore.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtDefault301StartScore.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.txtDefault301StartScore.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtDefault301StartScore.Location = New System.Drawing.Point(160, 24)
         Me.txtDefault301StartScore.MaxLength = 0
@@ -412,7 +414,7 @@
         '
         Me.lblDefault301StartScore.BackColor = System.Drawing.SystemColors.Control
         Me.lblDefault301StartScore.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblDefault301StartScore.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblDefault301StartScore.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblDefault301StartScore.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblDefault301StartScore.Location = New System.Drawing.Point(8, 24)
         Me.lblDefault301StartScore.Name = "lblDefault301StartScore"
@@ -428,7 +430,7 @@
         Me.frmCricketOptions.Controls.Add(Me.optScoringModeHighScoreWins)
         Me.frmCricketOptions.Controls.Add(Me.optScoringModeLowScoreWins)
         Me.frmCricketOptions.Controls.Add(Me.chkCutThroatCricket)
-        Me.frmCricketOptions.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.frmCricketOptions.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.frmCricketOptions.ForeColor = System.Drawing.SystemColors.ControlText
         Me.frmCricketOptions.Location = New System.Drawing.Point(8, 144)
         Me.frmCricketOptions.Name = "frmCricketOptions"
@@ -443,7 +445,7 @@
         '
         Me.optScoringModeHighScoreWins.BackColor = System.Drawing.SystemColors.Control
         Me.optScoringModeHighScoreWins.Cursor = System.Windows.Forms.Cursors.Default
-        Me.optScoringModeHighScoreWins.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.optScoringModeHighScoreWins.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.optScoringModeHighScoreWins.ForeColor = System.Drawing.SystemColors.ControlText
         Me.optScoringModeHighScoreWins.Location = New System.Drawing.Point(48, 56)
         Me.optScoringModeHighScoreWins.Name = "optScoringModeHighScoreWins"
@@ -459,7 +461,7 @@
         Me.optScoringModeLowScoreWins.BackColor = System.Drawing.SystemColors.Control
         Me.optScoringModeLowScoreWins.Checked = True
         Me.optScoringModeLowScoreWins.Cursor = System.Windows.Forms.Cursors.Default
-        Me.optScoringModeLowScoreWins.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.optScoringModeLowScoreWins.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.optScoringModeLowScoreWins.ForeColor = System.Drawing.SystemColors.ControlText
         Me.optScoringModeLowScoreWins.Location = New System.Drawing.Point(48, 40)
         Me.optScoringModeLowScoreWins.Name = "optScoringModeLowScoreWins"
@@ -476,7 +478,7 @@
         Me.chkCutThroatCricket.Checked = True
         Me.chkCutThroatCricket.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkCutThroatCricket.Cursor = System.Windows.Forms.Cursors.Default
-        Me.chkCutThroatCricket.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkCutThroatCricket.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.chkCutThroatCricket.ForeColor = System.Drawing.SystemColors.ControlText
         Me.chkCutThroatCricket.Location = New System.Drawing.Point(24, 16)
         Me.chkCutThroatCricket.Name = "chkCutThroatCricket"
@@ -498,7 +500,7 @@
         Me.Frame1.Controls.Add(Me.lblCurrentWinmauNumber)
         Me.Frame1.Controls.Add(Me.lblHitsBetweenRotate)
         Me.Frame1.Controls.Add(Me.lblTotalHits)
-        Me.Frame1.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Frame1.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.Frame1.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Frame1.Location = New System.Drawing.Point(8, 8)
         Me.Frame1.Name = "Frame1"
@@ -513,7 +515,7 @@
         '
         Me.lblLastRotateHit.BackColor = System.Drawing.SystemColors.Control
         Me.lblLastRotateHit.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblLastRotateHit.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblLastRotateHit.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblLastRotateHit.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblLastRotateHit.Location = New System.Drawing.Point(16, 96)
         Me.lblLastRotateHit.Name = "lblLastRotateHit"
@@ -527,7 +529,7 @@
         '
         Me.lblCurrentWinmauNumber.BackColor = System.Drawing.SystemColors.Control
         Me.lblCurrentWinmauNumber.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblCurrentWinmauNumber.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCurrentWinmauNumber.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblCurrentWinmauNumber.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblCurrentWinmauNumber.Location = New System.Drawing.Point(8, 72)
         Me.lblCurrentWinmauNumber.Name = "lblCurrentWinmauNumber"
@@ -541,7 +543,7 @@
         '
         Me.lblHitsBetweenRotate.BackColor = System.Drawing.SystemColors.Control
         Me.lblHitsBetweenRotate.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblHitsBetweenRotate.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblHitsBetweenRotate.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblHitsBetweenRotate.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblHitsBetweenRotate.Location = New System.Drawing.Point(8, 48)
         Me.lblHitsBetweenRotate.Name = "lblHitsBetweenRotate"
@@ -555,7 +557,7 @@
         '
         Me.lblTotalHits.BackColor = System.Drawing.SystemColors.Control
         Me.lblTotalHits.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblTotalHits.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblTotalHits.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblTotalHits.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblTotalHits.Location = New System.Drawing.Point(8, 24)
         Me.lblTotalHits.Name = "lblTotalHits"
@@ -589,7 +591,7 @@
         Me.Controls.Add(Me.frmCricketOptions)
         Me.Controls.Add(Me.Frame1)
         Me.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Location = New System.Drawing.Point(149, 132)
         Me.Name = "frmOptions"

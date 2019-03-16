@@ -1,4 +1,6 @@
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> Partial Class frmProgress
+Imports Microsoft.VisualBasic.CompilerServices
+
+<DesignerGenerated()> Partial Class frmProgress
 #Region "Windows Form Designer generated code "
     <System.Diagnostics.DebuggerNonUserCode()> Public Sub New()
         MyBase.New()
@@ -32,7 +34,7 @@
         '
         Me.lblCurrentTask.BackColor = System.Drawing.SystemColors.Control
         Me.lblCurrentTask.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblCurrentTask.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblCurrentTask.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.lblCurrentTask.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblCurrentTask.Location = New System.Drawing.Point(8, 8)
         Me.lblCurrentTask.Name = "lblCurrentTask"
@@ -57,7 +59,7 @@
         Me.Controls.Add(Me.pbarProgress)
         Me.Controls.Add(Me.lblCurrentTask)
         Me.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.KeyPreview = True
         Me.Location = New System.Drawing.Point(3, 22)
@@ -65,11 +67,11 @@
         Me.MinimizeBox = False
         Me.Name = "frmProgress"
         Me.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.ShowInTaskbar = False        
+        Me.ShowInTaskbar = False
         Me.Text = "Progress"
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents pbarProgress As System.Windows.Forms.ProgressBar
-#End Region 
+#End Region
 End Class

@@ -2,27 +2,25 @@ Option Strict Off
 Option Explicit On
 
 Friend Class frmProgress
-    Inherits System.Windows.Forms.Form
-    
+    Inherits Form
+
     ' -------------------------------------------------------------------------------
     ' Dart Scorekeeper
-    ' Written by Matthew Monroe in Chapel Hill, NC
     '
-    ' Program started July 31, 1999
+    ' Written by Matthew Monroe
+    ' Started in July 1999
+    ' Ported to .NET in 2011
     '
-    ' E-mail: matt@alchemistmatt.com or alchemistmatt@yahoo.com
-    ' Websites: http://www.alchemistmatt.com/
-    '           http://www.geocities.com/alchemistmatt/
-    '           http://come.to/alchemistmatt/
+    ' E-mail: monroem@gmail.com or alchemistmatt@yahoo.com
+    ' Repository: https://github.com/alchemistmatt
+    '
     ' -------------------------------------------------------------------------------
     '
     ' Licensed under the Apache License, Version 2.0; you may not use this file except
     ' in compliance with the License.  You may obtain a copy of the License at
     ' http://www.apache.org/licenses/LICENSE-2.0
-    
-    Private DelayTimerIntervalCount As Short
-    
-    Public Sub InitializeForm(ByVal CurrentTask As String, ByVal ProgressBarMinNew As Integer, ByVal ProgressBarMaxNew As Integer)
+
+    Public Sub InitializeForm(CurrentTask As String, ProgressBarMinNew As Integer, ProgressBarMaxNew As Integer)
 
         Try
             If ProgressBarMinNew < 0 Then ProgressBarMinNew = 0
@@ -43,19 +41,19 @@ Friend Class frmProgress
         End Try
 
         Me.Show()
-        Me.Cursor = System.Windows.Forms.Cursors.WaitCursor
+        Me.Cursor = Cursors.WaitCursor
 
     End Sub
 
-    Public Sub UpdateProgressBar(ByVal NewValue As Integer, Optional ByVal ResetStartTime As Boolean = False)
+    Public Sub UpdateProgressBar(NewValue As Integer, Optional ByVal ResetStartTime As Boolean = False)
 
-        Static StartTime As System.DateTime = System.DateTime.Now
+        Static StartTime As DateTime = DateTime.Now
 
         Dim MinutesTotal, MinutesElapsed, MinutesRemaining As Double
         Dim dblRatioCompleted As Double
 
         If ResetStartTime Then
-            StartTime = System.DateTime.Now
+            StartTime = DateTime.Now
         End If
 
         Try
@@ -74,7 +72,7 @@ Friend Class frmProgress
 
 
             Try
-                MinutesElapsed = System.DateTime.Now.Subtract(StartTime).TotalMinutes
+                MinutesElapsed = DateTime.Now.Subtract(StartTime).TotalMinutes
                 If dblRatioCompleted <> 0 Then
                     MinutesTotal = MinutesElapsed / dblRatioCompleted
                 Else
@@ -93,21 +91,21 @@ Friend Class frmProgress
         Catch ex As Exception
             HandleException("UpdateProgressBar", ex)
         End Try
-       
+
 
     End Sub
-    
-    Public Sub UpdateCurrentTask(ByVal strNewTask As String)
+
+    Public Sub UpdateCurrentTask(strNewTask As String)
         lblCurrentTask.Text = strNewTask
-        
-        System.Windows.Forms.Application.DoEvents()
+
+        Application.DoEvents()
     End Sub
 
-    Private Sub frmProgress_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
-        
+    Private Sub frmProgress_Load(eventSender As Object, eventArgs As EventArgs) Handles MyBase.Load
+
         ' Put window in exact center of screen
         SizeAndCenterWindow(Me, cWindowExactCenter, 200, 100, False)
-        
+
     End Sub
 
 End Class

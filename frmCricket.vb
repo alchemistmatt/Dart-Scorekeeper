@@ -1,20 +1,21 @@
-Option Strict Off
+'Option Strict On
 Option Explicit On
-'Imports VB = Microsoft.VisualBasic
+
+Imports System.IO 'Imports VB = Microsoft.VisualBasic
 
 Friend Class frmCricket
-    Inherits System.Windows.Forms.Form
-    
+    Inherits Form
+
     ' -------------------------------------------------------------------------------
     ' Dart Scorekeeper
-    ' Written by Matthew Monroe in Chapel Hill, NC
     '
-    ' Program started July 31, 1999
+    ' Written by Matthew Monroe
+    ' Started in July 1999
+    ' Ported to .NET in 2011
     '
-    ' E-mail: matt@alchemistmatt.com or alchemistmatt@yahoo.com
-    ' Websites: http://www.alchemistmatt.com/
-    '           http://www.geocities.com/alchemistmatt/
-    '           http://come.to/alchemistmatt/
+    ' E-mail: monroem@gmail.com or alchemistmatt@yahoo.com
+    ' Repository: https://github.com/alchemistmatt
+    '
     ' -------------------------------------------------------------------------------
     '
     ' Licensed under the Apache License, Version 2.0; you may not use this file except
@@ -22,15 +23,15 @@ Friend Class frmCricket
     ' http://www.apache.org/licenses/LICENSE-2.0
 
 #Region "Constants and Enums"
-    Private Const MaxUndoHistory As Short = 5000
-    Private Const MaxBoxIndex As Short = 41
-    Private Const BoxesPerCol As Short = 7
-    
+    Private Const MAX_UNDO_HISTORY As Short = 5000
+    Private Const MAX_BOX_INDEX As Short = 41
+    Private Const BOXES_PER_COL As Short = 7
+
     Private Const SCOREBOX_SIZE_NORMAL As Short = 33        ' Pixels
     Private Const SCOREBOX_SIZE_SMALL As Short = 25         ' Pixels
-    
+
     Private Const SCOREBOX_DIM_ADDON As Short = 5
-    
+
     Private Enum spScorePictureConstants
         spZero = 0
         spOne = 1
@@ -67,52 +68,54 @@ Friend Class frmCricket
 #End Region
 
 #Region "Module-wide variables"
-    Private UndoHistory(MaxUndoHistory) As usrUndoHistory ' 1-based array
+    Private mUndoHistory(MAX_UNDO_HISTORY) As usrUndoHistory ' 1-based array
     Private boolDoubledIn() As Boolean
     Private intCurrentHole() As Short
     Private intMostRecentGolfScore As Short
-    
-    Private UndoHistoryCount, MaxUndoHistoryCount As Short
+
+    Private mUndoHistoryCount, mMaxUndoHistoryCount As Short
     Private HistoryIndexOfMostRecentTurn As Short
-    
-    Private MaxTeamIndexInGame, MaxBoxIndexInGame As Short
-    Private mStartTime, mLastClickTime As System.DateTime
+
+    Private mMaxTeamIndexInGame, mMaxBoxIndexInGame As Short
+    Private mStartTime, mLastClickTime As DateTime
     Private mLastClickTeam As Short
     Private mPauseDelay As Integer
-    Private PlayerRow, PlayerColumn As Short ' Both are 0-based
+    Private mPlayerRow, mPlayerColumn As Short ' Both are 0-based
 
     ' The following variables are used to prevent the history buffer from getting scrambled
     Private mUndoRedoInProgress As Boolean
     Private mNewGameButtonClicked As Boolean
 
     Private mRelativeScoringEnabled As Boolean
-    Private mScoreAreaSize As modDarts.sasScoreAreaSizeConstants
+    Private mScoreAreaSize As sasScoreAreaSizeConstants
 
-    Private mGameType As modDarts.gtGameTypeConstants = modDarts.gtGameTypeConstants.gtCricket
+    Private mGameType As gtGameTypeConstants = gtGameTypeConstants.gtCricket
 
 #End Region
 
-    Public Sub AdvanceToNextTeam(ByVal boolSkipEliminatedTeams As Boolean)
+    Public Sub AdvanceToNextTeam(boolSkipEliminatedTeams As Boolean)
 
         Try
 
             Do
-                If lstCurrentTeam.SelectedIndex < MaxTeamIndexInGame Then
+                If lstCurrentTeam.SelectedIndex < mMaxTeamIndexInGame Then
                     lstCurrentTeam.SelectedIndex = lstCurrentTeam.SelectedIndex + 1
-                    PlayerColumn = PlayerColumn + 1
+                    mPlayerColumn += 1S
                 Else
                     lstCurrentTeam.SelectedIndex = 0
-                    PlayerColumn = 0
-                    If PlayerRow = 1 Then PlayerRow = 0 Else PlayerRow = 1
+                    mPlayerColumn = 0
+                    If mPlayerRow = 1 Then mPlayerRow = 0 Else mPlayerRow = 1
                 End If
-            Loop While boolSkipEliminatedTeams And lblWinStatus(lstCurrentTeam.SelectedIndex).Visible And lblWinStatus(lstCurrentTeam.SelectedIndex).Text = "Out"
+            Loop While boolSkipEliminatedTeams AndAlso
+                       lblWinStatus.Item(lstCurrentTeam.SelectedIndex).Visible AndAlso
+                       lblWinStatus.Item(lstCurrentTeam.SelectedIndex).Text = "Out"
 
-            HighlightCurrentPlayer(PlayerRow, True)
+            HighlightCurrentPlayer(mPlayerRow, True)
 
             frmDartBoard.ClearDartBoard()
 
-            If UndoHistoryCount = MaxUndoHistoryCount Then
-                HistoryIndexOfMostRecentTurn = UndoHistoryCount
+            If mUndoHistoryCount >= mMaxUndoHistoryCount Then
+                HistoryIndexOfMostRecentTurn = mUndoHistoryCount
             End If
 
             ' Update real-time statistics
@@ -126,7 +129,7 @@ Friend Class frmCricket
 
     End Sub
 
-    Private Sub AddScore(ByVal ScoreAmt As Short, ByVal ScoreBoxIndex As Short, ByVal ScoringTeamIndex As Short)
+    Private Sub AddScore(ScoreAmt As Short, ScoreBoxIndex As Short, ScoringTeamIndex As Short)
         Dim x As Short
 
         Try
@@ -134,7 +137,7 @@ Friend Class frmCricket
             If glbBoolCutThroatCricket Then
                 If glbCutThroatMode = 0 Then
                     ' Other teams receive points; low score wins
-                    For x = 0 To MaxTeamIndexInGame
+                    For x = 0 To mMaxTeamIndexInGame
                         If Not IsClosed(x, ScoreBoxIndex) Then
                             UpdateTeamScore(x, GetTeamScore(x) + ScoreAmt)
                         End If
@@ -152,7 +155,7 @@ Friend Class frmCricket
 
     End Sub
 
-    Private Sub ChangePicAndTag(ByVal BoxIndex As Short, ByVal increment As Short)
+    Private Sub ChangePicAndTag(BoxIndex As Short, increment As Short)
         Dim CurrentVal As Short
 
         Try
@@ -160,17 +163,17 @@ Friend Class frmCricket
             CurrentVal += increment
 
             If CurrentVal >= 0 Then
-                pctScoreBox(BoxIndex).Tag = CurrentVal.ToString
+                pctScoreBox.Item(BoxIndex).Tag = CurrentVal.ToString
             End If
 
             ' Update and position HitCount box
-            txtHitCount.Text = pctScoreBox(BoxIndex).Tag
-            txtHitCount.Top = pctScoreBox(BoxIndex).Top
-            txtHitCount.Left = pctScoreBox(BoxIndex).Left - pctScoreBox(BoxIndex).Width
+            txtHitCount.Text = CType(pctScoreBox.Item(BoxIndex).Tag, String)
+            txtHitCount.Top = pctScoreBox.Item(BoxIndex).Top
+            txtHitCount.Left = pctScoreBox.Item(BoxIndex).Left - pctScoreBox.Item(BoxIndex).Width
             txtHitCount.Visible = True
 
             If CurrentVal >= spScorePictureConstants.spZero And CurrentVal <= spScorePictureConstants.spThree Then
-                SetPicture(pctScoreBox(BoxIndex), CShort(CurrentVal))
+                SetPicture(pctScoreBox.Item(BoxIndex), CType(CurrentVal, spScorePictureConstants))
             End If
 
             If CurrentVal = spScorePictureConstants.spThree Then
@@ -178,7 +181,7 @@ Friend Class frmCricket
                 PlayWaveFileForPlayer("DartClose", False, True)
             End If
 
-            mLastClickTime = System.DateTime.Now
+            mLastClickTime = DateTime.Now
 
         Catch ex As Exception
             HandleException("ChangePicAndTag", ex)
@@ -186,7 +189,7 @@ Friend Class frmCricket
 
     End Sub
 
-    Public Function CheckForGameOver(ByVal SuppressNotify As Boolean) As Boolean
+    Public Function CheckForGameOver(SuppressNotify As Boolean) As Boolean
         Dim I, y, x, z, intScoreBoxHitCount As Short
         Dim intLowestScore As Short
         Dim boolPlayingGolf As Boolean
@@ -195,31 +198,31 @@ Friend Class frmCricket
 
         Try
 
-            ' If lblWinStatus(0) is visible and does not contain the word Out, then
+            ' If lblWinStatus.Item(0) is visible and does not contain the word Out, then
             '   it either contains the word Lose or Win
             ' In this case, the game _must_ be over
-            If lblWinStatus(0).Visible = True And lblWinStatus(0).Text <> "Out" Then
+            If lblWinStatus.Item(0).Visible = True And lblWinStatus.Item(0).Text <> "Out" Then
                 boolAlreadyKnowGameIsOver = True
             End If
 
             ' Check for Game Over
             ' if a team is all closed _and_ has lower score than others, then game over
             ' If playing 301 I don't check for game over until past the first "If boolGameIsOver Then" statement
-            For x = 0 To MaxTeamIndexInGame
+            For x = 0 To mMaxTeamIndexInGame
                 boolGameIsOver = True ' Assume game over (set false later if not)
                 boolPlayingGolf = False
                 Select Case mGameType
-                    Case modDarts.gtGameTypeConstants.gtCricket
-                        For y = 0 To BoxesPerCol - 1
+                    Case gtGameTypeConstants.gtCricket
+                        For y = 0 To BOXES_PER_COL - 1
                             If Not IsClosed(x, y) Then
                                 ' Not all boxes are closed, game not over yet
                                 boolGameIsOver = False
                                 Exit For
                             End If
                         Next y
-                    Case modDarts.gtGameTypeConstants.gtGolf
+                    Case gtGameTypeConstants.gtGolf
                         ' Game is over if all teams are done with hole 18 (and on hole 19)
-                        If intCurrentHole(MaxTeamIndexInGame) <= 18 Then
+                        If intCurrentHole(mMaxTeamIndexInGame) <= 18 Then
                             boolGameIsOver = False
                         End If
                         boolPlayingGolf = True
@@ -231,10 +234,10 @@ Friend Class frmCricket
                     ' Assume best score (set false later if not)
                     boolBestScore = True
                     Select Case mGameType
-                        Case modDarts.gtGameTypeConstants.gtCricket
+                        Case gtGameTypeConstants.gtCricket
                             ' Playing Cricket
-                            For z = 0 To MaxTeamIndexInGame
-                                If z <> x AndAlso glbCutThroatMode = 0 AndAlso GetTeamScore(z) < GetTeamScore(x) OrElse _
+                            For z = 0 To mMaxTeamIndexInGame
+                                If z <> x AndAlso glbCutThroatMode = 0 AndAlso GetTeamScore(z) < GetTeamScore(x) OrElse
                                   z <> x AndAlso glbCutThroatMode = 1 AndAlso GetTeamScore(z) > GetTeamScore(x) Then
                                     boolBestScore = False
                                     Exit For
@@ -242,10 +245,10 @@ Friend Class frmCricket
                             Next z
                             boolGameIsOver = boolBestScore
 
-                        Case modDarts.gtGameTypeConstants.gtGolf
+                        Case gtGameTypeConstants.gtGolf
                             ' Teams(s) with lowest score have won
                             intLowestScore = GetTeamScore(x)
-                            For z = 0 To MaxTeamIndexInGame
+                            For z = 0 To mMaxTeamIndexInGame
                                 If z <> x Then
                                     If GetTeamScore(z) < intLowestScore Then
                                         intLowestScore = GetTeamScore(z)
@@ -266,14 +269,14 @@ Friend Class frmCricket
                     If boolGameIsOver Then
                         ' Game over
                         lblStatus.Text = "Game Over."
-                        For z = 0 To MaxTeamIndexInGame
-                            If (boolPlayingGolf AndAlso GetTeamScore(z) = intLowestScore) OrElse _
+                        For z = 0 To mMaxTeamIndexInGame
+                            If (boolPlayingGolf AndAlso GetTeamScore(z) = intLowestScore) OrElse
                                (Not boolPlayingGolf AndAlso z = x) Then
-                                lblWinStatus(z).Text = "Win"
-                                lblWinStatus(z).Font = UpdateFontBold(lblWinStatus(z).Font, True)
+                                lblWinStatus.Item(z).Text = "Win"
+                                lblWinStatus.Item(z).Font = UpdateFontBold(lblWinStatus.Item(z).Font, True)
                             Else
-                                lblWinStatus(z).Text = "Lose"
-                                lblWinStatus(z).Font = UpdateFontBold(lblWinStatus(z).Font, False)
+                                lblWinStatus.Item(z).Text = "Lose"
+                                lblWinStatus.Item(z).Font = UpdateFontBold(lblWinStatus.Item(z).Font, False)
                             End If
                         Next z
 
@@ -284,31 +287,32 @@ Friend Class frmCricket
                             ' Only write the Stats file when user is first notified of game over
                             ' If user hits undo, then wins again, file WILL be written to again
                             ' However, if user clicks chart more after game is won, file will NOT be written
-                            WriteStatsFile(mGameType, MaxTeamIndexInGame, mStartTime, UndoHistory, UndoHistoryCount)
+                            WriteStatsFile(mGameType, mMaxTeamIndexInGame, mStartTime, mUndoHistory, mUndoHistoryCount)
                         End If
 
-                        For z = 0 To MaxTeamIndexInGame
-                            lblWinStatus(z).Visible = True
+                        For z = 0 To mMaxTeamIndexInGame
+                            lblWinStatus.Item(z).Visible = True
                         Next z
 
                         mPauseDelay = LONG_TIME_DELAY
 
                         Exit For
                     Else
-                        If mGameType = modDarts.gtGameTypeConstants.gtCricket Then
+                        If mGameType = gtGameTypeConstants.gtCricket Then
                             ' Find teams with scores higher/lower than this team and mark as Out of Play
-                            For z = 0 To MaxTeamIndexInGame
-                                If (glbCutThroatMode = 0 AndAlso GetTeamScore(z) > GetTeamScore(x)) OrElse _
+                            For z = 0 To mMaxTeamIndexInGame
+                                If (glbCutThroatMode = 0 AndAlso GetTeamScore(z) > GetTeamScore(x)) OrElse
                                    (glbCutThroatMode = 1 AndAlso GetTeamScore(z) < GetTeamScore(x)) Then
-                                    lblWinStatus(z).Text = "Out"
-                                    lblWinStatus(z).Font = UpdateFontBold(lblWinStatus(z).Font, True)
-                                    lblWinStatus(z).Visible = True
-                                    ' Dim this team's boxes
-                                    For I = z * BoxesPerCol To (z + 1) * BoxesPerCol - 1
+                                    lblWinStatus.Item(z).Text = "Out"
+                                    lblWinStatus.Item(z).Font = UpdateFontBold(lblWinStatus.Item(z).Font, True)
+                                    lblWinStatus.Item(z).Visible = True
+
+                                    ' Create this team's boxes
+                                    For I = z * BOXES_PER_COL To CShort((z + 1) * BOXES_PER_COL - 1)
 
                                         intScoreBoxHitCount = GetScoreBoxHitCount(I)
                                         If intScoreBoxHitCount >= spScorePictureConstants.spZero And intScoreBoxHitCount <= spScorePictureConstants.spThree Then
-                                            SetPicture(pctScoreBox(I), intScoreBoxHitCount + SCOREBOX_DIM_ADDON)
+                                            SetPicture(pctScoreBox.Item(I), intScoreBoxHitCount + SCOREBOX_DIM_ADDON)
                                         End If
 
                                     Next I
@@ -334,9 +338,9 @@ Friend Class frmCricket
 
         Try
 
-            For x = 0 To MaxBoxIndex
-                SetPicture(pctScoreBox(x), spScorePictureConstants.spZero)
-                pctScoreBox(x).Tag = spScorePictureConstants.spZero.ToString().Trim
+            For x = 0 To MAX_BOX_INDEX
+                SetPicture(pctScoreBox.Item(x), spScorePictureConstants.spZero)
+                pctScoreBox.Item(x).Tag = spScorePictureConstants.spZero.ToString().Trim
             Next x
 
         Catch ex As Exception
@@ -345,7 +349,7 @@ Friend Class frmCricket
 
     End Sub
 
-    Private Sub DisableOrEnableRow(ByVal ScoreIndex As Short, ByVal Disable As Boolean)
+    Private Sub DisableOrEnableRow(ScoreIndex As Short, Disable As Boolean)
         ' If disable = true then Disable if all closed
         ' if disable = false then Enable if not all closed
 
@@ -358,7 +362,7 @@ Friend Class frmCricket
 
             ' Check row for all closed
             RowClosed = True
-            For x = 0 To MaxTeamIndexInGame
+            For x = 0 To mMaxTeamIndexInGame
                 If Not IsClosed(x, ScoreIndex) Then
                     RowClosed = False
                     Exit For
@@ -367,24 +371,24 @@ Friend Class frmCricket
 
             If Disable And RowClosed Then
                 ' Disable these boxes
-                x = BaseIndexValue(ScoreIndex, BoxesPerCol)
-                Do While x <= MaxBoxIndexInGame
-                    SetPicture(pctScoreBox(x), spScorePictureConstants.spClosed)
+                x = BaseIndexValue(ScoreIndex, BOXES_PER_COL)
+                Do While x <= mMaxBoxIndexInGame
+                    SetPicture(pctScoreBox.Item(x), spScorePictureConstants.spClosed)
 
-                    pctScoreBox(x).Enabled = False
-                    x = x + BoxesPerCol
+                    pctScoreBox.Item(x).Enabled = False
+                    x = x + BOXES_PER_COL
                 Loop
             ElseIf Not Disable Then
                 ' Enable these boxes and make sure Correct Picture is Showing
-                x = BaseIndexValue(ScoreIndex, BoxesPerCol)
-                Do While x <= MaxBoxIndexInGame
+                x = BaseIndexValue(ScoreIndex, BOXES_PER_COL)
+                Do While x <= mMaxBoxIndexInGame
                     intScoreBoxHitCount = GetScoreBoxHitCount(x)
 
                     If intScoreBoxHitCount >= 3 Then
-                        SetPicture(pctScoreBox(x), spScorePictureConstants.spThree)
+                        SetPicture(pctScoreBox.Item(x), spScorePictureConstants.spThree)
                     End If
-                    pctScoreBox(x).Enabled = True
-                    x += BoxesPerCol
+                    pctScoreBox.Item(x).Enabled = True
+                    x += BOXES_PER_COL
                 Loop
             End If
 
@@ -394,7 +398,7 @@ Friend Class frmCricket
 
     End Sub
 
-    Private Sub EnableColumn(ByVal intThisTeamIndex As Short)
+    Private Sub EnableColumn(intThisTeamIndex As Short)
         Dim intThisBoxIndex As Short
         Dim eScorePictureIndex As spScorePictureConstants
         Dim intScoreBoxHitCount As Short
@@ -409,7 +413,7 @@ Friend Class frmCricket
                 eScorePictureIndex = spScorePictureConstants.spThree
             End If
 
-            SetPicture(pctScoreBox(intThisBoxIndex), eScorePictureIndex)
+            SetPicture(pctScoreBox.Item(intThisBoxIndex), eScorePictureIndex)
 
         Next intThisBoxIndex
 
@@ -434,7 +438,7 @@ Friend Class frmCricket
 
         Try
             For x = 0 To MAX_TEAM_INDEX * 2 + 1
-                With cboPlayerList(x)
+                With cboPlayerList.Item(x)
 
                     ' Save current player
                     SavePlayer = CStr(.SelectedItem)
@@ -473,14 +477,14 @@ Friend Class frmCricket
     Public Function GameInProgress() As Boolean
         ' Returns true if game in progress, and false otherwise
 
-        If UndoHistoryCount > 0 Then
+        If mUndoHistoryCount > 0 Then
             GameInProgress = True
         Else
             GameInProgress = False
         End If
     End Function
 
-    Private Function GetBoxIndex(ByVal intDartValue As Short, ByVal intTeamIndex As Short) As Short
+    Private Function GetBoxIndex(intDartValue As Short, intTeamIndex As Short) As Short
 
         If intDartValue <= 20 And intDartValue >= 15 Then
             Return 20 - intDartValue + 7 * intTeamIndex
@@ -492,11 +496,11 @@ Friend Class frmCricket
 
     End Function
 
-    Protected Function GetScoreBoxHitCount(ByVal intScoreBoxIndex As Short) As Short
+    Protected Function GetScoreBoxHitCount(intScoreBoxIndex As Short) As Short
 
         Dim intScoreBoxHitCount As Short
 
-        If Short.TryParse(pctScoreBox(intScoreBoxIndex).Tag, intScoreBoxHitCount) Then
+        If Short.TryParse(pctScoreBox.Item(intScoreBoxIndex).Tag, intScoreBoxHitCount) Then
             Return intScoreBoxHitCount
         Else
             Return 0
@@ -504,15 +508,15 @@ Friend Class frmCricket
 
     End Function
 
-    Public Function GetGameType() As modDarts.gtGameTypeConstants
+    Public Function GetGameType() As gtGameTypeConstants
         Return mGameType
     End Function
 
-    Protected Function GetTeamScore(ByVal intTeamIndex As Integer) As Short
-        Return CShort(lblScore(intTeamIndex).Text)
+    Protected Function GetTeamScore(intTeamIndex As Integer) As Short
+        Return CShort(lblScore.Item(intTeamIndex).Text)
     End Function
 
-    Private Sub HideGameForms(ByVal blnCallFormCloseMethod As Boolean)
+    Private Sub HideGameForms(blnCallFormCloseMethod As Boolean)
 
         frmDartBoard.Hide()
         HideRealTimeStatistics()
@@ -528,19 +532,19 @@ Friend Class frmCricket
         frmRealtimeStatistics.Hide()
     End Sub
 
-    Public Sub HighlightCurrentPlayer(ByVal PlayerRow As Short, Optional ByVal boolPlayWaveFile As Boolean = False)
+    Public Sub HighlightCurrentPlayer(currentPlayerRow As Short, Optional ByVal boolPlayWaveFile As Boolean = False)
         Dim intPlayerListIndex, intPlayerListWorkingIndex As Short
 
         Try
             ' First color all of the players white
             For intPlayerListIndex = 0 To MAX_TEAM_INDEX
-                Me.cboPlayerList(intPlayerListIndex * 2).BackColor = System.Drawing.Color.White
-                Me.cboPlayerList(intPlayerListIndex * 2 + 1).BackColor = System.Drawing.Color.White
+                Me.cboPlayerList.Item(intPlayerListIndex * 2).BackColor = Color.White
+                Me.cboPlayerList.Item(intPlayerListIndex * 2 + 1).BackColor = Color.White
             Next intPlayerListIndex
 
             ' Determine the index to highlight
             If Me.lstCurrentTeam.SelectedIndex >= 0 Then
-                If PlayerRow = 1 AndAlso Me.cboPlayerList(Me.lstCurrentTeam.SelectedIndex * 2 + 1).SelectedIndex <> 0 Then
+                If currentPlayerRow = 1 AndAlso Me.cboPlayerList.Item(Me.lstCurrentTeam.SelectedIndex * 2 + 1).SelectedIndex <> 0 Then
                     intPlayerListWorkingIndex = Me.lstCurrentTeam.SelectedIndex * 2 + 1
                 Else
                     intPlayerListWorkingIndex = Me.lstCurrentTeam.SelectedIndex * 2
@@ -548,8 +552,8 @@ Friend Class frmCricket
             End If
 
             ' Highlight the player
-            With Me.cboPlayerList(intPlayerListWorkingIndex)
-                .BackColor = System.Drawing.Color.Yellow
+            With Me.cboPlayerList.Item(intPlayerListWorkingIndex)
+                .BackColor = Color.Yellow
 
                 Dim strPlayerName As String
                 strPlayerName = CStr(.SelectedItem)
@@ -568,12 +572,12 @@ Friend Class frmCricket
     End Sub
 
 
-    Private Function IsClosed(ByVal TeamIndex As Short, ByVal ScoreBoxIndex As Short) As Boolean
+    Private Function IsClosed(TeamIndex As Short, ScoreBoxIndex As Short) As Boolean
         Dim CheckIndex As Short
         Dim intScoreBoxHitCount As Short
 
         Try
-            CheckIndex = BaseIndexValue(ScoreBoxIndex, BoxesPerCol) + BoxesPerCol * TeamIndex
+            CheckIndex = BaseIndexValue(ScoreBoxIndex, BOXES_PER_COL) + BOXES_PER_COL * TeamIndex
 
             intScoreBoxHitCount = GetScoreBoxHitCount(CheckIndex)
             If intScoreBoxHitCount >= 3 Then
@@ -592,19 +596,19 @@ Friend Class frmCricket
         ' Returns the total score of the last three darts thrown
         '  Checks to make sure all thrown by same player
         ' If not, only returns total for the same player
-        ' Uses UndoHistory() to do this
+        ' Uses mUndoHistory() to do this
 
         Dim lngIndex, lngTotalScore As Integer
         Dim strPlayerName As String
 
         Try
             lngTotalScore = 0
-            If UndoHistoryCount >= 1 Then
-                strPlayerName = UndoHistory(UndoHistoryCount).PlayerName
-                For lngIndex = UndoHistoryCount To UndoHistoryCount - 2 Step -1
+            If mUndoHistoryCount >= 1 Then
+                strPlayerName = mUndoHistory(mUndoHistoryCount).PlayerName
+                For lngIndex = mUndoHistoryCount To mUndoHistoryCount - 2 Step -1
                     If lngIndex < 0 Then Exit For
-                    If UndoHistory(lngIndex).PlayerName = strPlayerName Then
-                        lngTotalScore = lngTotalScore + UndoHistory(lngIndex).DartValue * UndoHistory(lngIndex).Multiplier
+                    If mUndoHistory(lngIndex).PlayerName = strPlayerName Then
+                        lngTotalScore = lngTotalScore + mUndoHistory(lngIndex).DartValue * mUndoHistory(lngIndex).Multiplier
                     End If
                 Next lngIndex
             End If
@@ -617,17 +621,18 @@ Friend Class frmCricket
 
     End Function
 
-    Private Sub LoadScoreBoxes(ByVal MaxBoxIndex As Short, ByVal MaxBoxNameIndex As Short)
+    Private Sub LoadScoreBoxes(MaxBoxIndex As Short, MaxBoxNameIndex As Short)
         Dim x As Short
 
         Try
+            ' Note that the pctScoreBox and lblBoxName arrays start off already containing one item, at index 0
 
             For x = 1 To MaxBoxIndex
-                pctScoreBox.Load(x)
+                pctScoreBox.AddNewPictureBox()
             Next x
 
             For x = 1 To MaxBoxNameIndex * 2 + 1
-                lblBoxName.Load(x)
+                lblBoxName.AddNewLabel()
             Next x
 
         Catch ex As Exception
@@ -640,12 +645,17 @@ Friend Class frmCricket
         Dim x As Short
 
         Try
+            ' Note that these label array classes start off already containing one item, at index 0
 
             For x = 1 To MAX_TEAM_INDEX
-                lblWinStatus.Load(x)
-                lblScore.Load(x)
-                lblAltScore.Load(x)
+                lblWinStatus.AddNewLabel()
+                lblScore.AddNewLabel()
+                lblAltScore.AddNewLabel()
             Next x
+
+            For x = 0 To lblWinStatus.Count - 1
+                lblWinStatus.Item(x).Text = "Win"
+            Next
 
         Catch ex As Exception
             HandleException("LoadScoreLabels", ex)
@@ -653,16 +663,61 @@ Friend Class frmCricket
 
     End Sub
 
+    Private Sub LoadSourcePictures()
+        Dim intIndex As Integer
+
+        ' Note that the pctSource and pctSourceSmall arrays start off already containing one item, at index 0
+
+        pctSource.Item(0).Visible = False
+        pctSourceSmall.Item(0).Visible = False
+
+        For intIndex = 1 To 9
+            pctSource.AddNewPictureBox()
+            pctSourceSmall.AddNewPictureBox()
+            pctSource.Item(intIndex).Visible = False
+            pctSourceSmall.Item(intIndex).Visible = False
+        Next
+
+        pctSource.Item(0).Image = _pctSource_0.Image
+        pctSource.Item(1).Image = _pctSource_1.Image
+        pctSource.Item(2).Image = _pctSource_2.Image
+        pctSource.Item(3).Image = _pctSource_3.Image
+        pctSource.Item(4).Image = _pctSource_4.Image
+        pctSource.Item(5).Image = _pctSource_5.Image
+        pctSource.Item(6).Image = _pctSource_6.Image
+        pctSource.Item(7).Image = _pctSource_7.Image
+        pctSource.Item(8).Image = _pctSource_8.Image
+        pctSource.Item(9).Image = _pctSource_9.Image
+
+        pctSourceSmall.Item(0).Image = _pctSourceSmall_0.Image
+        pctSourceSmall.Item(1).Image = _pctSourceSmall_1.Image
+        pctSourceSmall.Item(2).Image = _pctSourceSmall_2.Image
+        pctSourceSmall.Item(3).Image = _pctSourceSmall_3.Image
+        pctSourceSmall.Item(4).Image = _pctSourceSmall_4.Image
+        pctSourceSmall.Item(5).Image = _pctSourceSmall_5.Image
+        pctSourceSmall.Item(6).Image = _pctSourceSmall_6.Image
+        pctSourceSmall.Item(7).Image = _pctSourceSmall_7.Image
+        pctSourceSmall.Item(8).Image = _pctSourceSmall_8.Image
+        pctSourceSmall.Item(9).Image = _pctSourceSmall_9.Image
+
+    End Sub
+
     Private Sub LoadTeamControls()
         Dim x As Short
 
         Try
+            ' Note that the cboPlayerList array starts off already containing one item, at index 0
 
             For x = 1 To MAX_TEAM_INDEX
-                lblTeamName.Load(x)
-                cboPlayerList.Load(x * 2)
-                cboPlayerList.Load(x * 2 + 1)
+                lblTeamName.AddNewLabel()
+
+                ' Add two player list combox boxes for each team
+                cboPlayerList.AddNewComboBox()
+                cboPlayerList.AddNewComboBox()
             Next x
+
+            ' Add one extra combo box
+            cboPlayerList.AddNewComboBox()
 
         Catch ex As Exception
             HandleException("LoadTeamControls", ex)
@@ -671,13 +726,13 @@ Friend Class frmCricket
 
     End Sub
 
-    Private Sub PositionTeamControls(ByVal MaxTeamIndexInGame As Short, ByVal blnPlayingCricket As Boolean)
+    Private Sub PositionTeamControls(maxTeamIndex As Short, blnPlayingCricket As Boolean)
         Dim intPosTop, x, intPosLeft As Short
         Dim intTopRowFinalIndex As Short
 
         Try
 
-            Select Case MaxTeamIndexInGame
+            Select Case maxTeamIndex
                 Case 2 To 3
                     intTopRowFinalIndex = 1
                 Case Else
@@ -685,60 +740,62 @@ Friend Class frmCricket
                     intTopRowFinalIndex = 2
             End Select
 
-            If mScoreAreaSize = modDarts.sasScoreAreaSizeConstants.sasNormal Then
-                lblTeamName(0).Top = 3
+            If mScoreAreaSize = sasScoreAreaSizeConstants.sasNormal Then
+                lblTeamName.Item(0).Top = 3
             Else
-                lblTeamName(0).Top = 3
+                lblTeamName.Item(0).Top = 3
             End If
 
-            cboPlayerList(0).Top = lblTeamName(0).Top + 20
-            cboPlayerList(1).Top = cboPlayerList(0).Top + 23
+            cboPlayerList.Item(0).Top = lblTeamName.Item(0).Top + 20
+            If cboPlayerList.Count > 1 Then
+                cboPlayerList.Item(1).Top = cboPlayerList.Item(0).Top + 23
+            End If
 
             For x = 0 To MAX_TEAM_INDEX
                 If x <= intTopRowFinalIndex Then
-                    intPosTop = lblTeamName(0).Top
-                    intPosLeft = lblTeamName(0).Left + x * DISTANCE_BETWEEN_COLUMNS
+                    intPosTop = lblTeamName.Item(0).Top
+                    intPosLeft = lblTeamName.Item(0).Left + x * DISTANCE_BETWEEN_COLUMNS
                 Else
                     If blnPlayingCricket Then
-                        If mScoreAreaSize = modDarts.sasScoreAreaSizeConstants.sasNormal Then
-                            intPosTop = lblTeamName(0).Top + 360
+                        If mScoreAreaSize = sasScoreAreaSizeConstants.sasNormal Then
+                            intPosTop = lblTeamName.Item(0).Top + 360
                         Else
-                            intPosTop = lblTeamName(0).Top + 267
+                            intPosTop = lblTeamName.Item(0).Top + 267
                         End If
                     Else
-                        intPosTop = lblTeamName(0).Top + 167
+                        intPosTop = lblTeamName.Item(0).Top + 167
                     End If
 
                     If x - (intTopRowFinalIndex + 1) < lblTeamName.Count Then
-                        intPosLeft = lblTeamName(x - (intTopRowFinalIndex + 1)).Left
+                        intPosLeft = lblTeamName.Item(x - (intTopRowFinalIndex + 1)).Left
                     Else
-                        intPosLeft = lblTeamName(0).Left + x * DISTANCE_BETWEEN_COLUMNS
+                        intPosLeft = lblTeamName.Item(0).Left + x * DISTANCE_BETWEEN_COLUMNS
                     End If
 
                 End If
 
                 If x < lblTeamName.Count Then
-                    lblTeamName(x).Top = intPosTop
-                    lblTeamName(x).Left = intPosLeft
-                    lblTeamName(x).Text = "Team " & x.ToString
+                    lblTeamName.Item(x).Top = intPosTop
+                    lblTeamName.Item(x).Left = intPosLeft
+                    lblTeamName.Item(x).Text = "Team " & x.ToString
 
-                    If x <= MaxTeamIndexInGame Then
-                        lblTeamName(x).Visible = True
+                    If x <= maxTeamIndex Then
+                        lblTeamName.Item(x).Visible = True
                     Else
-                        lblTeamName(x).Visible = False
+                        lblTeamName.Item(x).Visible = False
                     End If
                 End If
-                
+
                 If x * 2 < cboPlayerList.Count Then
-                    cboPlayerList(x * 2).Top = lblTeamName(x).Top + 20
-                    cboPlayerList(x * 2).Left = intPosLeft
-                    cboPlayerList(x * 2).Visible = lblTeamName(x).Visible
+                    cboPlayerList.Item(x * 2).Top = lblTeamName.Item(x).Top + 20
+                    cboPlayerList.Item(x * 2).Left = intPosLeft
+                    cboPlayerList.Item(x * 2).Visible = lblTeamName.Item(x).Visible
                 End If
-              
+
                 If x * 2 + 1 < cboPlayerList.Count Then
-                    cboPlayerList(x * 2 + 1).Top = cboPlayerList(x * 2).Top + 23
-                    cboPlayerList(x * 2 + 1).Left = intPosLeft
-                    cboPlayerList(x * 2 + 1).Visible = lblTeamName(x).Visible
+                    cboPlayerList.Item(x * 2 + 1).Top = cboPlayerList.Item(x * 2).Top + 23
+                    cboPlayerList.Item(x * 2 + 1).Left = intPosLeft
+                    cboPlayerList.Item(x * 2 + 1).Visible = lblTeamName.Item(x).Visible
                 End If
             Next x
 
@@ -752,20 +809,20 @@ Friend Class frmCricket
         Dim blnPlayingCricket As Boolean
         Dim lngHeightDiff As Integer
 
-        If mGameType = modDarts.gtGameTypeConstants.gtCricket Then
+        If mGameType = gtGameTypeConstants.gtCricket Then
             blnPlayingCricket = True
         Else
             blnPlayingCricket = False
         End If
 
-        PositionTeamControls(MaxTeamIndexInGame, blnPlayingCricket)
-        PositionScoreBoxes(MaxBoxIndex, BoxesPerCol, MaxTeamIndexInGame, blnPlayingCricket, blnClearPictures)
-        PositionScoreLabels(MaxTeamIndexInGame, blnPlayingCricket)
+        PositionTeamControls(mMaxTeamIndexInGame, blnPlayingCricket)
+        PositionScoreBoxes(MAX_BOX_INDEX, BOXES_PER_COL, mMaxTeamIndexInGame, blnPlayingCricket, blnClearPictures)
+        PositionScoreLabels(mMaxTeamIndexInGame, blnPlayingCricket)
 
         ' Position Current Hole labels
-        lblCurrentHoleLabel.Top = lblBoxName(0).Top + 33
+        lblCurrentHoleLabel.Top = lblBoxName.Item(0).Top + 33
 
-        lngHeightDiff = System.Math.Abs((lblCurrentHole.Height - lblCurrentHoleLabel.Height) / 2)
+        lngHeightDiff = Math.Abs((lblCurrentHole.Height - lblCurrentHoleLabel.Height) / 2)
 
         If lblCurrentHole.Height <= lblCurrentHoleLabel.Height Then
             lblCurrentHole.Top = lblCurrentHoleLabel.Top + lngHeightDiff + 2
@@ -777,7 +834,7 @@ Friend Class frmCricket
 
     End Sub
 
-    Private Sub PositionScoreBoxes(ByVal MaxBoxIndex As Short, ByVal BoxesPerCol As Short, ByVal MaxTeamIndexInGame As Short, ByVal blnPlayingCricket As Boolean, Optional ByVal blnClearPictures As Boolean = True)
+    Private Sub PositionScoreBoxes(MaxBoxIndex As Short, BoxesPerCol As Short, MaxTeamIndexInGame As Short, blnPlayingCricket As Boolean, Optional ByVal blnClearPictures As Boolean = True)
         Dim intPosTop, x, intPosLeft As Short
         Dim intDistanceBetweenScoreBoxes As Short
         Dim intLabelOffset As Short
@@ -786,7 +843,7 @@ Friend Class frmCricket
 
         Try
 
-            If mScoreAreaSize = modDarts.sasScoreAreaSizeConstants.sasNormal Then
+            If mScoreAreaSize = sasScoreAreaSizeConstants.sasNormal Then
                 intDistanceBetweenScoreBoxes = 33
                 intLabelOffset = 8
             Else
@@ -797,19 +854,22 @@ Friend Class frmCricket
             For x = 0 To MaxBoxIndex
                 If x < pctScoreBox.Count Then
                     If Not blnPlayingCricket Then
-                        pctScoreBox(x).Visible = False
+                        pctScoreBox.Item(x).Visible = False
                     Else
                         If Math.Floor(x / 7) <= MaxTeamIndexInGame Then
-                            pctScoreBox(x).Visible = True
+                            pctScoreBox.Item(x).Visible = True
                         Else
-                            pctScoreBox(x).Visible = False
+                            pctScoreBox.Item(x).Visible = False
                         End If
 
                         If x Mod 7 = 0 Then
                             ' First box in column, position based on Team Player Names position
-                            intPosTop = cboPlayerList(Math.Floor(x / 7) * 2 + 1).Top + intDistanceBetweenScoreBoxes
-                            If mScoreAreaSize = modDarts.sasScoreAreaSizeConstants.sasNormal Then
-                                intPosTop += 200
+                            intTargetArrayIndex = Math.Floor(x / 7) * 2 + 1
+                            If intTargetArrayIndex < cboPlayerList.Count Then
+                                intPosTop = cboPlayerList.Item(intTargetArrayIndex).Top + intDistanceBetweenScoreBoxes
+                                If mScoreAreaSize = sasScoreAreaSizeConstants.sasNormal Then
+                                    intPosTop += 200
+                                End If
                             End If
 
                             intTargetArrayIndex = Math.Floor(x / 7) * 2
@@ -817,8 +877,8 @@ Friend Class frmCricket
                                 intTargetArrayIndex = 0
                             End If
 
-                            With cboPlayerList(intTargetArrayIndex)
-                                intPosLeft = .Left + .Width / 2 - pctScoreBox(x).Width / 2
+                            With cboPlayerList.Item(intTargetArrayIndex)
+                                intPosLeft = .Left + .Width / 2 - pctScoreBox.Item(x).Width / 2
                             End With
                         Else
                             ' Remaining boxes in column, position based on first box in column
@@ -827,15 +887,15 @@ Friend Class frmCricket
                                 intTargetArrayIndex = 0
                             End If
 
-                            intPosTop = pctScoreBox(intTargetArrayIndex).Top + intDistanceBetweenScoreBoxes * BaseIndexValue(x, BoxesPerCol)
-                            intPosLeft = pctScoreBox(intTargetArrayIndex).Left
+                            intPosTop = pctScoreBox.Item(intTargetArrayIndex).Top + intDistanceBetweenScoreBoxes * BaseIndexValue(x, BoxesPerCol)
+                            intPosLeft = pctScoreBox.Item(intTargetArrayIndex).Left
                         End If
 
-                        pctScoreBox(x).Left = intPosLeft
-                        pctScoreBox(x).Top = intPosTop
-                        pctScoreBox(x).Width = pctScoreBox(0).Width
-                        pctScoreBox(x).Height = pctScoreBox(0).Height
-                        If blnClearPictures Then pctScoreBox(x).Image = pctScoreBox(0).Image
+                        pctScoreBox.Item(x).Left = intPosLeft
+                        pctScoreBox.Item(x).Top = intPosTop
+                        pctScoreBox.Item(x).Width = pctScoreBox.Item(0).Width
+                        pctScoreBox.Item(x).Height = pctScoreBox.Item(0).Height
+                        If blnClearPictures Then pctScoreBox.Item(x).Image = pctScoreBox.Item(0).Image
 
                     End If
                 End If
@@ -844,41 +904,41 @@ Friend Class frmCricket
             If blnPlayingCricket Then
                 For x = 0 To 6
                     If x < lblBoxName.Count Then
-                        lblBoxName(x).Left = pctScoreBox(x).Left - lblBoxName(0).Width + 2
-                        lblBoxName(x).Top = pctScoreBox(x).Top + intLabelOffset
-                        lblBoxName(x).Width = lblBoxName(0).Width
-                        lblBoxName(x).Height = lblBoxName(0).Height
-                        lblBoxName(x).Text = (20 - x).ToString()
+                        lblBoxName.Item(x).Left = pctScoreBox.Item(x).Left - lblBoxName.Item(0).Width + 2
+                        lblBoxName.Item(x).Top = pctScoreBox.Item(x).Top + intLabelOffset
+                        lblBoxName.Item(x).Width = lblBoxName.Item(0).Width
+                        lblBoxName.Item(x).Height = lblBoxName.Item(0).Height
+                        lblBoxName.Item(x).Text = (20 - x).ToString()
 
-                        lblBoxName(x).Visible = True
+                        lblBoxName.Item(x).Visible = True
 
                         If x = 6 Then
-                            lblBoxName(x).Text = "Bull"
-                            lblBoxName(x).Left = lblBoxName(x).Left - 12
-                            lblBoxName(x).Width = lblBoxName(x).Width + intLabelOffset
+                            lblBoxName.Item(x).Text = "Bull"
+                            lblBoxName.Item(x).Left = lblBoxName.Item(x).Left - 12
+                            lblBoxName.Item(x).Width = lblBoxName.Item(x).Width + intLabelOffset
                         End If
                     End If
-                    
+
                 Next x
 
                 For x = 7 To 13
                     If x < lblBoxName.Count Then
                         If MaxTeamIndexInGame > 1 Then
-                            lblBoxName(x).Left = lblBoxName(x - 7).Left
-                            lblBoxName(x).Top = pctScoreBox((x - 7) + Math.Floor(MaxBoxIndex / 2) + 1).Top + intLabelOffset
-                            lblBoxName(x).Width = lblBoxName(x - 7).Width
-                            lblBoxName(x).Height = lblBoxName(x - 7).Height
-                            lblBoxName(x).Text = lblBoxName(x - 7).Text
-                            lblBoxName(x).Visible = True
+                            lblBoxName.Item(x).Left = lblBoxName.Item(x - 7).Left
+                            lblBoxName.Item(x).Top = pctScoreBox.Item((x - 7) + Math.Floor(MaxBoxIndex / 2) + 1).Top + intLabelOffset
+                            lblBoxName.Item(x).Width = lblBoxName.Item(x - 7).Width
+                            lblBoxName.Item(x).Height = lblBoxName.Item(x - 7).Height
+                            lblBoxName.Item(x).Text = lblBoxName.Item(x - 7).Text
+                            lblBoxName.Item(x).Visible = True
                         Else
-                            lblBoxName(x).Visible = False
+                            lblBoxName.Item(x).Visible = False
                         End If
-                    End If                  
+                    End If
                 Next x
             Else
                 For x = 0 To 12
                     If x < lblBoxName.Count Then
-                        lblBoxName(x).Visible = False
+                        lblBoxName.Item(x).Visible = False
                     End If
                 Next x
             End If
@@ -889,13 +949,13 @@ Friend Class frmCricket
 
     End Sub
 
-    Private Sub PositionScoreLabels(ByVal MaxTeamIndexInGame As Short, ByVal blnPlayingCricket As Boolean)
+    Private Sub PositionScoreLabels(MaxTeamIndexInGame As Short, blnPlayingCricket As Boolean)
         Dim x, intFirstBoxIndex As Short
         Dim intLabelTopOffset As Short
 
         Try
 
-            If mScoreAreaSize = modDarts.sasScoreAreaSizeConstants.sasNormal Then
+            If mScoreAreaSize = sasScoreAreaSizeConstants.sasNormal Then
                 intLabelTopOffset = 3
             Else
                 intLabelTopOffset = 1
@@ -906,48 +966,49 @@ Friend Class frmCricket
                 intFirstBoxIndex = x * 7
 
                 If x < lblWinStatus.Count Then
+                    If x * 2 + 1 < cboPlayerList.Count Then
+                        With cboPlayerList.Item(x * 2 + 1)
+                            lblWinStatus.Item(x).Top = .Top + .Height + intLabelTopOffset
+                            If mScoreAreaSize = sasScoreAreaSizeConstants.sasNormal Or Not blnPlayingCricket Then
+                                lblWinStatus.Item(x).Left = .Left + .Width / 2 - lblWinStatus.Item(x).Width / 2
+                            Else
+                                lblWinStatus.Item(x).Left = pctScoreBox.Item(intFirstBoxIndex).Left + pctScoreBox.Item(intFirstBoxIndex).Width + 2
+                            End If
 
-                    With cboPlayerList(x * 2 + 1)
-                        lblWinStatus(x).Top = .Top + .Height + intLabelTopOffset
-                        If mScoreAreaSize = modDarts.sasScoreAreaSizeConstants.sasNormal Or Not blnPlayingCricket Then
-                            lblWinStatus(x).Left = .Left + .Width / 2 - lblWinStatus(x).Width / 2
-                        Else
-                            lblWinStatus(x).Left = pctScoreBox(intFirstBoxIndex).Left + pctScoreBox(intFirstBoxIndex).Width + 2
-                        End If
-
-                    End With
-                    lblWinStatus(x).Text = "Win"
-                    lblWinStatus(x).Visible = False
+                        End With
+                    End If
+                    lblWinStatus.Item(x).Text = "Win"
+                    lblWinStatus.Item(x).Visible = False
                 End If
 
                 If x < lblScore.Count Then
                     If blnPlayingCricket Then
                         If intFirstBoxIndex + 6 < pctScoreBox.Count Then
-                            With pctScoreBox(intFirstBoxIndex + 6)
-                                lblScore(x).Top = .Top + .Height + intLabelTopOffset
-                                lblScore(x).Left = .Left + .Width / 2 - lblScore(x).Width / 2
+                            With pctScoreBox.Item(intFirstBoxIndex + 6)
+                                lblScore.Item(x).Top = .Top + .Height + intLabelTopOffset
+                                lblScore.Item(x).Left = .Left + .Width / 2 - lblScore.Item(x).Width / 2
                             End With
                         End If
 
                     Else
                         If x < lblWinStatus.Count Then
-                            With lblWinStatus(x)
-                                lblScore(x).Top = .Top + .Height + intLabelTopOffset
-                                lblScore(x).Left = .Left + .Width / 2 - lblScore(x).Width / 2
+                            With lblWinStatus.Item(x)
+                                lblScore.Item(x).Top = .Top + .Height + intLabelTopOffset
+                                lblScore.Item(x).Left = .Left + .Width / 2 - lblScore.Item(x).Width / 2
                             End With
                         End If
                     End If
 
                     If x <= MaxTeamIndexInGame Then
-                        lblScore(x).Visible = True
+                        lblScore.Item(x).Visible = True
                     Else
-                        lblScore(x).Visible = False
+                        lblScore.Item(x).Visible = False
                     End If
 
-                    lblAltScore(x).Top = lblScore(x).Top
-                    lblAltScore(x).Left = lblScore(x).Left
-                    lblAltScore(x).Visible = mRelativeScoringEnabled
-                    lblAltScore(x).BringToFront() ' Bring to front
+                    lblAltScore.Item(x).Top = lblScore.Item(x).Top
+                    lblAltScore.Item(x).Left = lblScore.Item(x).Left
+                    lblAltScore.Item(x).Visible = mRelativeScoringEnabled
+                    lblAltScore.Item(x).BringToFront() ' Bring to front
 
                 End If
 
@@ -960,7 +1021,7 @@ Friend Class frmCricket
     End Sub
 
     ' Note: the intDistanceFromCenter variable is only used during the game of Golf
-    Public Sub RecordHit(ByVal intDartValue As Short, ByVal intMultiplier As Short, ByVal intDistanceFromCenter As Short, Optional ByVal boolRedoHit As Boolean = False)
+    Public Sub RecordHit(intDartValue As Short, intMultiplier As Short, intDistanceFromCenter As Short, Optional ByVal boolRedoHit As Boolean = False)
         Dim intCurrentTeamIndex, BoxIndex As Short
         Dim intMultiplierIndex As Short
         Dim boolValidMove, AlreadyClosed, boolDoubledInAlready As Boolean
@@ -972,12 +1033,12 @@ Friend Class frmCricket
 
             If Not boolRedoHit Then
                 ' Add to Undo History (if not re-doing)
-                UndoHistoryCount = UndoHistoryCount + 1
-                With UndoHistory(UndoHistoryCount)
-                    If cboPlayerList(PlayerColumn * 2 + PlayerRow).SelectedIndex > 0 Then
-                        .PlayerName = GetComboBoxItemText(cboPlayerList(PlayerColumn * 2 + PlayerRow))
+                mUndoHistoryCount = mUndoHistoryCount + 1
+                With mUndoHistory(mUndoHistoryCount)
+                    If cboPlayerList.Item(mPlayerColumn * 2 + mPlayerRow).SelectedIndex > 0 Then
+                        .PlayerName = GetComboBoxItemText(cboPlayerList.Item(mPlayerColumn * 2 + mPlayerRow))
                     Else
-                        .PlayerName = GetComboBoxItemText(cboPlayerList(PlayerColumn * 2))
+                        .PlayerName = GetComboBoxItemText(cboPlayerList.Item(mPlayerColumn * 2))
                     End If
                     .TeamIndex = intCurrentTeamIndex
                     .DartValue = intDartValue
@@ -985,7 +1046,7 @@ Friend Class frmCricket
                     .Multiplier = intMultiplier
                     .ValidHits = 0 ' Assume, for now, that dart doesn't count (i.e. is a miss)
                 End With
-                If MaxUndoHistoryCount < UndoHistoryCount Then MaxUndoHistoryCount = UndoHistoryCount
+                If mMaxUndoHistoryCount < mUndoHistoryCount Then mMaxUndoHistoryCount = mUndoHistoryCount
             End If
 
             ' Play sound if a bull
@@ -998,7 +1059,7 @@ Friend Class frmCricket
             End If
 
             Select Case mGameType
-                Case modDarts.gtGameTypeConstants.gt301
+                Case gtGameTypeConstants.gt301
                     ' Playing 301
                     If intMultiplier > 0 Then
                         ' If Double In is required, see if player has doubled in yet
@@ -1025,8 +1086,8 @@ Friend Class frmCricket
                         End If
                         If boolValidMove Then
                             If Not boolRedoHit Then
-                                ' Increment .ValidHits in UndoHistory() (if not re-doing)
-                                UndoHistory(UndoHistoryCount).ValidHits = UndoHistory(UndoHistoryCount).ValidHits + intMultiplier
+                                ' Increment .ValidHits in mUndoHistory() (if not re-doing)
+                                mUndoHistory(mUndoHistoryCount).ValidHits = mUndoHistory(mUndoHistoryCount).ValidHits + intMultiplier
                             End If
 
                             CheckForGameOver(False)
@@ -1043,7 +1104,7 @@ Friend Class frmCricket
                             End If
                         End If
                     End If
-                Case modDarts.gtGameTypeConstants.gtGolf
+                Case gtGameTypeConstants.gtGolf
                     ' Hit only counts if for the current "Hole"
                     ' Score -2 for the Triple ring
                     '       -1 for the Double ring
@@ -1058,7 +1119,7 @@ Friend Class frmCricket
                     For intMultiplierIndex = 1 To intMultiplier
                         If BoxIndex >= 0 Then
                             ' Only record hit if ScoreBox is enabled
-                            If pctScoreBox(BoxIndex).Enabled = True Then
+                            If pctScoreBox.Item(BoxIndex).Enabled = True Then
                                 ' Update picture, count tag, and score
                                 AlreadyClosed = IsClosed(intCurrentTeamIndex, BoxIndex)
                                 ChangePicAndTag(BoxIndex, 1)
@@ -1070,8 +1131,8 @@ Friend Class frmCricket
                                 End If
 
                                 If Not boolRedoHit Then
-                                    ' Increment .ValidHits in UndoHistory() (if not re-doing)
-                                    UndoHistory(UndoHistoryCount).ValidHits = UndoHistory(UndoHistoryCount).ValidHits + 1
+                                    ' Increment .ValidHits in mUndoHistory() (if not re-doing)
+                                    mUndoHistory(mUndoHistoryCount).ValidHits = mUndoHistory(mUndoHistoryCount).ValidHits + 1
                                 End If
 
                                 ' See if all teams have closed this number
@@ -1107,14 +1168,14 @@ Friend Class frmCricket
             If mUndoRedoInProgress Then Exit Sub
             mUndoRedoInProgress = True
 
-            If UndoHistoryCount < MaxUndoHistoryCount Then
+            If mUndoHistoryCount < mMaxUndoHistoryCount Then
 
-                UndoHistoryCount = UndoHistoryCount + 1
-                With UndoHistory(UndoHistoryCount)
+                mUndoHistoryCount = mUndoHistoryCount + 1
+                With mUndoHistory(mUndoHistoryCount)
                     ' Increment team list (if necessary)
                     If lstCurrentTeam.SelectedIndex <> .TeamIndex Then
                         ' If playing golf, need to use SmartAdvanceTeam
-                        If Me.GetGameType() = modDarts.gtGameTypeConstants.gtGolf Then
+                        If Me.GetGameType() = gtGameTypeConstants.gtGolf Then
                             frmDartBoard.SmartAdvanceToNextTeam()
                         Else
                             AdvanceToNextTeam(False)
@@ -1124,7 +1185,7 @@ Friend Class frmCricket
                     RecordHit(.DartValue, .Multiplier, .DistanceFromCenter, True)
 
                     ' Put the dart dot back on the dart board (if one of the most recent darts)
-                    If UndoHistoryCount > HistoryIndexOfMostRecentTurn Then
+                    If mUndoHistoryCount > HistoryIndexOfMostRecentTurn Then
                         frmDartBoard.PlaceDart(.DartValue, .Multiplier)
                     End If
                 End With
@@ -1146,33 +1207,33 @@ Friend Class frmCricket
         Const WIDTH_ADDER As Integer = 88       ' Pixels
         Const HEIGHT_BASE As Integer = 457      ' Pixels
 
-        If mGameType = modDarts.gtGameTypeConstants.gt301 Or mGameType = modDarts.gtGameTypeConstants.gtGolf Then
+        If mGameType = gtGameTypeConstants.gt301 Or mGameType = gtGameTypeConstants.gtGolf Then
             ' Playing 301
-            If MaxTeamIndexInGame < 3 Then
-                If MaxTeamIndexInGame <= 1 Then
+            If mMaxTeamIndexInGame < 3 Then
+                If mMaxTeamIndexInGame <= 1 Then
                     Me.Width = WIDTH_BASE + WIDTH_ADDER * 2
                 Else
-                    Me.Width = WIDTH_BASE + WIDTH_ADDER * (MaxTeamIndexInGame + 1)
+                    Me.Width = WIDTH_BASE + WIDTH_ADDER * (mMaxTeamIndexInGame + 1)
                 End If
             Else
                 Me.Width = WIDTH_BASE + WIDTH_ADDER * 3
             End If
             Me.Height = HEIGHT_BASE
         Else
-            If mGameType <> modDarts.gtGameTypeConstants.gtCricket Then
-                System.Windows.Forms.MessageBox.Show("mGameType has an unknown value in ResizeFormToDefaults: " & mGameType.ToString(), "Unexpected value", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            If mGameType <> gtGameTypeConstants.gtCricket Then
+                MessageBox.Show("mGameType has an unknown value in ResizeFormToDefaults: " & mGameType.ToString(), "Unexpected value", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
 
             ' Playing Cricket
-            Select Case MaxTeamIndexInGame
+            Select Case mMaxTeamIndexInGame
                 Case 0 To 3 : Me.Width = WIDTH_BASE + WIDTH_ADDER * 2
                 Case 4 To 5 : Me.Width = WIDTH_BASE + WIDTH_ADDER * 3
             End Select
 
-            Select Case MaxTeamIndexInGame
+            Select Case mMaxTeamIndexInGame
                 Case 0 To 1 : Me.Height = HEIGHT_BASE
                 Case Else
-                    If mScoreAreaSize = modDarts.sasScoreAreaSizeConstants.sasNormal Then
+                    If mScoreAreaSize = sasScoreAreaSizeConstants.sasNormal Then
                         Me.Height = HEIGHT_BASE + 290
                     Else
                         Me.Height = HEIGHT_BASE + 130
@@ -1190,14 +1251,14 @@ Friend Class frmCricket
 
             If lstCurrentTeam.SelectedIndex > 0 Then
                 lstCurrentTeam.SelectedIndex = lstCurrentTeam.SelectedIndex - 1
-                PlayerColumn = PlayerColumn - 1
+                mPlayerColumn = mPlayerColumn - 1
             Else
-                lstCurrentTeam.SelectedIndex = MaxTeamIndexInGame
-                PlayerColumn = MaxTeamIndexInGame
-                If PlayerRow = 1 Then PlayerRow = 0 Else PlayerRow = 1
+                lstCurrentTeam.SelectedIndex = mMaxTeamIndexInGame
+                mPlayerColumn = mMaxTeamIndexInGame
+                If mPlayerRow = 1 Then mPlayerRow = 0 Else mPlayerRow = 1
             End If
 
-            HighlightCurrentPlayer(PlayerRow, True)
+            HighlightCurrentPlayer(mPlayerRow, True)
 
             frmDartBoard.ClearDartBoard()
 
@@ -1208,7 +1269,7 @@ Friend Class frmCricket
         End Try
     End Sub
 
-    Public Sub SetScoreAreaSize(ByVal eScoreAreaSize As modDarts.sasScoreAreaSizeConstants)
+    Public Sub SetScoreAreaSize(eScoreAreaSize As sasScoreAreaSizeConstants)
         Dim intIndex As Short
         Dim lngScoreBoxSize As Integer
         Dim CurrentVal As Short
@@ -1216,30 +1277,30 @@ Friend Class frmCricket
 
         mScoreAreaSize = eScoreAreaSize
 
-        If mScoreAreaSize = modDarts.sasScoreAreaSizeConstants.sasNormal Then
+        If mScoreAreaSize = sasScoreAreaSizeConstants.sasNormal Then
             lngScoreBoxSize = SCOREBOX_SIZE_NORMAL
         Else
             lngScoreBoxSize = SCOREBOX_SIZE_SMALL
         End If
 
-        For intIndex = 0 To MaxBoxIndex
+        For intIndex = 0 To MAX_BOX_INDEX
             If intIndex < pctScoreBox.Count Then
 
-                pctScoreBox(intIndex).Width = lngScoreBoxSize
-                pctScoreBox(intIndex).Height = lngScoreBoxSize
+                pctScoreBox.Item(intIndex).Width = lngScoreBoxSize
+                pctScoreBox.Item(intIndex).Height = lngScoreBoxSize
 
                 CurrentVal = GetScoreBoxHitCount(intIndex)
 
-                '        If pctScoreBox(intIndex).Enabled Then
+                '        If pctScoreBox.Item(intIndex).Enabled Then
                 '            intAddOn = 0
                 '        Else
                 '            intAddOn = SCOREBOX_DIM_ADDON
                 '        End If
 
                 If CurrentVal >= spScorePictureConstants.spThree Then
-                    SetPicture(pctScoreBox(intIndex), spScorePictureConstants.spThree + intAddOn)
+                    SetPicture(pctScoreBox.Item(intIndex), spScorePictureConstants.spThree + intAddOn)
                 ElseIf CurrentVal >= spScorePictureConstants.spZero And CurrentVal <= spScorePictureConstants.spTwo Then
-                    SetPicture(pctScoreBox(intIndex), CurrentVal + intAddOn)
+                    SetPicture(pctScoreBox.Item(intIndex), CurrentVal + intAddOn)
                 End If
 
             End If
@@ -1261,30 +1322,36 @@ Friend Class frmCricket
         sngHeightScalar = 1.467    ' Pixels
         sngWidthScalar = 2.667     ' Pixels
 
-        lblCurrentHole.Font = New System.Drawing.Font("Arial", glbScoreFontSize, System.Drawing.FontStyle.Regular)
+        lblCurrentHole.Font = New Font("Arial", glbScoreFontSize, FontStyle.Regular)
         lblCurrentHole.Height = glbScoreFontSize * sngHeightScalar
         lblCurrentHole.Width = glbScoreFontSize * sngWidthScalar
 
         For intBoxIndex = 0 To lblScore.Count - 1
-            lblScore(intBoxIndex).Font = lblCurrentHole.Font.Clone
-            lblScore(intBoxIndex).Height = glbScoreFontSize * sngHeightScalar
-            lblScore(intBoxIndex).Width = glbScoreFontSize * sngWidthScalar
+            lblScore.Item(intBoxIndex).Font = lblCurrentHole.Font.Clone
+            lblScore.Item(intBoxIndex).Height = glbScoreFontSize * sngHeightScalar
+            lblScore.Item(intBoxIndex).Width = glbScoreFontSize * sngWidthScalar
 
-            lblAltScore(intBoxIndex).Font = lblCurrentHole.Font.Clone
-            lblAltScore(intBoxIndex).Height = glbScoreFontSize * sngHeightScalar
-            lblAltScore(intBoxIndex).Width = glbScoreFontSize * sngWidthScalar
+            lblAltScore.Item(intBoxIndex).Font = lblCurrentHole.Font.Clone
+            lblAltScore.Item(intBoxIndex).Height = glbScoreFontSize * sngHeightScalar
+            lblAltScore.Item(intBoxIndex).Width = glbScoreFontSize * sngWidthScalar
         Next intBoxIndex
+
 
         PositionAllControls(blnClearPictures)
 
     End Sub
 
-    Private Sub SetPicture(ByRef pctThisPicture As System.Windows.Forms.PictureBox, ByVal ePictureToShow As spScorePictureConstants)
-        If mScoreAreaSize = modDarts.sasScoreAreaSizeConstants.sasNormal Then
-            pctThisPicture.Image = pctSource(ePictureToShow).Image
-        Else
-            pctThisPicture.Image = pctSourceSmall(ePictureToShow).Image
-        End If
+    Private Sub SetPicture(ByRef pctThisPicture As PictureBox, ePictureToShow As spScorePictureConstants)
+        Try
+            If mScoreAreaSize = sasScoreAreaSizeConstants.sasNormal Then
+                pctThisPicture.Image = pctSource.Item(ePictureToShow).Image
+            Else
+                pctThisPicture.Image = pctSourceSmall.Item(ePictureToShow).Image
+            End If
+        Catch ex As Exception
+            HandleException("SetPicture", ex)
+        End Try
+
     End Sub
 
     Private Sub ShowHelp()
@@ -1292,37 +1359,37 @@ Friend Class frmCricket
         Dim strTitle As String
 
         Select Case mGameType
-            Case modDarts.gtGameTypeConstants.gt301
-                strMessage = "The object of 301 is to be the first player to reach exactly zero by subtracting each region's point value from the initial score of 301.  " & _
-                             "Hitting in the small outer ring of a number counts as a 'double', and the small middle ring counts as a 'triple'.  " & _
-                             "Further, the center bullseye counts as a 'double bull'.  " & _
-                             "If the player goes below zero, then that player 'busts', and his score is set back to what it was prior to throwing the dart; further, his turn is forfeited.  " & _
-                             "You can change the initial score to a value besides 301 if desired.  " & _
-                             "A variation on 301 is to require Double In or Double Out.  " & _
-                             "Double In means that the player must score a hit in the double ring before he can begin subtracting hits from his score.  " & _
-                             "In Double Out, the player has to go out on a double.  " & _
+            Case gtGameTypeConstants.gt301
+                strMessage = "The object of 301 is to be the first player to reach exactly zero by subtracting each region's point value from the initial score of 301.  " &
+                             "Hitting in the small outer ring of a number counts as a 'double', and the small middle ring counts as a 'triple'.  " &
+                             "Further, the center bullseye counts as a 'double bull'.  " &
+                             "If the player goes below zero, then that player 'busts', and his score is set back to what it was prior to throwing the dart; further, his turn is forfeited.  " &
+                             "You can change the initial score to a value besides 301 if desired.  " &
+                             "A variation on 301 is to require Double In or Double Out.  " &
+                             "Double In means that the player must score a hit in the double ring before he can begin subtracting hits from his score.  " &
+                             "In Double Out, the player has to go out on a double.  " &
                              "For example, if you have 10 points, you can close on a double 5."
 
                 strTitle = "How to play 301"
 
-            Case modDarts.gtGameTypeConstants.gtCricket
-                strMessage = "The object of Cricket is to 'close' regions fifteen through twenty and the bullseye before your opponent(s).  " & _
-                             "In order to close an area, you must hit it three times.  " & _
-                             "Hitting in the small outer ring of a number counts as a 'double', and the small middle ring counts as a 'triple'.  " & _
-                             "Further, the center bullseye counts as a 'double bull'.  " & _
-                             "On the scoreboard, a single slash represents one hit, an X represents two, and a circled X indicates that the region has been closed.  " & _
-                             "In Cutthroat Cricket, if you close a region before your opponent, any additional hits on that region will cause points to be scored on any opponents who have not closed that region.  " & _
+            Case gtGameTypeConstants.gtCricket
+                strMessage = "The object of Cricket is to 'close' regions fifteen through twenty and the bullseye before your opponent(s).  " &
+                             "In order to close an area, you must hit it three times.  " &
+                             "Hitting in the small outer ring of a number counts as a 'double', and the small middle ring counts as a 'triple'.  " &
+                             "Further, the center bullseye counts as a 'double bull'.  " &
+                             "On the scoreboard, a single slash represents one hit, an X represents two, and a circled X indicates that the region has been closed.  " &
+                             "In Cutthroat Cricket, if you close a region before your opponent, any additional hits on that region will cause points to be scored on any opponents who have not closed that region.  " &
                              "The game is over when a player/team closes the numbers 15 through 20, closes the bull, and has the same or fewer points as any other player/team."
 
                 strTitle = "How to play Cricket"
 
             Case gtGameTypeConstants.gtGolf
-                strMessage = "The object of Golf is to hit the corresponding region for the current hole.  " & _
-                             "You start with hole 1, then, 2, etc.  You can throw one, two, or three darts on each hole, but only the last dart thrown counts.  " & _
-                             "Hitting the triple ring gives you two under par (-2) for the current hole; " & _
-                             "hitting the double ring gives you one under par (-1) for the current hole; " & _
-                             "hitting the inner triangle (between the Bull and the Triple ring) is par for the hole (0); " & _
-                             "hitting the outeger triangle (between the Triple ring and the Double ring) is one over par (+1); " & _
+                strMessage = "The object of Golf is to hit the corresponding region for the current hole.  " &
+                             "You start with hole 1, then, 2, etc.  You can throw one, two, or three darts on each hole, but only the last dart thrown counts.  " &
+                             "Hitting the triple ring gives you two under par (-2) for the current hole; " &
+                             "hitting the double ring gives you one under par (-1) for the current hole; " &
+                             "hitting the inner triangle (between the Bull and the Triple ring) is par for the hole (0); " &
+                             "hitting the outeger triangle (between the Triple ring and the Double ring) is one over par (+1); " &
                              "any other location is two over par (+2). Your score at the end of the game is the sum of your score value for each hole (holes 1 through 18)."
                 strTitle = "How to play Golf"
             Case Else
@@ -1331,22 +1398,22 @@ Friend Class frmCricket
 
         End Select
 
-        System.Windows.Forms.MessageBox.Show(strMessage, strTitle, MessageBoxButtons.OK, MessageBoxIcon.Information)
+        MessageBox.Show(strMessage, strTitle, MessageBoxButtons.OK, MessageBoxIcon.Information)
 
     End Sub
 
     Public Sub ShowRealTimeStatistics()
 
-        If mGameType <> modDarts.gtGameTypeConstants.gtGolf Then
+        If mGameType <> gtGameTypeConstants.gtGolf Then
             frmRealtimeStatistics.Show()
 
             With frmRealtimeStatistics
                 .Top = Me.Top + 400
-                If MaxTeamIndexInGame <= 1 Then
+                If mMaxTeamIndexInGame <= 1 Then
                     .Left = Me.Left + 187
-                ElseIf MaxTeamIndexInGame <= 2 Then
+                ElseIf mMaxTeamIndexInGame <= 2 Then
                     .Left = Me.Left + 300
-                ElseIf MaxTeamIndexInGame <= 4 Then
+                ElseIf mMaxTeamIndexInGame <= 4 Then
                     .Left = Me.Left + 347
                 Else
                     .Left = Me.Left + 437
@@ -1359,20 +1426,20 @@ Friend Class frmCricket
 
     End Sub
 
-    Public Sub StartNewGameWrapper(ByVal eGameType As modDarts.gtGameTypeConstants)
+    Public Sub StartNewGameWrapper(eGameType As gtGameTypeConstants)
         Select Case eGameType
-            Case modDarts.gtGameTypeConstants.gt301
-                StartNewGame(True, modDarts.gtGameTypeConstants.gt301)
-            Case modDarts.gtGameTypeConstants.gtGolf
-                StartNewGame(True, modDarts.gtGameTypeConstants.gtGolf)
+            Case gtGameTypeConstants.gt301
+                StartNewGame(True, gtGameTypeConstants.gt301)
+            Case gtGameTypeConstants.gtGolf
+                StartNewGame(True, gtGameTypeConstants.gtGolf)
             Case Else
-                StartNewGame(True, modDarts.gtGameTypeConstants.gtCricket)
+                StartNewGame(True, gtGameTypeConstants.gtCricket)
         End Select
     End Sub
 
-    Public Sub StartNewGame(ByVal boolNotifyGameInProgress As Boolean, ByVal eGameTypeNewGame As modDarts.gtGameTypeConstants)
+    Public Sub StartNewGame(boolNotifyGameInProgress As Boolean, eGameTypeNewGame As gtGameTypeConstants)
         Dim x, y As Short
-        Dim eResponse As System.Windows.Forms.DialogResult
+        Dim eResponse As DialogResult
         Dim boolValue As Boolean
         Dim boolPlayingGolf, blnPlayingCricket, boolPlaying301 As Boolean
         Dim boolSoundPlayed As Boolean
@@ -1387,9 +1454,9 @@ Friend Class frmCricket
                 If GameInProgress() = True And CheckForGameOver(True) = False Then
                     strMessage = "Game in Progress, are you sure you want to end it and start a new one?"
 
-                    eResponse = System.Windows.Forms.MessageBox.Show(strMessage, "Game in Progress", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
+                    eResponse = MessageBox.Show(strMessage, "Game in Progress", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2)
 
-                    If eResponse <> Windows.Forms.DialogResult.Yes Then
+                    If eResponse <> DialogResult.Yes Then
                         Exit Sub
                     End If
 
@@ -1398,19 +1465,19 @@ Friend Class frmCricket
 
             ' Determine game type
             Select Case eGameTypeNewGame
-                Case modDarts.gtGameTypeConstants.gt301
+                Case gtGameTypeConstants.gt301
                     blnSuccess = Short.TryParse(txtStartNumber.Text, intStartNumber301)
 
                     If Not blnSuccess Then
                         strMessage = "The start number box must contain a numeric value.  Changing to 301."
-                        System.Windows.Forms.MessageBox.Show(strMessage, "Invalid Start Number", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                        MessageBox.Show(strMessage, "Invalid Start Number", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
 
                         intStartNumber301 = 301
                         txtStartNumber.Text = intStartNumber301.ToString
 
                     ElseIf intStartNumber301 < 2 Or intStartNumber301 >= 50000 Then
                         strMessage = "Invalid starting number; typical values are 101, 301, or 501.  Cannot start new game."
-                        System.Windows.Forms.MessageBox.Show(strMessage, "Invalid Start Number", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                        MessageBox.Show(strMessage, "Invalid Start Number", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                         Exit Sub
 
                     End If
@@ -1418,7 +1485,7 @@ Friend Class frmCricket
 
                     glbDefault301StartScore = intStartNumber301
 
-                Case modDarts.gtGameTypeConstants.gtGolf
+                Case gtGameTypeConstants.gtGolf
                     boolPlayingGolf = True
                 Case Else
                     ' Includes type gtCricket
@@ -1442,13 +1509,13 @@ Friend Class frmCricket
             frmDartBoard.ClearDartBoard()
 
             ' Reset HistoryCount
-            UndoHistoryCount = 0
-            MaxUndoHistoryCount = 0
+            mUndoHistoryCount = 0
+            mMaxUndoHistoryCount = 0
             HistoryIndexOfMostRecentTurn = 0
             mUndoRedoInProgress = False
 
-            mStartTime = System.DateTime.Now
-            mLastClickTime = System.DateTime.Now.AddSeconds(-CLICK_KEEP_TIME * 2)
+            mStartTime = DateTime.Now
+            mLastClickTime = DateTime.Now.AddSeconds(-CLICK_KEEP_TIME * 2)
 
             txtHitCount.Visible = False
 
@@ -1457,23 +1524,23 @@ Friend Class frmCricket
             strTeamCount = GetComboBoxItemText(cboNumberOfTeams)
 
             If strTeamCount.Length > 0 Then
-                MaxTeamIndexInGame = CInt(strTeamCount) - 1
+                mMaxTeamIndexInGame = CInt(strTeamCount) - 1
             Else
-                MaxTeamIndexInGame = 1
+                mMaxTeamIndexInGame = 1
             End If
 
-            ' Set MaxBoxIndexInGame (used in cricket only)
-            MaxBoxIndexInGame = (MaxTeamIndexInGame + 1) * BoxesPerCol - 1
+            ' Set mMaxBoxIndexInGame (used in cricket only)
+            mMaxBoxIndexInGame = (mMaxTeamIndexInGame + 1) * BOXES_PER_COL - 1
 
             ' Re-initialize the boolDoubledIn array (used in 301 only)
-            ReDim boolDoubledIn(MaxTeamIndexInGame)
+            ReDim boolDoubledIn(mMaxTeamIndexInGame)
 
             ' Re-initialize Golf data (used in Golf only)
             lblCurrentHole.Text = CStr(1)
             ReDim intCurrentHole(MAX_TEAM_INDEX)
 
             For x = 0 To MAX_TEAM_INDEX
-                If x <= MaxTeamIndexInGame Then
+                If x <= mMaxTeamIndexInGame Then
                     boolValue = True
                 Else
                     boolValue = False
@@ -1481,35 +1548,35 @@ Friend Class frmCricket
 
                 For y = x * 7 To (x + 1) * 7 - 1
                     If blnPlayingCricket Then
-                        pctScoreBox(y).Enabled = boolValue
-                        pctScoreBox(y).Visible = boolValue
+                        pctScoreBox.Item(y).Enabled = boolValue
+                        pctScoreBox.Item(y).Visible = boolValue
                     Else
-                        pctScoreBox(y).Visible = False
+                        pctScoreBox.Item(y).Visible = False
                     End If
                 Next y
 
-                lblTeamName(x).Visible = boolValue
-                cboPlayerList(x * 2).Visible = boolValue
-                cboPlayerList(x * 2 + 1).Visible = boolValue
-                cboPlayerList(x * 2).BackColor = System.Drawing.Color.White
-                cboPlayerList(x * 2 + 1).BackColor = System.Drawing.Color.White
+                lblTeamName.Item(x).Visible = boolValue
+                cboPlayerList.Item(x * 2).Visible = boolValue
+                cboPlayerList.Item(x * 2 + 1).Visible = boolValue
+                cboPlayerList.Item(x * 2).BackColor = Color.White
+                cboPlayerList.Item(x * 2 + 1).BackColor = Color.White
 
-                lblScore(x).Visible = boolValue
+                lblScore.Item(x).Visible = boolValue
                 If boolPlaying301 Then
                     ' Playing 301
                     UpdateTeamScore(x, intStartNumber301)
                 Else
                     UpdateTeamScore(x, 0)
                 End If
-                lblAltScore(x).Visible = False
-                lblWinStatus(x).Visible = False
+                lblAltScore.Item(x).Visible = False
+                lblWinStatus.Item(x).Visible = False
 
                 intCurrentHole(x) = 1
             Next x
 
             ' Initialize the team list
             lstCurrentTeam.Items.Clear()
-            For x = 1 To MaxTeamIndexInGame + 1
+            For x = 1 To mMaxTeamIndexInGame + 1
                 lstCurrentTeam.Items.Add(x.ToString)
             Next x
             lstCurrentTeam.SelectedIndex = 0
@@ -1539,9 +1606,9 @@ Friend Class frmCricket
 
             ' Reset current player variables and highlight the first player
             ' If the DartGameStart file was not found, then play the .Wav file for the player
-            PlayerRow = 0
-            PlayerColumn = 0
-            HighlightCurrentPlayer(PlayerRow, Not boolSoundPlayed)
+            mPlayerRow = 0
+            mPlayerColumn = 0
+            HighlightCurrentPlayer(mPlayerRow, Not boolSoundPlayed)
 
             ' Resize form as needed
             ResizeFormToDefaults()
@@ -1555,7 +1622,7 @@ Friend Class frmCricket
 
     End Sub
 
-    Private Function Subtract301Score(ByVal ScoreAmt As Short, ByVal intMultiplier As Short, ByVal intCurrentTeamIndex As Short) As Boolean
+    Private Function Subtract301Score(ScoreAmt As Short, intMultiplier As Short, intCurrentTeamIndex As Short) As Boolean
         Dim intNewScore As Short
         Dim boolValidNewScore As Boolean
 
@@ -1616,15 +1683,15 @@ Friend Class frmCricket
             End If
 
             For x = 0 To MAX_TEAM_INDEX
-                With lblAltScore(x)
-                    If mRelativeScoringEnabled And x <= MaxTeamIndexInGame Then
+                With lblAltScore.Item(x)
+                    If mRelativeScoringEnabled And x <= mMaxTeamIndexInGame Then
                         .Visible = True
                     Else
                         .Visible = False
                     End If
                 End With
             Next x
-            lblScoreMode.Visible = lblAltScore(0).Visible
+            lblScoreMode.Visible = lblAltScore.Item(0).Visible
 
         Catch ex As Exception
             HandleException("ToggleRelativeScoring", ex)
@@ -1645,19 +1712,19 @@ Friend Class frmCricket
             If mUndoRedoInProgress Then Exit Sub
             mUndoRedoInProgress = True
 
-            If UndoHistoryCount > 0 Then
+            If mUndoHistoryCount > 0 Then
                 If frmDartBoard.DartThrowCount > 0 Then
-                    With UndoHistory(UndoHistoryCount)
+                    With mUndoHistory(mUndoHistoryCount)
                         intCurrentTeamIndex = .TeamIndex
 
                         ' Only undo this dart the number of times given by .ValidHits
                         For intUndoIndex = 1 To .ValidHits
                             Select Case mGameType
-                                Case modDarts.gtGameTypeConstants.gt301
+                                Case gtGameTypeConstants.gt301
                                     ' Playing 301
                                     ' Update score by "subtracting" the negative of the dart value, i.e. adding back the value
-                                    Subtract301Score(-.DartValue, 1, intCurrentTeamIndex)
-                                Case modDarts.gtGameTypeConstants.gtGolf
+                                    Subtract301Score(- .DartValue, 1, intCurrentTeamIndex)
+                                Case gtGameTypeConstants.gtGolf
                                     ' Do nothing
                                 Case Else
                                     ' Playing Cricket
@@ -1670,7 +1737,7 @@ Friend Class frmCricket
                                         ChangePicAndTag(BoxIndex, -1)
                                         AlreadyClosed = IsClosed(intCurrentTeamIndex, BoxIndex)
                                         If AlreadyClosed Then
-                                            AddScore(-.DartValue, BoxIndex, intCurrentTeamIndex)
+                                            AddScore(- .DartValue, BoxIndex, intCurrentTeamIndex)
                                         End If
                                     End If
                             End Select
@@ -1679,8 +1746,8 @@ Friend Class frmCricket
 
                     ' Hide the Win/Lose/Out labels if not game Over
                     If Not CheckForGameOver(True) Then
-                        For intThisTeamIndex = 0 To MaxTeamIndexInGame
-                            lblWinStatus(intThisTeamIndex).Visible = False
+                        For intThisTeamIndex = 0 To mMaxTeamIndexInGame
+                            lblWinStatus.Item(intThisTeamIndex).Visible = False
                             ' Make sure correct pictures are showing
                             EnableColumn(intThisTeamIndex)
                         Next intThisTeamIndex
@@ -1696,13 +1763,13 @@ Friend Class frmCricket
                     frmDartBoard.RemoveMostRecentThrow()
 
                     ' Decrement HistoryCount
-                    UndoHistoryCount = UndoHistoryCount - 1
+                    mUndoHistoryCount = mUndoHistoryCount - 1
 
                     lblStatus.Text = "Turn undone"
                     mPauseDelay = SHORT_TIME_DELAY
                 Else
                     ' Decrement team list if frmDartboard.DartThrowCount = 0
-                    Do While UndoHistory(UndoHistoryCount).TeamIndex = lstCurrentTeam.SelectedIndex
+                    Do While mUndoHistory(mUndoHistoryCount).TeamIndex = lstCurrentTeam.SelectedIndex
                         ' Make sure the correct team is displayed in lstCurrentTeam.listindex
                         ' It would not be if the user pressed the Next Team or Previous Team buttons
                         '  on frmCricket (those buttons do not adjust the score automatically)
@@ -1711,10 +1778,10 @@ Friend Class frmCricket
 
                     Do
                         SelectPreviousTeam()
-                    Loop While lstCurrentTeam.SelectedIndex <> UndoHistory(UndoHistoryCount).TeamIndex
+                    Loop While lstCurrentTeam.SelectedIndex <> mUndoHistory(mUndoHistoryCount).TeamIndex
 
                     ' If playing golf, decrement current hole
-                    If mGameType = modDarts.gtGameTypeConstants.gtGolf Then
+                    If mGameType = gtGameTypeConstants.gtGolf Then
                         intCurrentTeamIndex = lstCurrentTeam.SelectedIndex
                         intCurrentHole(intCurrentTeamIndex) = intCurrentHole(intCurrentTeamIndex) - 1
                         lblCurrentHole.Text = CStr(intCurrentHole(intCurrentTeamIndex))
@@ -1723,9 +1790,9 @@ Friend Class frmCricket
                     ' The cmdPreviousTeam button cleared the dart board and updated lstCurrentTeam.listIndex
                     ' Populate it with the previous three darts (assuming they exist and all were for the same player)
                     intDartsToPopulate = 0
-                    For intPopulateBoardIndex = UndoHistoryCount To UndoHistoryCount - 2 Step -1
+                    For intPopulateBoardIndex = mUndoHistoryCount To mUndoHistoryCount - 2 Step -1
                         If intPopulateBoardIndex > 0 Then
-                            If UndoHistory(intPopulateBoardIndex).TeamIndex = UndoHistory(UndoHistoryCount).TeamIndex Then
+                            If mUndoHistory(intPopulateBoardIndex).TeamIndex = mUndoHistory(mUndoHistoryCount).TeamIndex Then
                                 intDartsToPopulate = intDartsToPopulate + 1
                             Else
                                 Exit For
@@ -1734,8 +1801,8 @@ Friend Class frmCricket
                     Next intPopulateBoardIndex
 
                     If intDartsToPopulate > 0 Then
-                        For intPopulateBoardIndex = UndoHistoryCount - intDartsToPopulate + 1 To UndoHistoryCount
-                            With UndoHistory(intPopulateBoardIndex)
+                        For intPopulateBoardIndex = mUndoHistoryCount - intDartsToPopulate + 1 To mUndoHistoryCount
+                            With mUndoHistory(intPopulateBoardIndex)
                                 frmDartBoard.PlaceDart(.DartValue, .Multiplier)
                             End With
                         Next intPopulateBoardIndex
@@ -1746,11 +1813,11 @@ Friend Class frmCricket
                     End If
 
                     ' Update HistoryIndexOfMostRecentTurn to the new value
-                    HistoryIndexOfMostRecentTurn = UndoHistoryCount - intDartsToPopulate
+                    HistoryIndexOfMostRecentTurn = mUndoHistoryCount - intDartsToPopulate
 
                     ' For Golf, decrement score of most recent dart
-                    If mGameType = modDarts.gtGameTypeConstants.gtGolf Then
-                        With UndoHistory(UndoHistoryCount)
+                    If mGameType = gtGameTypeConstants.gtGolf Then
+                        With mUndoHistory(mUndoHistoryCount)
                             Dim intDartScore As Short
                             intDartScore = ComputeGolfDartScore(intCurrentHole(intCurrentTeamIndex), .DartValue, .Multiplier, .DistanceFromCenter)
 
@@ -1781,8 +1848,8 @@ Friend Class frmCricket
         intPlayerCount = 0
         ReDim udtRealtimeStats((MAX_TEAM_INDEX + 1) * 2)
 
-        For intIndex = 1 To UndoHistoryCount
-            With UndoHistory(intIndex)
+        For intIndex = 1 To mUndoHistoryCount
+            With mUndoHistory(intIndex)
 
                 ' Find .PlayerName in udtRealTimeStats
                 intMatchIndex = -1
@@ -1808,44 +1875,44 @@ Friend Class frmCricket
 
     End Sub
 
-    Protected Sub UpdateTeamScore(ByVal intTeamIndex As Integer, ByVal strNewScore As String)
+    Protected Sub UpdateTeamScore(intTeamIndex As Integer, strNewScore As String)
         UpdateTeamScore(intTeamIndex, CShort(strNewScore))
     End Sub
 
-    Protected Sub UpdateTeamScore(ByVal intTeamIndex As Integer, ByVal intNewScore As Integer)
+    Protected Sub UpdateTeamScore(intTeamIndex As Integer, intNewScore As Integer)
         Dim BestScoreVal As Short
         Dim ScoreCompare As Short
         Dim x As Integer
 
-        lblScore(intTeamIndex).Text = intNewScore.ToString()
+        lblScore.Item(intTeamIndex).Text = intNewScore.ToString()
 
         BestScoreVal = intNewScore
-        For x = 1 To MaxTeamIndexInGame
+        For x = 1 To mMaxTeamIndexInGame
             ScoreCompare = GetTeamScore(x)
             If ScoreCompare < BestScoreVal Then
                 BestScoreVal = ScoreCompare
             End If
         Next x
 
-        For x = 0 To MaxTeamIndexInGame
-            lblAltScore(x).Text = (GetTeamScore(x) - BestScoreVal).ToString
+        For x = 0 To mMaxTeamIndexInGame
+            lblAltScore.Item(x).Text = (GetTeamScore(x) - BestScoreVal).ToString
         Next x
 
     End Sub
 
-    Public Sub WriteStatsFile(ByVal eSourceFormGameType As gtGameTypeConstants, ByVal MaxTeamIndexInGame As Short, _
-                              ByVal StartTime As System.DateTime, ByRef UndoHistory() As usrUndoHistory, ByVal UndoHistoryCount As Short)
+    Public Sub WriteStatsFile(eSourceFormGameType As gtGameTypeConstants, MaxTeamIndexInGame As Short,
+                              StartTime As DateTime, ByRef currentUndoHistory() As usrUndoHistory, currentUndoHistoryCount As Short)
 
         Dim x As Short
 
         Dim PlayerStatsOut As frmPlayerStats.udtPlayerStatsType
         Dim TimeElapsedString As String
-        Dim dtGameTime As System.DateTime
+        Dim dtGameTime As DateTime
         Dim StatsFilePath, StatsExtendedFilePath As String
 
-        Dim swOutFile As System.IO.StreamWriter
+        Dim swOutFile As StreamWriter
 
-        dtGameTime = System.DateTime.Now
+        dtGameTime = DateTime.Now
 
         TimeElapsedString = MinutesToTimeString(dtGameTime.Subtract(StartTime).TotalMinutes)
 
@@ -1853,18 +1920,18 @@ Friend Class frmCricket
             ' Make sure all of the player boxes have names
             For x = 0 To MaxTeamIndexInGame
 
-                PlayerStatsOut.PlayerName = GetComboBoxItemText(cboPlayerList(x * 2))
-                PlayerStatsOut.PartnerName = GetComboBoxItemText(cboPlayerList(x * 2 + 1))
+                PlayerStatsOut.PlayerName = GetComboBoxItemText(cboPlayerList.Item(x * 2))
+                PlayerStatsOut.PartnerName = GetComboBoxItemText(cboPlayerList.Item(x * 2 + 1))
 
                 If String.IsNullOrEmpty(PlayerStatsOut.PlayerName) And String.IsNullOrEmpty(PlayerStatsOut.PartnerName) Then
                     Dim strMessage As String
                     strMessage = "You have not entered player names for one or more teams.  Statistics will not be saved.  In order to make this game count, select player names for all teams, click the undo button, and click the redo button."
-                    System.Windows.Forms.MessageBox.Show(strMessage, "Missing names", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    MessageBox.Show(strMessage, "Missing names", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                     Exit Sub
                 ElseIf String.IsNullOrEmpty(PlayerStatsOut.PlayerName) And String.IsNullOrEmpty(PlayerStatsOut.PartnerName) Then
                     ' Swap the second player with the first player so the first isn't blank
-                    cboPlayerList(x * 2).SelectedIndex = cboPlayerList(x * 2 + 1).SelectedIndex
-                    cboPlayerList(x * 2 + 1).SelectedIndex = 0
+                    cboPlayerList.Item(x * 2).SelectedIndex = cboPlayerList.Item(x * 2 + 1).SelectedIndex
+                    cboPlayerList.Item(x * 2 + 1).SelectedIndex = 0
                 End If
             Next x
 
@@ -1873,32 +1940,32 @@ Friend Class frmCricket
             ' This way, all stats for the current month will reside in the same file
             StatsFilePath = StatsFileNameBase & "_" & dtGameTime.ToString("yyyyMM") & ".ini"
 
-            swOutFile = New System.IO.StreamWriter(New System.IO.FileStream(StatsFilePath, IO.FileMode.Append, IO.FileAccess.Write, IO.FileShare.Read))
+            swOutFile = New StreamWriter(New FileStream(StatsFilePath, FileMode.Append, FileAccess.Write, FileShare.Read))
 
             For x = 0 To MaxTeamIndexInGame
 
                 PlayerStatsOut.GameDateTime = dtGameTime
                 PlayerStatsOut.GameTimeElapsed = TimeElapsedString
-                PlayerStatsOut.PlayerName = GetComboBoxItemText(cboPlayerList(x * 2))
-                PlayerStatsOut.PartnerName = GetComboBoxItemText(cboPlayerList(x * 2 + 1))
+                PlayerStatsOut.PlayerName = GetComboBoxItemText(cboPlayerList.Item(x * 2))
+                PlayerStatsOut.PartnerName = GetComboBoxItemText(cboPlayerList.Item(x * 2 + 1))
 
                 If eSourceFormGameType = gtGameTypeConstants.gt301 Then
-                    If lblScore(x).Text = "0" Then PlayerStatsOut.GameWon = True Else PlayerStatsOut.GameWon = False
+                    If lblScore.Item(x).Text = "0" Then PlayerStatsOut.GameWon = True Else PlayerStatsOut.GameWon = False
                 Else
-                    If lblWinStatus(x).Text = "Win" Then PlayerStatsOut.GameWon = True Else PlayerStatsOut.GameWon = False
+                    If lblWinStatus.Item(x).Text = "Win" Then PlayerStatsOut.GameWon = True Else PlayerStatsOut.GameWon = False
                 End If
                 PlayerStatsOut.GameName = LookupGameStringByType(eSourceFormGameType)
-                PlayerStatsOut.Points = lblScore(x).Text
+                PlayerStatsOut.Points = lblScore.Item(x).Text
 
                 With PlayerStatsOut
                     ' =8/6/1999 2:44:16 PM ,10:23,
-                    swOutFile.WriteLine("Stat=" & _
-                                        .GameDateTime.ToString("M/d/yyyy h:mm:ss tt") & "," & _
-                                        .GameTimeElapsed & "," & _
-                                        .PlayerName & "," & _
-                                        .PartnerName & "," & _
-                                        .GameWon & "," & _
-                                        .Points & "," & _
+                    swOutFile.WriteLine("Stat=" &
+                                        .GameDateTime.ToString("M/d/yyyy h:mm:ss tt") & "," &
+                                        .GameTimeElapsed & "," &
+                                        .PlayerName & "," &
+                                        .PartnerName & "," &
+                                        .GameWon & "," &
+                                        .Points & "," &
                                         .GameName)
                 End With
             Next x
@@ -1910,16 +1977,16 @@ Friend Class frmCricket
             ' This way, all stats for the current month will reside in the same file
             StatsExtendedFilePath = StatsExtendedFilenameBase & "_" & dtGameTime.ToString("yyyyMM") & ".ini"
 
-            swOutFile = New System.IO.StreamWriter(New System.IO.FileStream(StatsExtendedFilePath, IO.FileMode.Append, IO.FileAccess.Write, IO.FileShare.Read))
+            swOutFile = New StreamWriter(New FileStream(StatsExtendedFilePath, FileMode.Append, FileAccess.Write, FileShare.Read))
 
-            For x = 1 To UndoHistoryCount
-                With UndoHistory(x)
-                    swOutFile.WriteLine("ExtStat=" & _
-                                        dtGameTime.ToString("M/d/yyyy h:mm:ss tt") & "," & _
-                                        .TeamIndex + 1 & "," & _
-                                        .PlayerName & "," & _
-                                        .DartValue & "," & _
-                                        .Multiplier & "," & _
+            For x = 1 To currentUndoHistoryCount
+                With currentUndoHistory(x)
+                    swOutFile.WriteLine("ExtStat=" &
+                                        dtGameTime.ToString("M/d/yyyy h:mm:ss tt") & "," &
+                                        .TeamIndex + 1 & "," &
+                                        .PlayerName & "," &
+                                        .DartValue & "," &
+                                        .Multiplier & "," &
                                         .ValidHits)
                 End With
             Next x
@@ -1927,61 +1994,61 @@ Friend Class frmCricket
 
             PlayWaveFileForPlayer("DartGameOver", False, False)
 
-            System.Windows.Forms.MessageBox.Show("Game over; statistics have been saved.", "Game Over", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show("Game over; statistics have been saved.", "Game Over", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
         Catch ex As Exception
-            System.Windows.Forms.MessageBox.Show("Game over, but unable to save the stats: " & ex.Message, "Game Over", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            MessageBox.Show("Game over, but unable to save the stats: " & ex.Message, "Game Over", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         End Try
 
     End Sub
 
-    'UPGRADE_WARNING: Event cboPlayerList.SelectedIndexChanged may fire when form is initialized. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="88B12AE1-6DE0-48A0-86F1-60C0686C026A"'
-    Private Sub cboPlayerList_SelectedIndexChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cboPlayerList.SelectedIndexChanged
-        Dim intIndex As Short
+    Private Sub cboPlayerList_SelectedIndexChanged(eventSender As Object, eventArgs As EventArgs) Handles cboPlayerList.SelectedIndexChanged
+        Dim objControl As ComboBox
 
-        intIndex = cboPlayerList.GetIndex(eventSender)
+        objControl = CType(eventSender, ComboBox)
 
-        HighlightCurrentPlayer(PlayerRow)
-        PlayWaveFileForPlayer(GetComboBoxItemText(cboPlayerList(intIndex)), False, False)
+        HighlightCurrentPlayer(mPlayerRow)
+        PlayWaveFileForPlayer(GetComboBoxItemText(objControl), False, False)
+
     End Sub
 
-    Private Sub chkDoubleIn_CheckStateChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles chkDoubleIn.CheckStateChanged
+    Private Sub chkDoubleIn_CheckStateChanged(eventSender As Object, eventArgs As EventArgs) Handles chkDoubleIn.CheckStateChanged
         glbBoolRequireDoubleIn = CChkBox(chkDoubleIn)
     End Sub
 
-    Private Sub chkDoubleOut_CheckStateChanged(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles chkDoubleOut.CheckStateChanged
+    Private Sub chkDoubleOut_CheckStateChanged(eventSender As Object, eventArgs As EventArgs) Handles chkDoubleOut.CheckStateChanged
         glbBoolRequireDoubleOut = CChkBox(chkDoubleOut)
     End Sub
 
-    Private Sub cmdClose_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdClose.Click
+    Private Sub cmdClose_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdClose.Click
         HideGameForms(True)
     End Sub
 
-    Private Sub cmdHelp_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdHelp.Click
+    Private Sub cmdHelp_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdHelp.Click
         ShowHelp()
     End Sub
 
-    Private Sub cmdNextTeam_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdNextTeam.Click
+    Private Sub cmdNextTeam_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdNextTeam.Click
         AdvanceToNextTeam(False)
     End Sub
 
-    Private Sub cmdPreviousTeam_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdPreviousTeam.Click
+    Private Sub cmdPreviousTeam_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdPreviousTeam.Click
         SelectPreviousTeam()
     End Sub
 
-    Private Sub cmdRedo_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdRedo.Click
+    Private Sub cmdRedo_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdRedo.Click
         RedoThrow()
     End Sub
 
-    Private Sub cmdScoreMode_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdScoreMode.Click
+    Private Sub cmdScoreMode_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdScoreMode.Click
         ToggleRelativeScoring(True)
     End Sub
 
-    Private Sub cmdShowRealtimeStatistics_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdShowRealtimeStatistics.Click
+    Private Sub cmdShowRealtimeStatistics_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdShowRealtimeStatistics.Click
         ShowRealTimeStatistics()
     End Sub
 
-    Private Sub cmdStartNewGame_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdStartNewGame.Click
+    Private Sub cmdStartNewGame_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdStartNewGame.Click
         ' Set mNewGameButtonClicked to True to assure that the DartGameStart sound is played
         mNewGameButtonClicked = True
 
@@ -1990,32 +2057,35 @@ Friend Class frmCricket
         mNewGameButtonClicked = False
     End Sub
 
-    Private Sub cmdShowDartBoard_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdShowDartBoard.Click
+    Private Sub cmdShowDartBoard_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdShowDartBoard.Click
         frmDartBoard.Show()
     End Sub
 
-    Private Sub cmdUndo_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdUndo.Click
+    Private Sub cmdUndo_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdUndo.Click
         UndoThrow()
     End Sub
 
     'UPGRADE_WARNING: Form event frmCricket.Activate has a new behavior. Click for more: 'ms-help://MS.VSCC.v90/dv_commoner/local/redirect.htm?keyword="6BA9B8D2-2A32-4B6E-8D36-44949974A5B4"'
-    Private Sub frmCricket_Activated(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Activated
+    Private Sub frmCricket_Activated(eventSender As Object, eventArgs As EventArgs) Handles MyBase.Activated
 
-        HighlightCurrentPlayer(PlayerRow)
+        HighlightCurrentPlayer(mPlayerRow)
 
-        System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default
+        Cursor.Current = Cursors.Default
 
     End Sub
 
-    Private Sub frmCricket_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
+    Private Sub frmCricket_Load(eventSender As Object, eventArgs As EventArgs) Handles MyBase.Load
         Dim x As Short
 
         Try
+            ' Load source pictures
+            LoadSourcePictures()
+
             ' Load Team Names and Player Lists
             LoadTeamControls()
 
             ' Load Score Boxes
-            LoadScoreBoxes(MaxBoxIndex, 6)
+            LoadScoreBoxes(MAX_BOX_INDEX, 6)
 
             ' Load Win Labels, Score Labels, and Alt Score Labels
             LoadScoreLabels()
@@ -2025,15 +2095,15 @@ Friend Class frmCricket
 
             ' Set Double In/Out values
             If glbBoolRequireDoubleIn Then
-                chkDoubleIn.CheckState = System.Windows.Forms.CheckState.Checked
+                chkDoubleIn.CheckState = CheckState.Checked
             Else
-                chkDoubleIn.CheckState = System.Windows.Forms.CheckState.Unchecked
+                chkDoubleIn.CheckState = CheckState.Unchecked
             End If
 
             If glbBoolRequireDoubleOut Then
-                chkDoubleOut.CheckState = System.Windows.Forms.CheckState.Checked
+                chkDoubleOut.CheckState = CheckState.Checked
             Else
-                chkDoubleOut.CheckState = System.Windows.Forms.CheckState.Unchecked
+                chkDoubleOut.CheckState = CheckState.Unchecked
             End If
 
             ' Initialize the boolDoubledIn array (used in 301)
@@ -2052,9 +2122,9 @@ Friend Class frmCricket
             FillPlayerBoxes()
             SetScoreFontSizes(True)
 
-            SetScoreAreaSize(modDarts.glbScoreAreaSizeVal)
+            SetScoreAreaSize(glbScoreAreaSizeVal)
 
-            frmDartBoard.Left = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width - frmDartBoard.Width
+            frmDartBoard.Left = Screen.PrimaryScreen.Bounds.Width - frmDartBoard.Width
             frmDartBoard.Top = 0
 
             ' Set up new game (will show/hide controls and position as needed)
@@ -2070,7 +2140,7 @@ Friend Class frmCricket
 
     End Sub
 
-    Private Sub frmCricket_FormClosing(ByVal eventSender As System.Object, ByVal eventArgs As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
+    Private Sub frmCricket_FormClosing(eventSender As Object, eventArgs As FormClosingEventArgs) Handles Me.FormClosing
 
         If eventArgs.CloseReason = CloseReason.UserClosing Then
             eventArgs.Cancel = True
@@ -2080,15 +2150,15 @@ Friend Class frmCricket
     End Sub
 
 
-    Private Sub tmrTimer_Tick(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles tmrTimer.Tick
+    Private Sub tmrTimer_Tick(eventSender As Object, eventArgs As EventArgs) Handles tmrTimer.Tick
 
         If mPauseDelay <= 0 Then
-            lblStatus.Text = MinutesToTimeString(System.DateTime.Now.Subtract(mStartTime).TotalMinutes) & " elapsed."
+            lblStatus.Text = MinutesToTimeString(DateTime.Now.Subtract(mStartTime).TotalMinutes) & " elapsed."
         Else
             mPauseDelay -= 1
         End If
 
-        If System.DateTime.Now.Subtract(mLastClickTime).TotalSeconds > CLICK_KEEP_TIME Then
+        If DateTime.Now.Subtract(mLastClickTime).TotalSeconds > CLICK_KEEP_TIME Then
             ' Reset mLastClickTeam and hide txtHitCount
             mLastClickTeam = -1
             txtHitCount.Visible = False
@@ -2096,7 +2166,7 @@ Friend Class frmCricket
 
     End Sub
 
-    Private Sub txtStartNumber_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txtStartNumber.KeyPress
+    Private Sub txtStartNumber_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtStartNumber.KeyPress
         TextBoxKeyPressHandler(txtStartNumber, e, True, False)
     End Sub
 

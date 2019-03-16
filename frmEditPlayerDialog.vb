@@ -2,18 +2,18 @@ Option Strict Off
 Option Explicit On
 
 Friend Class frmEditPlayerDialog
-    Inherits System.Windows.Forms.Form
-    
+    Inherits Form
+
     ' -------------------------------------------------------------------------------
     ' Dart Scorekeeper
-    ' Written by Matthew Monroe in Chapel Hill, NC
     '
-    ' Program started July 31, 1999
+    ' Written by Matthew Monroe
+    ' Started in July 1999
+    ' Ported to .NET in 2011
     '
-    ' E-mail: matt@alchemistmatt.com or alchemistmatt@yahoo.com
-    ' Websites: http://www.alchemistmatt.com/
-    '           http://www.geocities.com/alchemistmatt/
-    '           http://come.to/alchemistmatt/
+    ' E-mail: monroem@gmail.com or alchemistmatt@yahoo.com
+    ' Repository: https://github.com/alchemistmatt
+    '
     ' -------------------------------------------------------------------------------
     '
     ' Licensed under the Apache License, Version 2.0; you may not use this file except
@@ -32,27 +32,27 @@ Friend Class frmEditPlayerDialog
         Get
             Return txtPlayerName.Text
         End Get
-        Set(ByVal value As String)
-            txtPlayerName.Text = value
+        Set
+            txtPlayerName.Text = Value
             mPlayerNameUpdated = False
         End Set
     End Property
 
-    Private Sub cmdCancel_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdCancel.Click
+    Private Sub cmdCancel_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdCancel.Click
         mPlayerNameUpdated = False
         Me.Hide()
     End Sub
 
-    Private Sub cmdOK_Click(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles cmdOK.Click
+    Private Sub cmdOK_Click(eventSender As Object, eventArgs As EventArgs) Handles cmdOK.Click
         mPlayerNameUpdated = True
         Me.Hide()
     End Sub
 
-    Private Sub frmEditPlayerDialog_Load(ByVal eventSender As System.Object, ByVal eventArgs As System.EventArgs) Handles MyBase.Load
-        
+    Private Sub frmEditPlayerDialog_Load(eventSender As Object, eventArgs As EventArgs) Handles MyBase.Load
+
         ' Position form in window
-        Me.Left = (2 * System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width - Me.Width) / 3
-        Me.Top = (System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height - Me.Height) / 3
+        Me.Left = (2 * Screen.PrimaryScreen.Bounds.Width - Me.Width) / 3
+        Me.Top = (Screen.PrimaryScreen.Bounds.Height - Me.Height) / 3
 
         txtPlayerName.Text = String.Empty
         mPlayerNameUpdated = False
