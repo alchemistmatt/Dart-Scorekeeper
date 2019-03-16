@@ -1,0 +1,264 @@
+﻿<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <MyType>WindowsForms</MyType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3E65C97F-A9FC-43CC-9DF3-3F1622DD37EC}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <AssemblyName>DartScorekeeper</AssemblyName>
+    <OutputType>WinExe</OutputType>
+    <StartupObject>DartScorekeeper.frmDarts</StartupObject>
+    <AssemblyMajorVersion>3</AssemblyMajorVersion>
+    <AssemblyMinorVersion>0</AssemblyMinorVersion>
+    <AssemblyRevisionNumber>110</AssemblyRevisionNumber>
+    <GenerateRevisionNumber>True</GenerateRevisionNumber>
+    <AssemblyCompanyName>Home User</AssemblyCompanyName>
+    <StartWithIE>False</StartWithIE>
+    <ApplicationIcon>darts.ico</ApplicationIcon>
+    <RootNamespace>DartScorekeeper</RootNamespace>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>.\bin\</OutputPath>
+    <DocumentationFile>DartScorekeeper.xml</DocumentationFile>
+    <DebugSymbols>True</DebugSymbols>
+    <DefineDebug>True</DefineDebug>
+    <DefineTrace>True</DefineTrace>
+    <DefineConstants>Win32=True</DefineConstants>
+    <PlatformTarget>x86</PlatformTarget>
+    <NoWarn>42016,42017,42018,42019,42032</NoWarn>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>.\bin\</OutputPath>
+    <DocumentationFile>DartScorekeeper.xml</DocumentationFile>
+    <DebugSymbols>False</DebugSymbols>
+    <DefineDebug>False</DefineDebug>
+    <DefineTrace>True</DefineTrace>
+    <DefineConstants>Win32=True</DefineConstants>
+    <PlatformTarget>x86</PlatformTarget>
+    <NoWarn>42016,42017,42018,42019,42032</NoWarn>
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic.Compatibility">
+      <Name>Microsoft.VisualBasic.Compatibility</Name>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.VS">
+      <Name>Microsoft.VisualBasic.PowerPacks.VS</Name>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+    </Reference>
+    <Reference Include="System.XML">
+      <Name>System.XML</Name>
+    </Reference>
+    <COMReference Include="AxMSACAL">
+      <Guid>{8E27C92E-1264-101C-8A2F-040224009C02}</Guid>
+      <Lcid>0</Lcid>
+      <VersionMajor>7</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <WrapperTool>aximp</WrapperTool>
+    </COMReference>
+    <COMReference Include="IWshRuntimeLibrary">
+      <Guid>{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B}</Guid>
+      <Lcid>0</Lcid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <WrapperTool>tlbimp</WrapperTool>
+    </COMReference>
+    <COMReference Include="MSACAL">
+      <Guid>{8E27C92E-1264-101C-8A2F-040224009C02}</Guid>
+      <Lcid>0</Lcid>
+      <VersionMajor>7</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <WrapperTool>tlbimp</WrapperTool>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="Microsoft.VisualBasic.Compatibility" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="frmAbout.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmAbout.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAbout.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAddnlStats.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmAddnlStats.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmAddnlStats.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AssemblyInfo.vb" />
+    <Compile Include="frmCricket.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmCricket.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmCricket.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDartBoard.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmDartBoard.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmDartBoard.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="modDarts.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="frmDarts.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmDarts.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmDarts.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEditPlayerDialog.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmEditPlayerDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmEditPlayerDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRealtimeStatistics.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmRealtimeStatistics.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmRealtimeStatistics.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="frmOptions.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmOptions.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmOptions.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEditPlayers.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmEditPlayers.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmEditPlayers.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPlayerStats.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmPlayerStats.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmPlayerStats.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmProgress.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmProgress.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmProgress.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRankHelp.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmRankHelp.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmRankHelp.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmStatOptionsDialog.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmStatOptionsDialog.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmStatOptionsDialog.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPlayerStatsZoom.Designer.vb">
+      <SubType>Code</SubType>
+      <DependentUpon>frmPlayerStatsZoom.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmPlayerStatsZoom.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <EmbeddedResource Include="frmAbout.resX">
+      <DependentUpon>frmAbout.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmAddnlStats.resX">
+      <DependentUpon>frmAddnlStats.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCricket.resX">
+      <DependentUpon>frmCricket.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDartBoard.resX">
+      <DependentUpon>frmDartBoard.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDarts.resX">
+      <DependentUpon>frmDarts.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEditPlayerDialog.resX">
+      <DependentUpon>frmEditPlayerDialog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRealtimeStatistics.resX">
+      <DependentUpon>frmRealtimeStatistics.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmOptions.resX">
+      <DependentUpon>frmOptions.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEditPlayers.resX">
+      <DependentUpon>frmEditPlayers.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPlayerStats.resX">
+      <DependentUpon>frmPlayerStats.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmProgress.resX">
+      <DependentUpon>frmProgress.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRankHelp.resX">
+      <DependentUpon>frmRankHelp.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmStatOptionsDialog.resX">
+      <DependentUpon>frmStatOptionsDialog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPlayerStatsZoom.resX">
+      <DependentUpon>frmPlayerStatsZoom.vb</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="darts.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
