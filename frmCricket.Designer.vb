@@ -89,53 +89,53 @@ Imports Microsoft.VisualBasic.CompilerServices
     'It can be modified using the Windows Form Designer.
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmCricket))
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
-        Me.txtStartNumber = New System.Windows.Forms.TextBox
-        Me.cmdShowRealtimeStatistics = New System.Windows.Forms.Button
-        Me._pctSourceSmall_0 = New System.Windows.Forms.PictureBox
-        Me._pctSourceSmall_1 = New System.Windows.Forms.PictureBox
-        Me._pctSourceSmall_2 = New System.Windows.Forms.PictureBox
-        Me._pctSourceSmall_3 = New System.Windows.Forms.PictureBox
-        Me._pctSourceSmall_4 = New System.Windows.Forms.PictureBox
-        Me._pctSourceSmall_9 = New System.Windows.Forms.PictureBox
-        Me._pctSourceSmall_8 = New System.Windows.Forms.PictureBox
-        Me._pctSourceSmall_7 = New System.Windows.Forms.PictureBox
-        Me._pctSourceSmall_6 = New System.Windows.Forms.PictureBox
-        Me._pctSourceSmall_5 = New System.Windows.Forms.PictureBox
-        Me.cmdScoreMode = New System.Windows.Forms.Button
-        Me.chkDoubleIn = New System.Windows.Forms.CheckBox
-        Me.chkDoubleOut = New System.Windows.Forms.CheckBox
-        Me.lstCurrentTeam = New System.Windows.Forms.ListBox
-        Me.cmdNextTeam = New System.Windows.Forms.Button
-        Me.cmdPreviousTeam = New System.Windows.Forms.Button
-        Me.cmdShowDartBoard = New System.Windows.Forms.Button
-        Me.cmdHelp = New System.Windows.Forms.Button
-        Me._pctSource_5 = New System.Windows.Forms.PictureBox
-        Me._pctSource_6 = New System.Windows.Forms.PictureBox
-        Me._pctSource_7 = New System.Windows.Forms.PictureBox
-        Me._pctSource_8 = New System.Windows.Forms.PictureBox
-        Me._pctSource_9 = New System.Windows.Forms.PictureBox
-        Me.txtHitCount = New System.Windows.Forms.TextBox
+        Me.txtStartNumber = New System.Windows.Forms.TextBox()
+        Me.cmdShowRealtimeStatistics = New System.Windows.Forms.Button()
+        Me._pctSourceSmall_0 = New System.Windows.Forms.PictureBox()
+        Me._pctSourceSmall_1 = New System.Windows.Forms.PictureBox()
+        Me._pctSourceSmall_2 = New System.Windows.Forms.PictureBox()
+        Me._pctSourceSmall_3 = New System.Windows.Forms.PictureBox()
+        Me._pctSourceSmall_4 = New System.Windows.Forms.PictureBox()
+        Me._pctSourceSmall_9 = New System.Windows.Forms.PictureBox()
+        Me._pctSourceSmall_8 = New System.Windows.Forms.PictureBox()
+        Me._pctSourceSmall_7 = New System.Windows.Forms.PictureBox()
+        Me._pctSourceSmall_6 = New System.Windows.Forms.PictureBox()
+        Me._pctSourceSmall_5 = New System.Windows.Forms.PictureBox()
+        Me.cmdScoreMode = New System.Windows.Forms.Button()
+        Me.chkDoubleIn = New System.Windows.Forms.CheckBox()
+        Me.chkDoubleOut = New System.Windows.Forms.CheckBox()
+        Me.lstCurrentTeam = New System.Windows.Forms.ListBox()
+        Me.cmdNextTeam = New System.Windows.Forms.Button()
+        Me.cmdPreviousTeam = New System.Windows.Forms.Button()
+        Me.cmdShowDartBoard = New System.Windows.Forms.Button()
+        Me.cmdHelp = New System.Windows.Forms.Button()
+        Me._pctSource_5 = New System.Windows.Forms.PictureBox()
+        Me._pctSource_6 = New System.Windows.Forms.PictureBox()
+        Me._pctSource_7 = New System.Windows.Forms.PictureBox()
+        Me._pctSource_8 = New System.Windows.Forms.PictureBox()
+        Me._pctSource_9 = New System.Windows.Forms.PictureBox()
+        Me.txtHitCount = New System.Windows.Forms.TextBox()
         Me.tmrTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.cmdRedo = New System.Windows.Forms.Button
-        Me._pctSource_4 = New System.Windows.Forms.PictureBox
-        Me.cmdClose = New System.Windows.Forms.Button
-        Me._pctSource_3 = New System.Windows.Forms.PictureBox
-        Me._pctSource_2 = New System.Windows.Forms.PictureBox
-        Me._pctSource_1 = New System.Windows.Forms.PictureBox
-        Me.cmdUndo = New System.Windows.Forms.Button
-        Me.cmdStartNewGame = New System.Windows.Forms.Button
-        Me.cboNumberOfTeams = New System.Windows.Forms.ComboBox
-        Me._pctSource_0 = New System.Windows.Forms.PictureBox
-        Me.lblCurrentHoleLabel = New System.Windows.Forms.Label
-        Me.lblCurrentHole = New System.Windows.Forms.Label
-        Me.lblStartNumber = New System.Windows.Forms.Label
-        Me.lblCurrentTeam = New System.Windows.Forms.Label
-        Me.lblScoreMode = New System.Windows.Forms.Label
-        Me.lblNumberOfTeams = New System.Windows.Forms.Label
-        Me.lblStatus = New System.Windows.Forms.Label
+        Me.cmdRedo = New System.Windows.Forms.Button()
+        Me._pctSource_4 = New System.Windows.Forms.PictureBox()
+        Me.cmdClose = New System.Windows.Forms.Button()
+        Me._pctSource_3 = New System.Windows.Forms.PictureBox()
+        Me._pctSource_2 = New System.Windows.Forms.PictureBox()
+        Me._pctSource_1 = New System.Windows.Forms.PictureBox()
+        Me.cmdUndo = New System.Windows.Forms.Button()
+        Me.cmdStartNewGame = New System.Windows.Forms.Button()
+        Me.cboNumberOfTeams = New System.Windows.Forms.ComboBox()
+        Me._pctSource_0 = New System.Windows.Forms.PictureBox()
+        Me.lblCurrentHoleLabel = New System.Windows.Forms.Label()
+        Me.lblCurrentHole = New System.Windows.Forms.Label()
+        Me.lblStartNumber = New System.Windows.Forms.Label()
+        Me.lblCurrentTeam = New System.Windows.Forms.Label()
+        Me.lblScoreMode = New System.Windows.Forms.Label()
+        Me.lblNumberOfTeams = New System.Windows.Forms.Label()
+        Me.lblStatus = New System.Windows.Forms.Label()
         CType(Me._pctSourceSmall_0, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me._pctSourceSmall_1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me._pctSourceSmall_2, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -163,13 +163,13 @@ Imports Microsoft.VisualBasic.CompilerServices
         Me.txtStartNumber.AcceptsReturn = True
         Me.txtStartNumber.BackColor = System.Drawing.SystemColors.Window
         Me.txtStartNumber.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtStartNumber.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me.txtStartNumber.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtStartNumber.ForeColor = System.Drawing.SystemColors.WindowText
         Me.txtStartNumber.Location = New System.Drawing.Point(16, 112)
         Me.txtStartNumber.MaxLength = 0
         Me.txtStartNumber.Name = "txtStartNumber"
         Me.txtStartNumber.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtStartNumber.Size = New System.Drawing.Size(33, 25)
+        Me.txtStartNumber.Size = New System.Drawing.Size(33, 26)
         Me.txtStartNumber.TabIndex = 4
         Me.txtStartNumber.Text = "301"
         Me.ToolTip1.SetToolTip(Me.txtStartNumber, "The starting number for 301-type games.")
@@ -178,7 +178,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         '
         Me.cmdShowRealtimeStatistics.BackColor = System.Drawing.SystemColors.Control
         Me.cmdShowRealtimeStatistics.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmdShowRealtimeStatistics.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me.cmdShowRealtimeStatistics.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdShowRealtimeStatistics.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdShowRealtimeStatistics.Location = New System.Drawing.Point(8, 320)
         Me.cmdShowRealtimeStatistics.Name = "cmdShowRealtimeStatistics"
@@ -194,7 +194,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         Me._pctSourceSmall_0.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me._pctSourceSmall_0.Cursor = System.Windows.Forms.Cursors.Default
         Me._pctSourceSmall_0.Enabled = False
-        Me._pctSourceSmall_0.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me._pctSourceSmall_0.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me._pctSourceSmall_0.ForeColor = System.Drawing.SystemColors.ControlText
         Me._pctSourceSmall_0.Image = CType(resources.GetObject("_pctSourceSmall_0.Image"), System.Drawing.Image)
         Me._pctSourceSmall_0.Location = New System.Drawing.Point(368, 192)
@@ -211,7 +211,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         Me._pctSourceSmall_1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me._pctSourceSmall_1.Cursor = System.Windows.Forms.Cursors.Default
         Me._pctSourceSmall_1.Enabled = False
-        Me._pctSourceSmall_1.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me._pctSourceSmall_1.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me._pctSourceSmall_1.ForeColor = System.Drawing.SystemColors.ControlText
         Me._pctSourceSmall_1.Image = CType(resources.GetObject("_pctSourceSmall_1.Image"), System.Drawing.Image)
         Me._pctSourceSmall_1.Location = New System.Drawing.Point(368, 232)
@@ -228,7 +228,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         Me._pctSourceSmall_2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me._pctSourceSmall_2.Cursor = System.Windows.Forms.Cursors.Default
         Me._pctSourceSmall_2.Enabled = False
-        Me._pctSourceSmall_2.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me._pctSourceSmall_2.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me._pctSourceSmall_2.ForeColor = System.Drawing.SystemColors.ControlText
         Me._pctSourceSmall_2.Image = CType(resources.GetObject("_pctSourceSmall_2.Image"), System.Drawing.Image)
         Me._pctSourceSmall_2.Location = New System.Drawing.Point(368, 272)
@@ -245,7 +245,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         Me._pctSourceSmall_3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me._pctSourceSmall_3.Cursor = System.Windows.Forms.Cursors.Default
         Me._pctSourceSmall_3.Enabled = False
-        Me._pctSourceSmall_3.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me._pctSourceSmall_3.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me._pctSourceSmall_3.ForeColor = System.Drawing.SystemColors.ControlText
         Me._pctSourceSmall_3.Image = CType(resources.GetObject("_pctSourceSmall_3.Image"), System.Drawing.Image)
         Me._pctSourceSmall_3.Location = New System.Drawing.Point(368, 312)
@@ -262,7 +262,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         Me._pctSourceSmall_4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me._pctSourceSmall_4.Cursor = System.Windows.Forms.Cursors.Default
         Me._pctSourceSmall_4.Enabled = False
-        Me._pctSourceSmall_4.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me._pctSourceSmall_4.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me._pctSourceSmall_4.ForeColor = System.Drawing.SystemColors.ControlText
         Me._pctSourceSmall_4.Image = CType(resources.GetObject("_pctSourceSmall_4.Image"), System.Drawing.Image)
         Me._pctSourceSmall_4.Location = New System.Drawing.Point(368, 352)
@@ -279,7 +279,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         Me._pctSourceSmall_9.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me._pctSourceSmall_9.Cursor = System.Windows.Forms.Cursors.Default
         Me._pctSourceSmall_9.Enabled = False
-        Me._pctSourceSmall_9.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me._pctSourceSmall_9.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me._pctSourceSmall_9.ForeColor = System.Drawing.SystemColors.ControlText
         Me._pctSourceSmall_9.Image = CType(resources.GetObject("_pctSourceSmall_9.Image"), System.Drawing.Image)
         Me._pctSourceSmall_9.Location = New System.Drawing.Point(416, 352)
@@ -296,7 +296,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         Me._pctSourceSmall_8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me._pctSourceSmall_8.Cursor = System.Windows.Forms.Cursors.Default
         Me._pctSourceSmall_8.Enabled = False
-        Me._pctSourceSmall_8.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me._pctSourceSmall_8.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me._pctSourceSmall_8.ForeColor = System.Drawing.SystemColors.ControlText
         Me._pctSourceSmall_8.Image = CType(resources.GetObject("_pctSourceSmall_8.Image"), System.Drawing.Image)
         Me._pctSourceSmall_8.Location = New System.Drawing.Point(416, 312)
@@ -313,7 +313,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         Me._pctSourceSmall_7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me._pctSourceSmall_7.Cursor = System.Windows.Forms.Cursors.Default
         Me._pctSourceSmall_7.Enabled = False
-        Me._pctSourceSmall_7.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me._pctSourceSmall_7.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me._pctSourceSmall_7.ForeColor = System.Drawing.SystemColors.ControlText
         Me._pctSourceSmall_7.Image = CType(resources.GetObject("_pctSourceSmall_7.Image"), System.Drawing.Image)
         Me._pctSourceSmall_7.Location = New System.Drawing.Point(416, 272)
@@ -330,7 +330,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         Me._pctSourceSmall_6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me._pctSourceSmall_6.Cursor = System.Windows.Forms.Cursors.Default
         Me._pctSourceSmall_6.Enabled = False
-        Me._pctSourceSmall_6.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me._pctSourceSmall_6.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me._pctSourceSmall_6.ForeColor = System.Drawing.SystemColors.ControlText
         Me._pctSourceSmall_6.Image = CType(resources.GetObject("_pctSourceSmall_6.Image"), System.Drawing.Image)
         Me._pctSourceSmall_6.Location = New System.Drawing.Point(416, 232)
@@ -347,7 +347,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         Me._pctSourceSmall_5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me._pctSourceSmall_5.Cursor = System.Windows.Forms.Cursors.Default
         Me._pctSourceSmall_5.Enabled = False
-        Me._pctSourceSmall_5.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me._pctSourceSmall_5.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me._pctSourceSmall_5.ForeColor = System.Drawing.SystemColors.ControlText
         Me._pctSourceSmall_5.Image = CType(resources.GetObject("_pctSourceSmall_5.Image"), System.Drawing.Image)
         Me._pctSourceSmall_5.Location = New System.Drawing.Point(416, 192)
@@ -362,7 +362,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         '
         Me.cmdScoreMode.BackColor = System.Drawing.SystemColors.Control
         Me.cmdScoreMode.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmdScoreMode.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me.cmdScoreMode.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdScoreMode.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdScoreMode.Location = New System.Drawing.Point(8, 272)
         Me.cmdScoreMode.Name = "cmdScoreMode"
@@ -378,7 +378,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         Me.chkDoubleIn.Checked = True
         Me.chkDoubleIn.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkDoubleIn.Cursor = System.Windows.Forms.Cursors.Default
-        Me.chkDoubleIn.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me.chkDoubleIn.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkDoubleIn.ForeColor = System.Drawing.SystemColors.ControlText
         Me.chkDoubleIn.Location = New System.Drawing.Point(8, 240)
         Me.chkDoubleIn.Name = "chkDoubleIn"
@@ -394,7 +394,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         Me.chkDoubleOut.Checked = True
         Me.chkDoubleOut.CheckState = System.Windows.Forms.CheckState.Checked
         Me.chkDoubleOut.Cursor = System.Windows.Forms.Cursors.Default
-        Me.chkDoubleOut.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me.chkDoubleOut.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.chkDoubleOut.ForeColor = System.Drawing.SystemColors.ControlText
         Me.chkDoubleOut.Location = New System.Drawing.Point(72, 240)
         Me.chkDoubleOut.Name = "chkDoubleOut"
@@ -409,20 +409,20 @@ Imports Microsoft.VisualBasic.CompilerServices
         Me.lstCurrentTeam.BackColor = System.Drawing.SystemColors.Window
         Me.lstCurrentTeam.Cursor = System.Windows.Forms.Cursors.Default
         Me.lstCurrentTeam.Enabled = False
-        Me.lstCurrentTeam.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me.lstCurrentTeam.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lstCurrentTeam.ForeColor = System.Drawing.SystemColors.WindowText
-        Me.lstCurrentTeam.ItemHeight = 17
+        Me.lstCurrentTeam.ItemHeight = 18
         Me.lstCurrentTeam.Location = New System.Drawing.Point(72, 128)
         Me.lstCurrentTeam.Name = "lstCurrentTeam"
         Me.lstCurrentTeam.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lstCurrentTeam.Size = New System.Drawing.Size(41, 89)
+        Me.lstCurrentTeam.Size = New System.Drawing.Size(41, 76)
         Me.lstCurrentTeam.TabIndex = 6
         '
         'cmdNextTeam
         '
         Me.cmdNextTeam.BackColor = System.Drawing.SystemColors.Control
         Me.cmdNextTeam.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmdNextTeam.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me.cmdNextTeam.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdNextTeam.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdNextTeam.Location = New System.Drawing.Point(8, 176)
         Me.cmdNextTeam.Name = "cmdNextTeam"
@@ -436,7 +436,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         '
         Me.cmdPreviousTeam.BackColor = System.Drawing.SystemColors.Control
         Me.cmdPreviousTeam.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmdPreviousTeam.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me.cmdPreviousTeam.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdPreviousTeam.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdPreviousTeam.Location = New System.Drawing.Point(8, 144)
         Me.cmdPreviousTeam.Name = "cmdPreviousTeam"
@@ -450,7 +450,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         '
         Me.cmdShowDartBoard.BackColor = System.Drawing.SystemColors.Control
         Me.cmdShowDartBoard.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmdShowDartBoard.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me.cmdShowDartBoard.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdShowDartBoard.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdShowDartBoard.Location = New System.Drawing.Point(8, 344)
         Me.cmdShowDartBoard.Name = "cmdShowDartBoard"
@@ -464,7 +464,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         '
         Me.cmdHelp.BackColor = System.Drawing.SystemColors.Control
         Me.cmdHelp.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmdHelp.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me.cmdHelp.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdHelp.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdHelp.Location = New System.Drawing.Point(72, 368)
         Me.cmdHelp.Name = "cmdHelp"
@@ -480,7 +480,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         Me._pctSource_5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me._pctSource_5.Cursor = System.Windows.Forms.Cursors.Default
         Me._pctSource_5.Enabled = False
-        Me._pctSource_5.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me._pctSource_5.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me._pctSource_5.ForeColor = System.Drawing.SystemColors.ControlText
         Me._pctSource_5.Image = CType(resources.GetObject("_pctSource_5.Image"), System.Drawing.Image)
         Me._pctSource_5.Location = New System.Drawing.Point(272, 192)
@@ -497,7 +497,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         Me._pctSource_6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me._pctSource_6.Cursor = System.Windows.Forms.Cursors.Default
         Me._pctSource_6.Enabled = False
-        Me._pctSource_6.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me._pctSource_6.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me._pctSource_6.ForeColor = System.Drawing.SystemColors.ControlText
         Me._pctSource_6.Image = CType(resources.GetObject("_pctSource_6.Image"), System.Drawing.Image)
         Me._pctSource_6.Location = New System.Drawing.Point(272, 232)
@@ -514,7 +514,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         Me._pctSource_7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me._pctSource_7.Cursor = System.Windows.Forms.Cursors.Default
         Me._pctSource_7.Enabled = False
-        Me._pctSource_7.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me._pctSource_7.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me._pctSource_7.ForeColor = System.Drawing.SystemColors.ControlText
         Me._pctSource_7.Image = CType(resources.GetObject("_pctSource_7.Image"), System.Drawing.Image)
         Me._pctSource_7.Location = New System.Drawing.Point(272, 272)
@@ -531,7 +531,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         Me._pctSource_8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me._pctSource_8.Cursor = System.Windows.Forms.Cursors.Default
         Me._pctSource_8.Enabled = False
-        Me._pctSource_8.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me._pctSource_8.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me._pctSource_8.ForeColor = System.Drawing.SystemColors.ControlText
         Me._pctSource_8.Image = CType(resources.GetObject("_pctSource_8.Image"), System.Drawing.Image)
         Me._pctSource_8.Location = New System.Drawing.Point(272, 312)
@@ -548,7 +548,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         Me._pctSource_9.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me._pctSource_9.Cursor = System.Windows.Forms.Cursors.Default
         Me._pctSource_9.Enabled = False
-        Me._pctSource_9.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me._pctSource_9.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me._pctSource_9.ForeColor = System.Drawing.SystemColors.ControlText
         Me._pctSource_9.Image = CType(resources.GetObject("_pctSource_9.Image"), System.Drawing.Image)
         Me._pctSource_9.Location = New System.Drawing.Point(272, 352)
@@ -564,14 +564,14 @@ Imports Microsoft.VisualBasic.CompilerServices
         Me.txtHitCount.AcceptsReturn = True
         Me.txtHitCount.BackColor = System.Drawing.Color.Blue
         Me.txtHitCount.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.txtHitCount.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0)
+        Me.txtHitCount.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtHitCount.ForeColor = System.Drawing.Color.White
         Me.txtHitCount.Location = New System.Drawing.Point(208, 112)
         Me.txtHitCount.MaxLength = 0
         Me.txtHitCount.Name = "txtHitCount"
         Me.txtHitCount.ReadOnly = True
         Me.txtHitCount.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.txtHitCount.Size = New System.Drawing.Size(27, 25)
+        Me.txtHitCount.Size = New System.Drawing.Size(27, 26)
         Me.txtHitCount.TabIndex = 25
         Me.txtHitCount.Text = "0"
         Me.txtHitCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -586,7 +586,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         '
         Me.cmdRedo.BackColor = System.Drawing.SystemColors.Control
         Me.cmdRedo.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmdRedo.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me.cmdRedo.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdRedo.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdRedo.Location = New System.Drawing.Point(72, 296)
         Me.cmdRedo.Name = "cmdRedo"
@@ -602,7 +602,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         Me._pctSource_4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me._pctSource_4.Cursor = System.Windows.Forms.Cursors.Default
         Me._pctSource_4.Enabled = False
-        Me._pctSource_4.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me._pctSource_4.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me._pctSource_4.ForeColor = System.Drawing.SystemColors.ControlText
         Me._pctSource_4.Image = CType(resources.GetObject("_pctSource_4.Image"), System.Drawing.Image)
         Me._pctSource_4.Location = New System.Drawing.Point(224, 352)
@@ -617,7 +617,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         '
         Me.cmdClose.BackColor = System.Drawing.SystemColors.Control
         Me.cmdClose.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmdClose.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me.cmdClose.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdClose.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdClose.Location = New System.Drawing.Point(8, 368)
         Me.cmdClose.Name = "cmdClose"
@@ -633,7 +633,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         Me._pctSource_3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me._pctSource_3.Cursor = System.Windows.Forms.Cursors.Default
         Me._pctSource_3.Enabled = False
-        Me._pctSource_3.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me._pctSource_3.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me._pctSource_3.ForeColor = System.Drawing.SystemColors.ControlText
         Me._pctSource_3.Image = CType(resources.GetObject("_pctSource_3.Image"), System.Drawing.Image)
         Me._pctSource_3.Location = New System.Drawing.Point(224, 312)
@@ -650,7 +650,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         Me._pctSource_2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me._pctSource_2.Cursor = System.Windows.Forms.Cursors.Default
         Me._pctSource_2.Enabled = False
-        Me._pctSource_2.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me._pctSource_2.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me._pctSource_2.ForeColor = System.Drawing.SystemColors.ControlText
         Me._pctSource_2.Image = CType(resources.GetObject("_pctSource_2.Image"), System.Drawing.Image)
         Me._pctSource_2.Location = New System.Drawing.Point(224, 272)
@@ -667,7 +667,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         Me._pctSource_1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me._pctSource_1.Cursor = System.Windows.Forms.Cursors.Default
         Me._pctSource_1.Enabled = False
-        Me._pctSource_1.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me._pctSource_1.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me._pctSource_1.ForeColor = System.Drawing.SystemColors.ControlText
         Me._pctSource_1.Image = CType(resources.GetObject("_pctSource_1.Image"), System.Drawing.Image)
         Me._pctSource_1.Location = New System.Drawing.Point(224, 232)
@@ -682,7 +682,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         '
         Me.cmdUndo.BackColor = System.Drawing.SystemColors.Control
         Me.cmdUndo.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmdUndo.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me.cmdUndo.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdUndo.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdUndo.Location = New System.Drawing.Point(8, 296)
         Me.cmdUndo.Name = "cmdUndo"
@@ -696,7 +696,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         '
         Me.cmdStartNewGame.BackColor = System.Drawing.SystemColors.Control
         Me.cmdStartNewGame.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cmdStartNewGame.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me.cmdStartNewGame.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdStartNewGame.ForeColor = System.Drawing.SystemColors.ControlText
         Me.cmdStartNewGame.Location = New System.Drawing.Point(24, 56)
         Me.cmdStartNewGame.Name = "cmdStartNewGame"
@@ -710,12 +710,12 @@ Imports Microsoft.VisualBasic.CompilerServices
         '
         Me.cboNumberOfTeams.BackColor = System.Drawing.SystemColors.Window
         Me.cboNumberOfTeams.Cursor = System.Windows.Forms.Cursors.Default
-        Me.cboNumberOfTeams.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me.cboNumberOfTeams.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cboNumberOfTeams.ForeColor = System.Drawing.SystemColors.WindowText
         Me.cboNumberOfTeams.Location = New System.Drawing.Point(40, 32)
         Me.cboNumberOfTeams.Name = "cboNumberOfTeams"
         Me.cboNumberOfTeams.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.cboNumberOfTeams.Size = New System.Drawing.Size(57, 23)
+        Me.cboNumberOfTeams.Size = New System.Drawing.Size(57, 24)
         Me.cboNumberOfTeams.TabIndex = 1
         Me.cboNumberOfTeams.Text = "Combo2"
         '
@@ -725,7 +725,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         Me._pctSource_0.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me._pctSource_0.Cursor = System.Windows.Forms.Cursors.Default
         Me._pctSource_0.Enabled = False
-        Me._pctSource_0.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me._pctSource_0.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me._pctSource_0.ForeColor = System.Drawing.SystemColors.ControlText
         Me._pctSource_0.Image = CType(resources.GetObject("_pctSource_0.Image"), System.Drawing.Image)
         Me._pctSource_0.Location = New System.Drawing.Point(224, 192)
@@ -740,7 +740,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         '
         Me.lblCurrentHoleLabel.BackColor = System.Drawing.SystemColors.Control
         Me.lblCurrentHoleLabel.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblCurrentHoleLabel.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0)
+        Me.lblCurrentHoleLabel.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblCurrentHoleLabel.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblCurrentHoleLabel.Location = New System.Drawing.Point(144, 160)
         Me.lblCurrentHoleLabel.Name = "lblCurrentHoleLabel"
@@ -753,12 +753,12 @@ Imports Microsoft.VisualBasic.CompilerServices
         '
         Me.lblCurrentHole.BackColor = System.Drawing.SystemColors.Control
         Me.lblCurrentHole.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblCurrentHole.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0)
+        Me.lblCurrentHole.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblCurrentHole.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblCurrentHole.Location = New System.Drawing.Point(264, 160)
         Me.lblCurrentHole.Name = "lblCurrentHole"
         Me.lblCurrentHole.RightToLeft = System.Windows.Forms.RightToLeft.No
-        Me.lblCurrentHole.Size = New System.Drawing.Size(33, 17)
+        Me.lblCurrentHole.Size = New System.Drawing.Size(40, 17)
         Me.lblCurrentHole.TabIndex = 27
         Me.lblCurrentHole.Text = "18"
         '
@@ -766,7 +766,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         '
         Me.lblStartNumber.BackColor = System.Drawing.SystemColors.Control
         Me.lblStartNumber.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblStartNumber.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me.lblStartNumber.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblStartNumber.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblStartNumber.Location = New System.Drawing.Point(16, 88)
         Me.lblStartNumber.Name = "lblStartNumber"
@@ -779,7 +779,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         '
         Me.lblCurrentTeam.BackColor = System.Drawing.SystemColors.Control
         Me.lblCurrentTeam.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblCurrentTeam.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me.lblCurrentTeam.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblCurrentTeam.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblCurrentTeam.Location = New System.Drawing.Point(64, 88)
         Me.lblCurrentTeam.Name = "lblCurrentTeam"
@@ -793,8 +793,8 @@ Imports Microsoft.VisualBasic.CompilerServices
         '
         Me.lblScoreMode.BackColor = System.Drawing.SystemColors.Control
         Me.lblScoreMode.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblScoreMode.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
-        Me.lblScoreMode.ForeColor = System.Drawing.Color.FromArgb(0, 0, 192)
+        Me.lblScoreMode.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblScoreMode.ForeColor = System.Drawing.Color.FromArgb(CType(CType(0, Byte), Integer), CType(CType(0, Byte), Integer), CType(CType(192, Byte), Integer))
         Me.lblScoreMode.Location = New System.Drawing.Point(288, 96)
         Me.lblScoreMode.Name = "lblScoreMode"
         Me.lblScoreMode.RightToLeft = System.Windows.Forms.RightToLeft.No
@@ -807,7 +807,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         '
         Me.lblNumberOfTeams.BackColor = System.Drawing.SystemColors.Control
         Me.lblNumberOfTeams.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblNumberOfTeams.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me.lblNumberOfTeams.Font = New System.Drawing.Font("Arial", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblNumberOfTeams.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblNumberOfTeams.Location = New System.Drawing.Point(16, 8)
         Me.lblNumberOfTeams.Name = "lblNumberOfTeams"
@@ -820,7 +820,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         '
         Me.lblStatus.BackColor = System.Drawing.SystemColors.Control
         Me.lblStatus.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lblStatus.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me.lblStatus.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblStatus.ForeColor = System.Drawing.SystemColors.ControlText
         Me.lblStatus.Location = New System.Drawing.Point(8, 400)
         Me.lblStatus.Name = "lblStatus"
@@ -832,7 +832,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         'frmCricket
         '
         Me.AcceptButton = Me.cmdNextTeam
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(451, 429)
@@ -880,7 +880,7 @@ Imports Microsoft.VisualBasic.CompilerServices
         Me.Controls.Add(Me.lblNumberOfTeams)
         Me.Controls.Add(Me.lblStatus)
         Me.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 0)
+        Me.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.KeyPreview = True
         Me.Location = New System.Drawing.Point(166, 133)
